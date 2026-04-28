@@ -1,0 +1,460 @@
+{
+  "perfil": {
+    "id": 1,
+    "datosPersonales": {
+      "nombre": "Dr. Arturo",
+      "apellidos": "Veterinario",
+      "correoElectronico": "arturo@vetcare.com",
+      "telefono": "+51 987 654 321",
+      "especialidad": "Medicina General",
+      "dni": "76543210"
+    },
+    "preferencias": {
+      "notificacionesEmail": true,
+      "notificacionesPush": true,
+      "recordatoriosCitas": true,
+      "modoOscuro": false,
+      "sonidosSistema": true
+    },
+    "actividad": {
+      "citasEsteMes": 127,
+      "pacientesAtendidos": 89
+    }
+  },
+  "clientes": [
+    {
+      "id": 1,
+      "nombre": "Ana García",
+      "dni": "12345678",
+      "telefono": "999888777",
+      "email": "ana.garcia@email.com",
+      "direccion": "Av. Siempreviva 123"
+    }
+  ],
+  "especies": [
+    {
+      "id": 1,
+      "nombre": "Perro"
+    },
+    {
+      "id": 2,
+      "nombre": "Gato"
+    }
+  ],
+  "razas": [
+    {
+      "id": 1,
+      "nombre": "Golden Retriever",
+      "especie_id": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Persa",
+      "especie_id": 2
+    }
+  ],
+  "mascotas": [
+    {
+      "id": 1,
+      "nombre": "Max",
+      "especie_id": 1,
+      "raza_id": 1,
+      "sexo": "M",
+      "fecha_nacimiento": "2020-05-10",
+      "peso": 25.5,
+      "cliente_id": 1
+    }
+  ],
+  "estados_cita": [
+    {
+      "id": 1,
+      "nombre": "Pendiente"
+    },
+    {
+      "id": 2,
+      "nombre": "Completada"
+    },
+    {
+      "id": 3,
+      "nombre": "Cancelada"
+    }
+  ],
+  "motivos_consulta": [
+    {
+      "id": 1,
+      "nombre": "Control General"
+    },
+    {
+      "id": 2,
+      "nombre": "Vacunación"
+    },
+    {
+      "id": 3,
+      "nombre": "Enfermedad"
+    }
+  ],
+  "citas": [
+    {
+      "id": 1,
+      "mascota_id": 1,
+      "veterinario_id": 1,
+      "fecha": "2026-04-28T10:00:00Z",
+      "estado_id": 1,
+      "motivo_id": 1
+    }
+  ],
+  "consultas": [
+    {
+      "id": 1,
+      "cita_id": 1,
+      "veterinario_id": 1,
+      "fecha": "2026-04-28T10:30:00Z",
+      "observaciones": "Paciente presenta buena salud general.",
+      "subjetivo": "Dueño reporta que come bien.",
+      "objetivo": "Temperatura normal, mucosas rosadas.",
+      "evaluacion": "Sano.",
+      "plan": "Mantener dieta actual."
+    }
+  ],
+  "tratamientos": [
+    {
+      "id": 1,
+      "consulta_id": 1,
+      "descripcion": "Desparasitación interna",
+      "dosis": "1 pastilla",
+      "frecuencia": "Dosis única",
+      "duracion": "1 día"
+    }
+  ],
+  "tipos_vacuna": [
+    {
+      "id": 1,
+      "nombre": "Antirrábica"
+    },
+    {
+      "id": 2,
+      "nombre": "Séxtuple"
+    }
+  ],
+  "vacunas": [
+    {
+      "id": 1,
+      "mascota_id": 1,
+      "tipo_vacuna_id": 1,
+      "fecha_aplicacion": "2026-04-28",
+      "proxima_dosis": "2027-04-28"
+    }
+  ],
+  "estados_hospitalizacion": [
+    {
+      "id": 1,
+      "nombre": "Ingresado"
+    },
+    {
+      "id": 2,
+      "nombre": "Alta Médica"
+    },
+    {
+      "id": 3,
+      "nombre": "Deceso"
+    }
+  ],
+  "hospitalizacion": [],
+  "medicamentos": [
+    {
+      "id": 1,
+      "nombre": "Meloxicam",
+      "descripcion": "Antiinflamatorio no esteroideo"
+    }
+  ],
+  "medicacion_hospitalaria": [],
+  "notificaciones": [
+    {
+      "id": 1,
+      "type": "appointment",
+      "title": "Nueva cita programada",
+      "timestamp": "Hace 5 min",
+      "description": "Cita de revisión para Toby (Golden Retriever)",
+      "metadata": "Mañana, 10:00 AM",
+      "status": "No leída",
+      "is_read": true,
+      "priority": "normal"
+    },
+    {
+      "id": 2,
+      "type": "health",
+      "title": "Vacuna pendiente",
+      "timestamp": "Hace 1 hora",
+      "description": "Luna (Gato Persa) requiere refuerzo de Rabia",
+      "metadata": "Cliente: Pedro Ramírez",
+      "status": "Pendiente",
+      "is_read": true,
+      "priority": "high"
+    },
+    {
+      "id": 3,
+      "type": "lab",
+      "title": "Resultados de laboratorio",
+      "timestamp": "Hace 2 horas",
+      "description": "Los resultados de los análisis de Bella ya están disponibles.",
+      "metadata": "Laboratorio Central",
+      "status": "No leída",
+      "is_read": true,
+      "priority": "normal"
+    },
+    {
+      "id": 4,
+      "type": "surgery",
+      "title": "Confirmación de cirugía",
+      "timestamp": "Hace 4 horas",
+      "description": "El cliente aprobó la intervención quirúrgica de Max.",
+      "metadata": "Quirófano 1",
+      "status": "Urgente",
+      "is_read": true,
+      "priority": "high"
+    },
+    {
+      "id": 6,
+      "type": "appointment",
+      "title": "Cita cancelada",
+      "timestamp": "Ayer",
+      "description": "Juan Pérez canceló la cita de Control General de Rocky.",
+      "metadata": "Rocky (Bulldog)",
+      "status": "No leída",
+      "is_read": true,
+      "priority": "normal"
+    }
+  ],
+  "recordatorios": [
+    {
+      "id": 1,
+      "type": "appointment",
+      "title": "Próxima consulta",
+      "description": "Revisión post-operatoria - Simba",
+      "metadata": "Mañana, 9:00 AM",
+      "status": "Próxima"
+    },
+    {
+      "id": 2,
+      "type": "health",
+      "title": "Medicación en curso",
+      "description": "Antibiótico - Simba (3 días restantes)",
+      "metadata": "",
+      "status": "En curso"
+    },
+    {
+      "id": 3,
+      "type": "surgery",
+      "title": "Retirar suturas",
+      "description": "Remover puntos de la herida de Max (Bulldog) tras la intervención.",
+      "metadata": "Hoy, 5:30 PM",
+      "status": "Urgente"
+    },
+    {
+      "id": 4,
+      "type": "lab",
+      "title": "Muestras pendientes",
+      "description": "Enviar muestras de sangre de Toby al laboratorio externo.",
+      "metadata": "Hoy, 4:00 PM",
+      "status": "Pendiente"
+    },
+    {
+      "id": 5,
+      "type": "info",
+      "title": "Llamada de seguimiento",
+      "description": "Llamar a la dueña de Bella para ver cómo sigue tras la vacuna.",
+      "metadata": "Hoy, 6:00 PM",
+      "status": "Pendiente"
+    }
+  ],
+  "dashboard_kpis": [
+    {
+      "id": 1,
+      "titleKey": "appointmentsToday",
+      "value": "14",
+      "trend": "+12%",
+      "isPositive": true,
+      "icon": "pi-calendar",
+      "colorClass": "info"
+    },
+    {
+      "id": 2,
+      "titleKey": "patientsAttended",
+      "value": "8",
+      "trend": "+5%",
+      "isPositive": true,
+      "icon": "pi-check-square",
+      "colorClass": "success"
+    },
+    {
+      "id": 3,
+      "titleKey": "hospitalized",
+      "value": "3",
+      "trend": "-10%",
+      "isPositive": false,
+      "icon": "pi-heart",
+      "colorClass": "warning"
+    },
+    {
+      "id": 4,
+      "titleKey": "vaccinesApplied",
+      "value": "12",
+      "trend": "+20%",
+      "isPositive": true,
+      "icon": "pi-shield",
+      "colorClass": "info"
+    }
+  ],
+  "dashboard_citas": [
+    {
+      "id": 101,
+      "petName": "Max",
+      "reasonKey": "waiting",
+      "time": "10:00 AM",
+      "statusKey": "waiting",
+      "statusClass": "warning",
+      "img": "https://i.pravatar.cc/150?img=12"
+    },
+    {
+      "id": 102,
+      "petName": "Luna",
+      "reasonKey": "attending",
+      "time": "11:30 AM",
+      "statusKey": "attending",
+      "statusClass": "info",
+      "img": "https://i.pravatar.cc/150?img=5"
+    },
+    {
+      "id": 103,
+      "petName": "Simba",
+      "reasonKey": "scheduled",
+      "time": "02:00 PM",
+      "statusKey": "scheduled",
+      "statusClass": "success",
+      "img": "https://i.pravatar.cc/150?img=8"
+    },
+    {
+      "id": 104,
+      "petName": "Milo",
+      "reasonKey": "scheduled",
+      "time": "04:15 PM",
+      "statusKey": "scheduled",
+      "statusClass": "success",
+      "img": "https://i.pravatar.cc/150?img=11"
+    }
+  ],
+  "dashboard_alertas": [
+    {
+      "id": 1,
+      "textKey": "vaccine",
+      "type": "danger",
+      "icon": "pi-exclamation-triangle"
+    },
+    {
+      "id": 2,
+      "textKey": "medication",
+      "type": "warning",
+      "icon": "pi-clock"
+    },
+    {
+      "id": 3,
+      "textKey": "surgery",
+      "type": "info",
+      "icon": "pi-eye"
+    }
+  ],
+  "dashboard_actividad": [
+    {
+      "id": 1,
+      "type": "success",
+      "textKey": "consultationDone",
+      "patient": "Luna",
+      "time": "10 min",
+      "icon": "pi-check"
+    },
+    {
+      "id": 2,
+      "type": "info",
+      "textKey": "newPatient",
+      "patient": "Kiara",
+      "time": "45 min",
+      "icon": "pi-user-plus"
+    },
+    {
+      "id": 3,
+      "type": "warning",
+      "textKey": "labResults",
+      "patient": "Max",
+      "time": "2 hrs",
+      "icon": "pi-file"
+    }
+  ],
+  "pacientes": [
+    {
+      "id": 1,
+      "code": "#P-001",
+      "name": "Max",
+      "species": "Perro - Golden Retriever",
+      "status": "Activo",
+      "age": "3 años",
+      "weight": "25.5 kg",
+      "owner": "Juan Pérez",
+      "image": "https://i.pravatar.cc/150?img=11"
+    },
+    {
+      "id": 2,
+      "code": "#P-002",
+      "name": "Luna",
+      "species": "Gato - Persa",
+      "status": "Activo",
+      "age": "2 años",
+      "weight": "4.2 kg",
+      "owner": "María García",
+      "image": "https://i.pravatar.cc/150?img=5"
+    },
+    {
+      "id": 3,
+      "code": "#P-003",
+      "name": "Rocky",
+      "species": "Perro - Bulldog",
+      "status": "Tratamiento",
+      "age": "5 años",
+      "weight": "22.0 kg",
+      "owner": "Carlos López",
+      "image": "https://i.pravatar.cc/150?img=12"
+    },
+    {
+      "id": 4,
+      "code": "#P-004",
+      "name": "Simba",
+      "species": "Gato - Siamés",
+      "status": "Activo",
+      "age": "1 año",
+      "weight": "3.5 kg",
+      "owner": "Ana Martínez",
+      "image": "https://i.pravatar.cc/150?img=8"
+    },
+    {
+      "id": 5,
+      "code": "#P-005",
+      "name": "Bella",
+      "species": "Perro - Poodle",
+      "status": "Observación",
+      "age": "4 años",
+      "weight": "6.0 kg",
+      "owner": "Lucía Torres",
+      "image": "https://i.pravatar.cc/150?img=9"
+    },
+    {
+      "id": 6,
+      "code": "#P-006",
+      "name": "Toby",
+      "species": "Perro - Beagle",
+      "status": "Tratamiento",
+      "age": "6 años",
+      "weight": "14.0 kg",
+      "owner": "Roberto Gómez",
+      "image": "https://i.pravatar.cc/150?img=13"
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "clinicManagement": "Gestión Clínica",
+    "agenda": "Agenda",
+    "communication": "Comunicación",
+    "profile": "Perfil"
+  },
+  "layout": {
+    "headerTitle": {
+      "dashboard": "Dashboard",
+      "agenda": "Agenda de Citas",
+      "perfil": "Mi Perfil",
+      "default": "VetCare Pro"
+    },
+    "headerSubtitle": {
+      "dashboard": "Resumen de actividad y métricas al día de hoy",
+      "agenda": "Gestiona y organiza tus consultas veterinarias",
+      "perfil": "Gestiona tu información personal y preferencias",
+      "default": "Administración general"
+    },
+    "notifications": "Notificaciones",
+    "userRole": "Veterinario Principal"
+  },
+  "dashboard": {
+    "kpi": {
+      "appointmentsToday": "Citas del Día",
+      "patientsAttended": "Pacientes Atendidos",
+      "hospitalized": "Hospitalizados",
+      "vaccinesApplied": "Vacunas Aplicadas"
+    },
+    "actions": {
+      "registerPatient": "Registrar paciente",
+      "newAppointment": "Nueva cita",
+      "newConsultation": "Nueva consulta"
+    },
+    "appointments": {
+      "title": "Próximas Citas",
+      "viewAgenda": "Ver agenda",
+      "reason": "Motivo",
+      "status": {
+        "waiting": "En Espera",
+        "attending": "Atendiendo",
+        "scheduled": "Agendado"
+      }
+    },
+    "alerts": {
+      "title": "Alertas",
+      "items": {
+        "vaccine": "Vacuna Antirrábica vencida - Toby",
+        "medication": "Medicación: Antibiótico - Rocky",
+        "surgery": "Revisión Quirúrgica pendiente - Coco"
+      }
+    },
+    "activity": {
+      "title": "Actividad Reciente",
+      "items": {
+        "consultationDone": "Consulta completada",
+        "newPatient": "Registro nuevo paciente",
+        "labResults": "Resultados de lab."
+      },
+      "patient": "Paciente"
+    }
+  },
+  "profile": {
+    "loading": "Cargando información del perfil...",
+    "personalData": {
+      "title": "Datos Personales",
+      "subtitle": "Actualiza tu información de contacto",
+      "name": "Nombre",
+      "lastName": "Apellidos",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "specialty": "Especialidad",
+      "dni": "DNI"
+    },
+    "security": {
+      "title": "Seguridad",
+      "subtitle": "Protege el acceso a tu cuenta",
+      "currentPassword": "Contraseña Actual",
+      "currentPasswordPlaceholder": "Ingresa tu contraseña actual",
+      "newPassword": "Nueva Contraseña",
+      "newPasswordPlaceholder": "Ingresa tu nueva contraseña",
+      "confirmPassword": "Confirmar Nueva Contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+      "updateButton": "Actualizar Contraseña"
+    },
+    "preferences": {
+      "title": "Preferencias",
+      "subtitle": "Personaliza tu experiencia en la plataforma",
+      "emailNotifications": {
+        "name": "Notificaciones por Email",
+        "desc": "Recibe resúmenes semanales y alertas críticas."
+      },
+      "pushNotifications": {
+        "name": "Notificaciones Push",
+        "desc": "Alertas en tiempo real en tu dispositivo."
+      },
+      "appointmentReminders": {
+        "name": "Recordatorios de Citas",
+        "desc": "Recibe un aviso 1 hora antes de cada consulta."
+      },
+      "darkMode": {
+        "name": "Modo Oscuro",
+        "desc": "Cambia la interfaz a un esquema de colores oscuros."
+      }
+    },
+    "saveButton": {
+      "default": "Guardar Cambios",
+      "saving": "Guardando...",
+      "success": "Cambios guardados con éxito",
+      "error": "Error al guardar perfil"
+    },
+    "sidebar": {
+      "memberSince": "Miembro desde",
+      "changePhoto": "Cambiar foto",
+      "productivity": {
+        "title": "Productividad Mensual",
+        "appointments": "Citas",
+        "patients": "Pacientes",
+        "monthlyGoal": "Meta mensual"
+      },
+      "accountOptions": {
+        "title": "Opciones de Cuenta",
+        "exportData": "Exportar Datos",
+        "helpCenter": "Centro de Ayuda",
+        "deleteAccount": "Eliminar Cuenta"
+      }
+    }
+  },
+  "agenda": {
+    "title": "Próximas Citas",
+    "loading": "Cargando citas...",
+    "error": "Error al cargar las citas.",
+    "statusLabel": "Estado",
+    "status": {
+      "Confirmada": "Confirmada",
+      "Pendiente": "Pendiente",
+      "Completada": "Completada",
+      "Cancelada": "Cancelada"
+    },
+    "types": {
+      "Consulta General": "Consulta General",
+      "Vacunación": "Vacunación",
+      "Control": "Control",
+      "Cirugía": "Cirugía",
+      "Desparasitación": "Desparasitación",
+      "Dermatología": "Dermatología"
+    }
+  },
+  "clinicManagement": {
+    "tabs": {
+      "patients": "Pacientes",
+      "clients": "Clientes",
+      "records": "Historiales"
+    },
+    "patients": {
+      "title": "Pacientes Registrados",
+      "description": "Gestiona la información, historial clínico y tratamientos de los pacientes.",
+      "register": "Registrar Paciente",
+      "search": "Buscar paciente...",
+      "allSpecies": "Todas las especies",
+      "viewRecord": "Ver Ficha",
+      "fields": {
+        "species": "Especie",
+        "age": "Edad",
+        "weight": "Peso",
+        "owner": "Propietario"
+      },
+      "status": {
+        "Activo": "Activo",
+        "Tratamiento": "Tratamiento",
+        "Observación": "Observación"
+      }
+    }
+  }
+}

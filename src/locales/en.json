@@ -1,0 +1,177 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "clinicManagement": "Clinic Management",
+    "agenda": "Calendar",
+    "communication": "Communication",
+    "profile": "Profile"
+  },
+  "layout": {
+    "headerTitle": {
+      "dashboard": "Dashboard",
+      "agenda": "Appointment Agenda",
+      "perfil": "My Profile",
+      "default": "VetCare Pro"
+    },
+    "headerSubtitle": {
+      "dashboard": "Activity summary and today's metrics",
+      "agenda": "Manage and organize your veterinary consultations",
+      "perfil": "Manage your personal information and preferences",
+      "default": "General administration"
+    },
+    "notifications": "Notifications",
+    "userRole": "Lead Veterinarian"
+  },
+  "dashboard": {
+    "kpi": {
+      "appointmentsToday": "Appointments Today",
+      "patientsAttended": "Patients Attended",
+      "hospitalized": "Hospitalized",
+      "vaccinesApplied": "Vaccines Applied"
+    },
+    "actions": {
+      "registerPatient": "Register Patient",
+      "newAppointment": "New Appointment",
+      "newConsultation": "New Consultation"
+    },
+    "appointments": {
+      "title": "Upcoming Appointments",
+      "viewAgenda": "View agenda",
+      "reason": "Reason",
+      "status": {
+        "waiting": "Waiting",
+        "attending": "Attending",
+        "scheduled": "Scheduled"
+      }
+    },
+    "alerts": {
+      "title": "Alerts",
+      "items": {
+        "vaccine": "Expired Rabies Vaccine - Toby",
+        "medication": "Medication: Antibiotic - Rocky",
+        "surgery": "Pending Surgical Review - Coco"
+      }
+    },
+    "activity": {
+      "title": "Recent Activity",
+      "items": {
+        "consultationDone": "Consultation completed",
+        "newPatient": "New patient registered",
+        "labResults": "Lab results received"
+      },
+      "patient": "Patient"
+    }
+  },
+  "profile": {
+    "loading": "Loading profile information...",
+    "personalData": {
+      "title": "Personal Data",
+      "subtitle": "Update your contact information",
+      "name": "Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "specialty": "Specialty",
+      "dni": "ID Number"
+    },
+    "security": {
+      "title": "Security",
+      "subtitle": "Protect access to your account",
+      "currentPassword": "Current Password",
+      "currentPasswordPlaceholder": "Enter your current password",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPassword": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "updateButton": "Update Password"
+    },
+    "preferences": {
+      "title": "Preferences",
+      "subtitle": "Customize your platform experience",
+      "emailNotifications": {
+        "name": "Email Notifications",
+        "desc": "Receive weekly summaries and critical alerts."
+      },
+      "pushNotifications": {
+        "name": "Push Notifications",
+        "desc": "Real-time alerts on your device."
+      },
+      "appointmentReminders": {
+        "name": "Appointment Reminders",
+        "desc": "Receive a notice 1 hour before each consultation."
+      },
+      "darkMode": {
+        "name": "Dark Mode",
+        "desc": "Switch the interface to a dark color scheme."
+      }
+    },
+    "saveButton": {
+      "default": "Save Changes",
+      "saving": "Saving...",
+      "success": "Changes saved successfully",
+      "error": "Error saving profile"
+    },
+    "sidebar": {
+      "memberSince": "Member since",
+      "changePhoto": "Change photo",
+      "productivity": {
+        "title": "Monthly Productivity",
+        "appointments": "Appointments",
+        "patients": "Patients",
+        "monthlyGoal": "Monthly goal"
+      },
+      "accountOptions": {
+        "title": "Account Options",
+        "exportData": "Export Data",
+        "helpCenter": "Help Center",
+        "deleteAccount": "Delete Account"
+      }
+    }
+  },
+  "agenda": {
+    "title": "Upcoming Appointments",
+    "loading": "Loading appointments...",
+    "error": "Error loading appointments.",
+    "statusLabel": "Status",
+    "status": {
+      "Confirmada": "Confirmed",
+      "Pendiente": "Pending",
+      "Completada": "Completed",
+      "Cancelada": "Cancelled"
+    },
+    "types": {
+      "Consulta General": "General Consultation",
+      "Vacunación": "Vaccination",
+      "Control": "Check-up",
+      "Cirugía": "Surgery",
+      "Desparasitación": "Deworming",
+      "Dermatología": "Dermatology"
+    }
+  },
+  "clinicManagement": {
+    "tabs": {
+      "patients": "Patients",
+      "clients": "Clients",
+      "records": "Clinical Records"
+    },
+    "patients": {
+      "title": "Registered Patients",
+      "description": "Manage information, clinical history, and treatments of patients.",
+      "register": "Register Patient",
+      "search": "Search patient...",
+      "allSpecies": "All species",
+      "viewRecord": "View Record",
+      "fields": {
+        "species": "Species",
+        "age": "Age",
+        "weight": "Weight",
+        "owner": "Owner"
+      },
+      "status": {
+        "Activo": "Active",
+        "Tratamiento": "In Treatment",
+        "Observación": "Under Observation"
+      }
+    }
+  }
+}
