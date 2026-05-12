@@ -11,12 +11,15 @@
       "dashboard": "Dashboard",
       "agenda": "Agenda de Citas",
       "perfil": "Mi Perfil",
+      "communication": "Comunicación",
       "default": "VetCare Pro"
     },
     "headerSubtitle": {
       "dashboard": "Resumen de actividad y métricas al día de hoy",
       "agenda": "Gestiona y organiza tus consultas veterinarias",
       "perfil": "Gestiona tu información personal y preferencias",
+      "clinicManagement": "Gestiona la información, historial clínico y tratamientos de los pacientes.",
+      "communication": "Gestiona notificaciones y recordatorios",
       "default": "Administración general"
     },
     "notifications": "Notificaciones",
@@ -30,9 +33,10 @@
       "vaccinesApplied": "Vacunas Aplicadas"
     },
     "actions": {
+      "registerClient": "Registrar cliente",
       "registerPatient": "Registrar paciente",
-      "newAppointment": "Nueva cita",
-      "newConsultation": "Nueva consulta"
+      "newAppointment": "Nueva consulta",
+      "newConsultation": "Nueva vacuna"
     },
     "appointments": {
       "title": "Próximas Citas",
@@ -148,19 +152,41 @@
       "Dermatología": "Dermatología"
     }
   },
+  "communication": {
+    "notifications": {
+      "title": "Notificaciones",
+      "subtitle": "Actividad reciente de la clínica",
+      "markAllRead": "Marcar todas como leídas",
+      "markRead": "Marcar como leída",
+      "empty": "No hay notificaciones."
+    },
+    "reminders": {
+      "title": "Recordatorios",
+      "subtitle": "Eventos próximos",
+      "editTooltip": "Editar recordatorios",
+      "empty": "No hay recordatorios activos."
+    }
+  },
   "clinicManagement": {
     "tabs": {
       "patients": "Pacientes",
       "clients": "Clientes",
-      "records": "Historiales"
+      "consultations": "Consultas",
+      "clinicalHistory": "Historial Clínico",
+      "vaccines": "Vacunas",
+      "hospitalization": "Hospitalización"
     },
     "patients": {
       "title": "Pacientes Registrados",
-      "description": "Gestiona la información, historial clínico y tratamientos de los pacientes.",
+      "description": "Gestiona la información de las mascotas",
       "register": "Registrar Paciente",
       "search": "Buscar paciente...",
-      "allSpecies": "Todas las especies",
+      "allSpecies": "Todos los estados",
       "viewRecord": "Ver Ficha",
+      "emptyState": {
+        "title": "No se encontraron pacientes",
+        "description": "Intenta ajustar los filtros de búsqueda."
+      },
       "fields": {
         "species": "Especie",
         "age": "Edad",
@@ -171,7 +197,425 @@
         "Activo": "Activo",
         "Tratamiento": "Tratamiento",
         "Observación": "Observación"
+      },
+      "registerForm": {
+        "title": "Registrar Nuevo Paciente",
+        "subtitle": "Completa la información de la mascota",
+        "petInfo": "Información de la Mascota",
+        "ownerInfo": "Información del Propietario",
+        "name": "Nombre de la Mascota",
+        "namePlaceholder": "Ej: Max, Luna, Rocky...",
+        "speciesSelect": "Especie",
+        "speciesPlaceholder": "Seleccionar especie",
+        "speciesDog": "Perro",
+        "speciesCat": "Gato",
+        "speciesbird": "Ave",
+        "speciesRabbit": "Conejo",
+        "speciesOther": "Otro",
+        "breed": "Raza",
+        "breedPlaceholder": "Ej: Golden Retriever, Persa...",
+        "sex": "Sexo",
+        "sexPlaceholder": "Seleccionar sexo",
+        "sexMale": "Macho",
+        "sexFemale": "Hembra",
+        "birthDate": "Fecha de Nacimiento",
+        "weight": "Peso (kg)",
+        "weightPlaceholder": "Ej: 12.5",
+        "ownerName": "Nombre del Propietario",
+        "ownerNamePlaceholder": "Nombre completo del propietario",
+        "ownerPhone": "Teléfono",
+        "ownerPhonePlaceholder": "Ej: 999 888 777",
+        "ownerEmail": "Correo Electrónico",
+        "ownerEmailPlaceholder": "Ej: correo{'@'}ejemplo.com",
+        "notes": "Notas Adicionales",
+        "notesPlaceholder": "Alergias, condiciones especiales, observaciones...",
+        "cancel": "Cancelar",
+        "save": "Registrar Paciente",
+        "saving": "Registrando...",
+        "successMessage": "Paciente registrado exitosamente",
+        "errorMessage": "Error al registrar paciente",
+        "required": "Este campo es obligatorio"
       }
+    },
+    "consultations": {
+      "title": "Consultas Médicas",
+      "description": "Registra y gestiona consultas veterinarias",
+      "recentTitle": "Consultas Recientes",
+      "search": "Buscar consulta...",
+      "allStatuses": "Todos los estados",
+      "clearFilters": "Limpiar filtros",
+      "columns": {
+        "id": "ID",
+        "patient": "Paciente",
+        "client": "Cliente",
+        "type": "Tipo",
+        "diagnosis": "Diagnóstico",
+        "date": "Fecha",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "status": {
+        "completada": "Completada",
+        "en_proceso": "En Proceso",
+        "pendiente": "Pendiente",
+        "critico": "Crítico",
+        "cancelada": "Cancelada",
+        "urgente": "Urgente"
+      },
+      "actions": {
+        "viewDetail": "Ver detalle de consulta",
+        "edit": "Editar consulta",
+        "print": "Imprimir consulta"
+      },
+      "pagination": {
+        "showing": "Mostrando {from} a {to} de {total} consultas"
+      },
+      "register": "Registrar Consulta",
+      "registerForm": {
+        "title": "Registrar Nueva Consulta",
+        "subtitle": "Complete los datos de la consulta",
+        "patientInfo": "Paciente y Cliente",
+        "consultationInfo": "Detalles Clínicos",
+        "patientName": "Nombre del Paciente",
+        "patientNamePlaceholder": "Ej: Max",
+        "clientName": "Nombre del Cliente",
+        "clientNamePlaceholder": "Ej: Ana García",
+        "type": "Tipo de Consulta",
+        "typePlaceholder": "Seleccione...",
+        "typeGeneral": "Consulta General",
+        "typeVaccination": "Vacunación",
+        "typeEmergency": "Emergencia",
+        "typeCheckup": "Chequeo Preventivo",
+        "diagnosis": "Diagnóstico / Motivo",
+        "diagnosisPlaceholder": "Describa el motivo o diagnóstico inicial",
+        "statusLabel": "Estado de la Consulta",
+        "statusPlaceholder": "Seleccione el estado...",
+        "date": "Fecha",
+        "time": "Hora",
+        "cancel": "Cancelar",
+        "save": "Registrar Consulta",
+        "saving": "Registrando...",
+        "successMessage": "Consulta registrada exitosamente",
+        "errorMessage": "Error al registrar la consulta",
+        "required": "Campo requerido"
+      }
+    },
+    "vaccines": {
+      "title": "Vacunas",
+      "description": "Gestión de vacunas y calendarios de vacunación.",
+      "register": "Registrar Vacuna",
+      "search": "Buscar paciente o vacuna...",
+      "allStatuses": "Todos los estados",
+      "viewDetails": "Ver Detalles",
+      "columns": {
+        "patient": "Paciente",
+        "vaccine": "Vacuna",
+        "lastApplication": "Última Aplicación",
+        "nextDose": "Próxima Dosis",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "statusCards": {
+        "expired": {
+          "title": "Vacunas Vencidas",
+          "subtitle": "Requieren atención inmediata"
+        },
+        "upcoming": {
+          "title": "Próximas 7 días",
+          "subtitle": "Programar citas pronto"
+        },
+        "upToDate": {
+          "title": "Al Día",
+          "subtitle": "Vacunación completa"
+        }
+      },
+      "status": {
+        "Vencida": "Vencida",
+        "Próxima": "Próxima",
+        "Al Día": "Al Día"
+      },
+      "registerForm": {
+        "title": "Registrar Nueva Vacuna",
+        "subtitle": "Complete los detalles de la vacunación",
+        "patientInfo": "Información del Paciente",
+        "vaccineInfo": "Detalles de la Vacuna",
+        "patientName": "Nombre del Paciente",
+        "patientNamePlaceholder": "Ej: Max, Luna...",
+        "species": "Especie",
+        "speciesPlaceholder": "Seleccione...",
+        "vaccineName": "Nombre de la Vacuna",
+        "vaccineNamePlaceholder": "Ej: Antirrábica",
+        "disease": "Enfermedad que previene",
+        "diseasePlaceholder": "Ej: Rabia",
+        "applicationDate": "Fecha de Aplicación",
+        "nextDose": "Próxima Dosis",
+        "cancel": "Cancelar",
+        "save": "Registrar Vacuna",
+        "saving": "Registrando...",
+        "successMessage": "Vacuna registrada exitosamente",
+        "errorMessage": "Error al registrar vacuna",
+        "required": "Campo requerido"
+      }
+    },
+    "clients": {
+      "title": "Clientes Registrados",
+      "description": "Gestión de clientes y propietarios de mascotas.",
+      "register": "Registrar Cliente",
+      "search": "Buscar por nombre, dni, teléfono...",
+      "allStatuses": "Todos los estados",
+      "viewDetails": "Ver Ficha",
+      "columns": {
+        "client": "Cliente",
+        "contact": "Contacto",
+        "pets": "Mascotas",
+        "lastVisit": "Última Visita",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "statusCards": {
+        "total": {
+          "title": "Total Clientes",
+          "subtitle": "Registrados en sistema"
+        },
+        "active": {
+          "title": "Clientes Activos",
+          "subtitle": "Con visitas recientes"
+        },
+        "new": {
+          "title": "Nuevos",
+          "subtitle": "Este mes"
+        }
+      },
+      "status": {
+        "Activo": "Activo",
+        "Inactivo": "Inactivo"
+      },
+      "registerForm": {
+        "title": "Registrar Nuevo Cliente",
+        "subtitle": "Complete la información personal y de contacto",
+        "personalInfo": "Información Personal",
+        "contactInfo": "Información de Contacto",
+        "fullName": "Nombre Completo",
+        "fullNamePlaceholder": "Ej: Juan Pérez",
+        "documentId": "Documento de Identidad (DNI)",
+        "documentIdPlaceholder": "Ej: 12345678",
+        "phone": "Teléfono",
+        "phonePlaceholder": "Ej: 999 888 777",
+        "email": "Correo Electrónico",
+        "emailPlaceholder": "Ej: juan{'@'}email.com",
+        "address": "Dirección",
+        "addressPlaceholder": "Ej: Av. Principal 123",
+        "status": "Estado",
+        "statusPlaceholder": "Seleccione...",
+        "cancel": "Cancelar",
+        "save": "Registrar Cliente",
+        "saving": "Registrando...",
+        "successMessage": "Cliente registrado exitosamente",
+        "errorMessage": "Error al registrar cliente",
+        "required": "Campo requerido"
+      }
+    }
+  },
+  "inventory": {
+    "stats": {
+      "total": "Total",
+      "totalDesc": "Productos registrados",
+      "stock": "Stock",
+      "stockDesc": "Stock normal",
+      "alert": "Alerta",
+      "alertDesc": "Bajo stock",
+      "categories": "Categorías",
+      "categoriesDesc": "Categorías activas"
+    },
+    "toolbar": {
+      "search": "Buscar producto por nombre o código...",
+      "allCategories": "Todas las categorías",
+      "newProduct": "+ Nuevo Producto"
+    },
+    "table": {
+      "title": "Inventario",
+      "records": "registros",
+      "export": "Exportar",
+      "filters": "Filtros",
+      "exportSuccess": "Exportación descargada exitosamente",
+      "exportNoData": "No hay datos para exportar",
+      "filterStatus": "Filtrar por estado:",
+      "filterAllStatuses": "Todos los estados",
+      "filterStatusNormal": "Normal",
+      "filterStatusLow": "Bajo Stock",
+      "filterClear": "Limpiar filtros",
+      "columns": {
+        "code": "CÓDIGO",
+        "product": "PRODUCTO",
+        "category": "CATEGORÍA",
+        "stock": "STOCK",
+        "status": "ESTADO",
+        "actions": "ACCIONES"
+      },
+      "update": "Actualizar",
+      "statusNormal": "Normal",
+      "statusLow": "Bajo Stock"
+    },
+    "pagination": {
+      "showing": "Mostrando",
+      "of": "de",
+      "records": "registros",
+      "previous": "‹ Anterior",
+      "next": "Siguiente ›"
+    },
+    "categories": {
+      "Medicamento": "Medicamento",
+      "Alimento": "Alimento",
+      "Suministro": "Suministro"
+    },
+    "modal": {
+      "title": "Nuevo Producto",
+      "subtitle": "Registra un nuevo producto en el inventario",
+      "productInfo": "Información del Producto",
+      "stockControl": "Control de Stock",
+      "name": "Nombre del Producto",
+      "namePlaceholder": "Ej: Amoxicilina 500mg",
+      "category": "Categoría",
+      "price": "Precio (S/.)",
+      "pricePlaceholder": "0.00",
+      "stockQty": "Cantidad en Stock",
+      "stockQtyPlaceholder": "Ej: 50",
+      "stockQtyHelper": "Unidades disponibles actualmente",
+      "lowStockAlert": "Alerta de Stock Bajo",
+      "lowStockPlaceholder": "Ej: 5",
+      "lowStockHelper": "Se mostrará alerta si baja de este número",
+      "cancel": "Cancelar",
+      "save": "Registrar Producto",
+      "saving": "Guardando...",
+      "successMessage": "Producto registrado exitosamente",
+      "errorMessage": "Error al registrar el producto",
+      "required": "Este campo es requerido",
+      "invalidCategory": "Selecciona una categoría",
+      "invalidPrice": "Ingresa un precio válido",
+      "invalidStock": "Ingresa un stock válido",
+      "invalidMinStock": "Ingresa un valor válido"
+    },
+    "loading": "Cargando...",
+    "error": "Error al cargar"
+  },
+  "procurement": {
+    "title": "Proveedores",
+    "toolbar": {
+      "search": "Buscar proveedor...",
+      "newSupplier": "+ Nuevo Proveedor"
+    },
+    "table": {
+      "showing": "Mostrando {start} a {end} de {total} proveedores",
+      "columns": {
+        "name": "NOMBRE",
+        "contact": "CONTACTO",
+        "phone": "TELÉFONO",
+        "email": "EMAIL",
+        "status": "ESTADO"
+      }
+    },
+    "pagination": {
+      "showing": "Mostrando",
+      "of": "de",
+      "records": "proveedores",
+      "previous": "‹ Anterior",
+      "next": "Siguiente ›"
+    },
+    "status": {
+      "Activo": "Activo",
+      "Inactivo": "Inactivo"
+    },
+    "supplierModal": {
+      "title": "Nuevo Proveedor",
+      "subtitle": "Registrar un nuevo proveedor",
+      "personalInfo": "Información de Contacto",
+      "name": "Nombre del Proveedor",
+      "namePlaceholder": "Ej: Vet Supplies S.A.",
+      "contact": "Persona de Contacto",
+      "contactPlaceholder": "Ej: Juan Pérez",
+      "phone": "Teléfono",
+      "phonePlaceholder": "Ej: 999 888 777",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "Ej: contacto{'@'}proveedor.com",
+      "status": "Estado",
+      "statusActive": "Activo",
+      "statusInactive": "Inactivo",
+      "cancel": "Cancelar",
+      "save": "Registrar Proveedor",
+      "saving": "Guardando...",
+      "successMessage": "Proveedor registrado exitosamente",
+      "errorMessage": "Error al registrar proveedor",
+      "required": "Este campo es requerido"
+    },
+    "orderForm": {
+      "title": "Nueva Orden de Compra",
+      "subtitle": "Registrar nueva solicitud",
+      "provider": "PROVEEDOR",
+      "providerPlaceholder": "Seleccionar proveedor...",
+      "total": "TOTAL ($)",
+      "totalPlaceholder": "0.00",
+      "notes": "NOTAS",
+      "notesOptional": "(opcional)",
+      "notesPlaceholder": "Observaciones de la orden...",
+      "submit": "+ Crear Orden",
+      "hint": "La orden quedará en estado {status} hasta su aprobación.",
+      "hintStatus": "Pendiente",
+      "successMessage": "Orden creada con éxito",
+      "errorMessage": "Error al crear la orden",
+      "invalidProvider": "Selecciona un proveedor",
+      "invalidTotal": "Ingresa un total válido"
+    },
+    "summary": {
+      "title": "Resumen del Mes",
+      "ordersCreated": "Órdenes creadas",
+      "completed": "Completadas",
+      "pending": "Pendientes",
+      "totalSpent": "Gasto total"
+    }
+  },
+  "economics": {
+    "kpi": {
+      "income": "Ingresos",
+      "expense": "Egresos",
+      "balance": "Balance",
+      "vsPreviousMonth": "vs. mes anterior"
+    },
+    "table": {
+      "title": "Movimientos Recientes",
+      "records": "registros",
+      "export": "Exportar",
+      "filters": "Filtrar",
+      "exportSuccess": "Exportación exitosa",
+      "exportNoData": "No hay datos para exportar",
+      "filterType": "Tipo",
+      "filterAllTypes": "Todos los tipos",
+      "filterCategory": "Categoría",
+      "filterAllCategories": "Todas las categorías",
+      "filterClear": "Limpiar",
+      "columns": {
+        "date": "FECHA",
+        "type": "TIPO",
+        "category": "CATEGORÍA",
+        "description": "DESCRIPCIÓN",
+        "amount": "MONTO"
+      }
+    },
+    "pagination": {
+      "showing": "Mostrando",
+      "of": "de",
+      "records": "registros",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "summary": {
+      "title": "Resumen del Mes",
+      "income": "Ingresos",
+      "expense": "Egresos",
+      "netBalance": "Balance neto"
+    },
+    "types": {
+      "income": "Ingreso",
+      "expense": "Egreso"
     }
   }
 }

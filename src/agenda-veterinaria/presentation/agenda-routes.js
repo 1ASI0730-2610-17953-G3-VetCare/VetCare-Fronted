@@ -5,6 +5,6 @@ export const agendaRoutes = [
     path: '/agenda',
     name: 'agenda-view',
     component: AgendaView,
-    meta: { title: 'Agenda Veterinaria' }
+    meta: { title: 'Agenda Veterinaria', roles: ['veterinario'] }
   }
 ];

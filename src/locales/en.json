@@ -11,12 +11,15 @@
       "dashboard": "Dashboard",
       "agenda": "Appointment Agenda",
       "perfil": "My Profile",
+      "communication": "Communication",
       "default": "VetCare Pro"
     },
     "headerSubtitle": {
       "dashboard": "Activity summary and today's metrics",
       "agenda": "Manage and organize your veterinary consultations",
       "perfil": "Manage your personal information and preferences",
+      "clinicManagement": "Manage information, clinical history, and treatments of patients.",
+      "communication": "Manage notifications and reminders",
       "default": "General administration"
     },
     "notifications": "Notifications",
@@ -30,9 +33,10 @@
       "vaccinesApplied": "Vaccines Applied"
     },
     "actions": {
+      "registerClient": "Register client",
       "registerPatient": "Register Patient",
-      "newAppointment": "New Appointment",
-      "newConsultation": "New Consultation"
+      "newAppointment": "New Consultation",
+      "newConsultation": "New Vaccine"
     },
     "appointments": {
       "title": "Upcoming Appointments",
@@ -148,19 +152,41 @@
       "Dermatología": "Dermatology"
     }
   },
+  "communication": {
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Recent clinic activity",
+      "markAllRead": "Mark all as read",
+      "markRead": "Mark as read",
+      "empty": "No notifications."
+    },
+    "reminders": {
+      "title": "Reminders",
+      "subtitle": "Upcoming events",
+      "editTooltip": "Edit reminders",
+      "empty": "No active reminders."
+    }
+  },
   "clinicManagement": {
     "tabs": {
       "patients": "Patients",
       "clients": "Clients",
-      "records": "Clinical Records"
+      "consultations": "Consultations",
+      "clinicalHistory": "Clinical History",
+      "vaccines": "Vaccines",
+      "hospitalization": "Hospitalization"
     },
     "patients": {
       "title": "Registered Patients",
-      "description": "Manage information, clinical history, and treatments of patients.",
+      "description": "Manage pets' information.",
       "register": "Register Patient",
       "search": "Search patient...",
-      "allSpecies": "All species",
+      "allSpecies": "All statuses",
       "viewRecord": "View Record",
+      "emptyState": {
+        "title": "No patients found",
+        "description": "Try adjusting your search filters."
+      },
       "fields": {
         "species": "Species",
         "age": "Age",
@@ -171,7 +197,425 @@
         "Activo": "Active",
         "Tratamiento": "In Treatment",
         "Observación": "Under Observation"
+      },
+      "registerForm": {
+        "title": "Register New Patient",
+        "subtitle": "Complete the pet's information",
+        "petInfo": "Pet Information",
+        "ownerInfo": "Owner Information",
+        "name": "Pet Name",
+        "namePlaceholder": "E.g.: Max, Luna, Rocky...",
+        "speciesSelect": "Species",
+        "speciesPlaceholder": "Select species",
+        "speciesDog": "Dog",
+        "speciesCat": "Cat",
+        "speciesbird": "Bird",
+        "speciesRabbit": "Rabbit",
+        "speciesOther": "Other",
+        "breed": "Breed",
+        "breedPlaceholder": "E.g.: Golden Retriever, Persian...",
+        "sex": "Sex",
+        "sexPlaceholder": "Select sex",
+        "sexMale": "Male",
+        "sexFemale": "Female",
+        "birthDate": "Date of Birth",
+        "weight": "Weight (kg)",
+        "weightPlaceholder": "E.g.: 12.5",
+        "ownerName": "Owner Name",
+        "ownerNamePlaceholder": "Owner's full name",
+        "ownerPhone": "Phone",
+        "ownerPhonePlaceholder": "E.g.: 999 888 777",
+        "ownerEmail": "Email",
+        "ownerEmailPlaceholder": "E.g.: email{'@'}example.com",
+        "notes": "Additional Notes",
+        "notesPlaceholder": "Allergies, special conditions, observations...",
+        "cancel": "Cancel",
+        "save": "Register Patient",
+        "saving": "Registering...",
+        "successMessage": "Patient registered successfully",
+        "errorMessage": "Error registering patient",
+        "required": "This field is required"
       }
+    },
+    "consultations": {
+      "title": "Medical Consultations",
+      "description": "Register and manage veterinary consultations",
+      "recentTitle": "Recent Consultations",
+      "search": "Search consultation...",
+      "allStatuses": "All statuses",
+      "clearFilters": "Clear filters",
+      "columns": {
+        "id": "ID",
+        "patient": "Patient",
+        "client": "Client",
+        "type": "Type",
+        "diagnosis": "Diagnosis",
+        "date": "Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "completada": "Completed",
+        "en_proceso": "In Progress",
+        "pendiente": "Pending",
+        "critico": "Critical",
+        "cancelada": "Cancelled",
+        "urgente": "Urgent"
+      },
+      "actions": {
+        "viewDetail": "View consultation details",
+        "edit": "Edit consultation",
+        "print": "Print consultation"
+      },
+      "pagination": {
+        "showing": "Showing {from} to {to} of {total} consultations"
+      },
+      "register": "Register Consultation",
+      "registerForm": {
+        "title": "Register New Consultation",
+        "subtitle": "Complete the consultation details",
+        "patientInfo": "Patient and Client",
+        "consultationInfo": "Clinical Details",
+        "patientName": "Patient Name",
+        "patientNamePlaceholder": "E.g.: Max",
+        "clientName": "Client Name",
+        "clientNamePlaceholder": "E.g.: Ana Garcia",
+        "type": "Consultation Type",
+        "typePlaceholder": "Select...",
+        "typeGeneral": "General Consultation",
+        "typeVaccination": "Vaccination",
+        "typeEmergency": "Emergency",
+        "typeCheckup": "Preventive Checkup",
+        "diagnosis": "Diagnosis / Reason",
+        "diagnosisPlaceholder": "Describe the reason or initial diagnosis",
+        "statusLabel": "Consultation Status",
+        "statusPlaceholder": "Select status...",
+        "date": "Date",
+        "time": "Time",
+        "cancel": "Cancel",
+        "save": "Register Consultation",
+        "saving": "Registering...",
+        "successMessage": "Consultation registered successfully",
+        "errorMessage": "Error registering consultation",
+        "required": "Required field"
+      }
+    },
+    "vaccines": {
+      "title": "Vaccines",
+      "description": "Manage vaccines and vaccination schedules.",
+      "register": "Register Vaccine",
+      "search": "Search patient or vaccine...",
+      "allStatuses": "All statuses",
+      "viewDetails": "View Details",
+      "columns": {
+        "patient": "Patient",
+        "vaccine": "Vaccine",
+        "lastApplication": "Last Application",
+        "nextDose": "Next Dose",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "statusCards": {
+        "expired": {
+          "title": "Expired Vaccines",
+          "subtitle": "Require immediate attention"
+        },
+        "upcoming": {
+          "title": "Next 7 days",
+          "subtitle": "Schedule appointments soon"
+        },
+        "upToDate": {
+          "title": "Up to Date",
+          "subtitle": "Vaccination complete"
+        }
+      },
+      "status": {
+        "Vencida": "Expired",
+        "Próxima": "Upcoming",
+        "Al Día": "Up to Date"
+      },
+      "registerForm": {
+        "title": "Register New Vaccine",
+        "subtitle": "Complete the vaccination details",
+        "patientInfo": "Patient Information",
+        "vaccineInfo": "Vaccine Details",
+        "patientName": "Patient Name",
+        "patientNamePlaceholder": "E.g.: Max, Luna...",
+        "species": "Species",
+        "speciesPlaceholder": "Select...",
+        "vaccineName": "Vaccine Name",
+        "vaccineNamePlaceholder": "E.g.: Rabies",
+        "disease": "Disease it prevents",
+        "diseasePlaceholder": "E.g.: Rabies",
+        "applicationDate": "Application Date",
+        "nextDose": "Next Dose",
+        "cancel": "Cancel",
+        "save": "Register Vaccine",
+        "saving": "Registering...",
+        "successMessage": "Vaccine registered successfully",
+        "errorMessage": "Error registering vaccine",
+        "required": "Required field"
+      }
+    },
+    "clients": {
+      "title": "Registered Clients",
+      "description": "Management of clients and pet owners.",
+      "register": "Register Client",
+      "search": "Search by name, ID, phone...",
+      "allStatuses": "All statuses",
+      "viewDetails": "View Record",
+      "columns": {
+        "client": "Client",
+        "contact": "Contact",
+        "pets": "Pets",
+        "lastVisit": "Last Visit",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "statusCards": {
+        "total": {
+          "title": "Total Clients",
+          "subtitle": "Registered in system"
+        },
+        "active": {
+          "title": "Active Clients",
+          "subtitle": "With recent visits"
+        },
+        "new": {
+          "title": "New",
+          "subtitle": "This month"
+        }
+      },
+      "status": {
+        "Activo": "Active",
+        "Inactivo": "Inactive"
+      },
+      "registerForm": {
+        "title": "Register New Client",
+        "subtitle": "Complete personal and contact information",
+        "personalInfo": "Personal Information",
+        "contactInfo": "Contact Information",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "E.g.: John Doe",
+        "documentId": "ID Document",
+        "documentIdPlaceholder": "E.g.: 12345678",
+        "phone": "Phone",
+        "phonePlaceholder": "E.g.: 999 888 777",
+        "email": "Email",
+        "emailPlaceholder": "E.g.: john{'@'}email.com",
+        "address": "Address",
+        "addressPlaceholder": "E.g.: Main St 123",
+        "status": "Status",
+        "statusPlaceholder": "Select...",
+        "cancel": "Cancel",
+        "save": "Register Client",
+        "saving": "Registering...",
+        "successMessage": "Client registered successfully",
+        "errorMessage": "Error registering client",
+        "required": "Required field"
+      }
+    }
+  },
+  "inventory": {
+    "stats": {
+      "total": "Total",
+      "totalDesc": "Registered products",
+      "stock": "Stock",
+      "stockDesc": "Normal stock",
+      "alert": "Alert",
+      "alertDesc": "Low stock",
+      "categories": "Categories",
+      "categoriesDesc": "Active categories"
+    },
+    "toolbar": {
+      "search": "Search product by name or code...",
+      "allCategories": "All categories",
+      "newProduct": "+ New Product"
+    },
+    "table": {
+      "title": "Inventory",
+      "records": "records",
+      "export": "Export",
+      "filters": "Filters",
+      "exportSuccess": "Export downloaded successfully",
+      "exportNoData": "No data to export",
+      "filterStatus": "Filter by status:",
+      "filterAllStatuses": "All statuses",
+      "filterStatusNormal": "Normal",
+      "filterStatusLow": "Low Stock",
+      "filterClear": "Clear filters",
+      "columns": {
+        "code": "CODE",
+        "product": "PRODUCT",
+        "category": "CATEGORY",
+        "stock": "STOCK",
+        "status": "STATUS",
+        "actions": "ACTIONS"
+      },
+      "update": "Update",
+      "statusNormal": "Normal",
+      "statusLow": "Low Stock"
+    },
+    "pagination": {
+      "showing": "Showing",
+      "of": "of",
+      "records": "records",
+      "previous": "‹ Previous",
+      "next": "Next ›"
+    },
+    "categories": {
+      "Medicamento": "Medicine",
+      "Alimento": "Food",
+      "Suministro": "Supply"
+    },
+    "modal": {
+      "title": "New Product",
+      "subtitle": "Register a new product in the inventory",
+      "productInfo": "Product Information",
+      "stockControl": "Stock Control",
+      "name": "Product Name",
+      "namePlaceholder": "E.g.: Amoxicillin 500mg",
+      "category": "Category",
+      "price": "Price ($)",
+      "pricePlaceholder": "0.00",
+      "stockQty": "Stock Quantity",
+      "stockQtyPlaceholder": "E.g.: 50",
+      "stockQtyHelper": "Units currently available",
+      "lowStockAlert": "Low Stock Alert",
+      "lowStockPlaceholder": "E.g.: 5",
+      "lowStockHelper": "Alert will show if stock falls below this number",
+      "cancel": "Cancel",
+      "save": "Register Product",
+      "saving": "Saving...",
+      "successMessage": "Product registered successfully",
+      "errorMessage": "Error registering product",
+      "required": "This field is required",
+      "invalidCategory": "Select a category",
+      "invalidPrice": "Enter a valid price",
+      "invalidStock": "Enter a valid stock",
+      "invalidMinStock": "Enter a valid value"
+    },
+    "loading": "Loading...",
+    "error": "Error loading"
+  },
+  "procurement": {
+    "title": "Suppliers",
+    "toolbar": {
+      "search": "Search supplier...",
+      "newSupplier": "+ New Supplier"
+    },
+    "table": {
+      "showing": "Showing {start} to {end} of {total} suppliers",
+      "columns": {
+        "name": "NAME",
+        "contact": "CONTACT",
+        "phone": "PHONE",
+        "email": "EMAIL",
+        "status": "STATUS"
+      }
+    },
+    "pagination": {
+      "showing": "Showing",
+      "of": "of",
+      "records": "suppliers",
+      "previous": "‹ Previous",
+      "next": "Next ›"
+    },
+    "status": {
+      "Activo": "Active",
+      "Inactivo": "Inactive"
+    },
+    "supplierModal": {
+      "title": "New Supplier",
+      "subtitle": "Register a new supplier",
+      "personalInfo": "Contact Information",
+      "name": "Supplier Name",
+      "namePlaceholder": "E.g.: Vet Supplies Inc.",
+      "contact": "Contact Person",
+      "contactPlaceholder": "E.g.: Jane Doe",
+      "phone": "Phone",
+      "phonePlaceholder": "E.g.: 555-1234",
+      "email": "Email",
+      "emailPlaceholder": "E.g.: contact{'@'}vetsupplies.com",
+      "status": "Status",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "cancel": "Cancel",
+      "save": "Register Supplier",
+      "saving": "Saving...",
+      "successMessage": "Supplier registered successfully",
+      "errorMessage": "Error registering supplier",
+      "required": "This field is required"
+    },
+    "orderForm": {
+      "title": "New Purchase Order",
+      "subtitle": "Register new request",
+      "provider": "SUPPLIER",
+      "providerPlaceholder": "Select supplier...",
+      "total": "TOTAL ($)",
+      "totalPlaceholder": "0.00",
+      "notes": "NOTES",
+      "notesOptional": "(optional)",
+      "notesPlaceholder": "Order observations...",
+      "submit": "+ Create Order",
+      "hint": "The order will remain in {status} status until approved.",
+      "hintStatus": "Pending",
+      "successMessage": "Order created successfully",
+      "errorMessage": "Error creating order",
+      "invalidProvider": "Select a supplier",
+      "invalidTotal": "Enter a valid total"
+    },
+    "summary": {
+      "title": "Month Summary",
+      "ordersCreated": "Orders created",
+      "completed": "Completed",
+      "pending": "Pending",
+      "totalSpent": "Total spent"
+    }
+  },
+  "economics": {
+    "kpi": {
+      "income": "Income",
+      "expense": "Expenses",
+      "balance": "Balance",
+      "vsPreviousMonth": "vs. previous month"
+    },
+    "table": {
+      "title": "Recent Transactions",
+      "records": "records",
+      "export": "Export",
+      "filters": "Filter",
+      "exportSuccess": "Export successful",
+      "exportNoData": "No data to export",
+      "filterType": "Type",
+      "filterAllTypes": "All types",
+      "filterCategory": "Category",
+      "filterAllCategories": "All categories",
+      "filterClear": "Clear",
+      "columns": {
+        "date": "DATE",
+        "type": "TYPE",
+        "category": "CATEGORY",
+        "description": "DESCRIPTION",
+        "amount": "AMOUNT"
+      }
+    },
+    "pagination": {
+      "showing": "Showing",
+      "of": "of",
+      "records": "records",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "summary": {
+      "title": "Month Summary",
+      "income": "Income",
+      "expense": "Expenses",
+      "netBalance": "Net Balance"
+    },
+    "types": {
+      "income": "Income",
+      "expense": "Expense"
     }
   }
 }

@@ -4,6 +4,7 @@ export const comunicacionRoutes = [
   {
     path: '/comunicacion',
     name: 'comunicacion',
-    component: ComunicacionView
+    component: ComunicacionView,
+    meta: { roles: ['veterinario'] }
   }
 ];

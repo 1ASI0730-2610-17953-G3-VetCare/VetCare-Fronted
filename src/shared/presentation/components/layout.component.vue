@@ -1,16 +1,48 @@
 <script setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from './language-switcher.component.vue'
+import { PerfilApi } from '@/perfil/infrastructure/perfil-api.js'
+import { useIamStore } from '@/iam/application/iam.store.js'
 
 const { t } = useI18n()
 const route = useRoute()
+const router = useRouter()
+const perfilApi = new PerfilApi()
+const iamStore = useIamStore()
+
+const userProfile = ref({
+  nombre: 'Dra. Ana',
+  apellidos: 'López',
+  especialidad: 'Veterinario Principal'
+})
+
+onMounted(async () => {
+  try {
+    const data = await perfilApi.getPerfil()
+    if (data && data.datosPersonales) {
+      userProfile.value = data.datosPersonales
+    }
+  } catch (error) {
+    console.error('Error fetching user profile for sidebar:', error)
+  }
+})
+
+const handleLogout = async () => {
+  await iamStore.logout()
+  router.push({ name: 'login' })
+}
 
 const headerTitle = computed(() => {
   if (route.path.includes('/dashboard')) return t('layout.headerTitle.dashboard')
   if (route.path.includes('/agenda')) return t('layout.headerTitle.agenda')
   if (route.path.includes('/perfil')) return t('layout.headerTitle.perfil')
+  if (route.path.includes('/gestion-clinica')) return t('nav.clinicManagement')
+  if (route.path.includes('/comunicacion')) return t('layout.headerTitle.communication')
+  if (route.path.includes('/admin/inventory')) return 'Inventario'
+  if (route.path.includes('/admin/procurement')) return 'Compras y Proveedores'
+  if (route.path.includes('/admin/economics')) return 'Económico'
   return t('layout.headerTitle.default')
 })
 
@@ -18,16 +50,31 @@ const headerSubtitle = computed(() => {
   if (route.path.includes('/dashboard')) return t('layout.headerSubtitle.dashboard')
   if (route.path.includes('/agenda')) return t('layout.headerSubtitle.agenda')
   if (route.path.includes('/perfil')) return t('layout.headerSubtitle.perfil')
+  if (route.path.includes('/gestion-clinica')) return t('layout.headerSubtitle.clinicManagement')
+  if (route.path.includes('/comunicacion')) return t('layout.headerSubtitle.communication')
+  if (route.path.includes('/admin')) return 'Administración del sistema'
   return t('layout.headerSubtitle.default')
 })
 
-const navLinks = computed(() => [
-  { id: 'dashboard', label: t('nav.dashboard'),         icon: 'pi-home',     route: '/dashboard' },
-  { id: 'clinic',    label: t('nav.clinicManagement'),  icon: 'pi-heart',    route: '/gestion-clinica' },
-  { id: 'calendar',  label: t('nav.agenda'),            icon: 'pi-calendar', route: '/agenda' },
-  { id: 'communication', label: t('nav.communication'), icon: 'pi-comments', route: '/comunicacion' },
-  { id: 'profile',   label: t('nav.profile'),           icon: 'pi-user',     route: '/perfil' }
-])
+const navLinks = computed(() => {
+  const links = [];
+  
+  if (iamStore.roles.includes('veterinario')) {
+    links.push({ id: 'dashboard', label: t('nav.dashboard'),         icon: 'pi-home',     route: '/dashboard' });
+    links.push({ id: 'clinic',    label: t('nav.clinicManagement'),  icon: 'pi-heart',    route: '/gestion-clinica' });
+    links.push({ id: 'calendar',  label: t('nav.agenda'),            icon: 'pi-calendar', route: '/agenda' });
+    links.push({ id: 'communication', label: t('nav.communication'), icon: 'pi-comments', route: '/comunicacion' });
+    links.push({ id: 'profile',   label: t('nav.profile'),           icon: 'pi-user',     route: '/perfil' });
+  }
+
+  if (iamStore.roles.includes('admin')) {
+    links.push({ id: 'admin-inventory', label: 'Inventario', icon: 'pi-box', route: '/admin/inventory' });
+    links.push({ id: 'admin-procurement', label: 'Compras', icon: 'pi-shopping-cart', route: '/admin/procurement' });
+    links.push({ id: 'admin-economics', label: 'Económico', icon: 'pi-chart-line', route: '/admin/economics' });
+  }
+
+  return links;
+})
 </script>
 
 <template>
@@ -54,13 +101,13 @@ const navLinks = computed(() => [
         </ul>
       </nav>
 
-      <div class="sidebar-user-profile">
+      <div class="sidebar-user-profile" v-if="!iamStore.roles.includes('admin')">
         <div class="avatar">
            <img src="https://i.pravatar.cc/150?img=33" alt="User Avatar" />
         </div>
         <div class="user-info">
-          <p class="user-name">Dra. Ana López</p>
-          <p class="user-role text-caption">{{ $t('layout.userRole') }}</p>
+          <p class="user-name">{{ userProfile.nombre }} {{ userProfile.apellidos }}</p>
+          <p class="user-role text-caption">{{ userProfile.especialidad || $t('layout.userRole') }}</p>
         </div>
       </div>
     </aside>
@@ -79,6 +126,11 @@ const navLinks = computed(() => [
           <!-- Notifications -->
           <button class="action-btn icon-btn" :title="$t('layout.notifications')">
             <i class="pi pi-bell"></i>
+          </button>
+
+          <!-- Logout -->
+          <button class="action-btn icon-btn" title="Cerrar sesión" @click="handleLogout">
+            <i class="pi pi-sign-out"></i>
           </button>
         </div>
       </header>

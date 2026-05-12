@@ -4,6 +4,7 @@ export const perfilRoutes = [
   {
     path: '/perfil',
     name: 'perfil',
-    component: PerfilView
+    component: PerfilView,
+    meta: { roles: ['veterinario'] }
   }
 ];

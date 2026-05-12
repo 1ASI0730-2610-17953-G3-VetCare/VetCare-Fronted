@@ -28,7 +28,109 @@
       "dni": "12345678",
       "telefono": "999888777",
       "email": "ana.garcia@email.com",
-      "direccion": "Av. Siempreviva 123"
+      "direccion": "Av. Siempreviva 123",
+      "status": "Activo",
+      "petsCount": 2,
+      "lastVisitAt": "2026-04-28"
+    },
+    {
+      "id": 2,
+      "nombre": "Juan Pérez",
+      "dni": "87654321",
+      "telefono": "999111222",
+      "email": "juan.perez@email.com",
+      "direccion": "Calle Falsa 456",
+      "status": "Activo",
+      "petsCount": 1,
+      "lastVisitAt": "2026-05-01"
+    },
+    {
+      "id": 3,
+      "nombre": "María Rodríguez",
+      "dni": "45678912",
+      "telefono": "988777666",
+      "email": "maria.rod@email.com",
+      "direccion": "Urb. Los Pinos 789",
+      "status": "Inactivo",
+      "petsCount": 1,
+      "lastVisitAt": "2025-12-10"
+    },
+    {
+      "id": 4,
+      "nombre": "Carlos López",
+      "dni": "74185296",
+      "telefono": "977666555",
+      "email": "clopez@email.com",
+      "direccion": "Av. Arequipa 100",
+      "status": "Activo",
+      "petsCount": 3,
+      "lastVisitAt": "2026-05-02"
+    },
+    {
+      "id": 5,
+      "nombre": "Lucía Torres",
+      "dni": "96385274",
+      "telefono": "966555444",
+      "email": "ltorres@email.com",
+      "direccion": "Calle Las Flores 202",
+      "status": "Activo",
+      "petsCount": 1,
+      "lastVisitAt": "2026-04-15"
+    },
+    {
+      "id": 6,
+      "nombre": "Roberto Gómez",
+      "dni": "15975346",
+      "telefono": "955444333",
+      "email": "rgomez@email.com",
+      "direccion": "Av. Brasil 500",
+      "status": "Activo",
+      "petsCount": 2,
+      "lastVisitAt": "2026-04-20"
+    },
+    {
+      "id": 7,
+      "nombre": "Sofía Martínez",
+      "dni": "85274196",
+      "telefono": "944333222",
+      "email": "smartinez@email.com",
+      "direccion": "Calle Los Olivos 15",
+      "status": "Inactivo",
+      "petsCount": 0,
+      "lastVisitAt": "2025-08-05"
+    },
+    {
+      "id": 8,
+      "nombre": "Diego Fernández",
+      "dni": "35715928",
+      "telefono": "933222111",
+      "email": "dfernandez@email.com",
+      "direccion": "Jr. Bolognesi 300",
+      "status": "Activo",
+      "petsCount": 1,
+      "lastVisitAt": "2026-05-03"
+    },
+    {
+      "id": 9,
+      "nombre": "Elena Castro",
+      "dni": "45612378",
+      "telefono": "922111000",
+      "email": "ecastro@email.com",
+      "direccion": "Av. Larco 888",
+      "status": "Activo",
+      "petsCount": 1,
+      "lastVisitAt": "2026-03-30"
+    },
+    {
+      "id": 10,
+      "nombre": "Andrés Vargas",
+      "dni": "78945612",
+      "telefono": "911000999",
+      "email": "avargas@email.com",
+      "direccion": "Urb. San Borja 44",
+      "status": "Activo",
+      "petsCount": 2,
+      "lastVisitAt": "2026-04-10"
     }
   ],
   "especies": [
@@ -139,10 +241,135 @@
   "vacunas": [
     {
       "id": 1,
-      "mascota_id": 1,
-      "tipo_vacuna_id": 1,
-      "fecha_aplicacion": "2026-04-28",
-      "proxima_dosis": "2027-04-28"
+      "petName": "Max",
+      "vaccineName": "Antirrábica",
+      "appliedDate": "2026-04-15",
+      "nextDueDate": "2027-04-15",
+      "status": "Al día",
+      "brand": "Zoetis",
+      "lot": "L-8932",
+      "veterinarian": "Dr. Arturo"
+    },
+    {
+      "id": 2,
+      "petName": "Luna",
+      "vaccineName": "Triple Felina",
+      "appliedDate": "2025-05-10",
+      "nextDueDate": "2026-05-10",
+      "status": "Próxima",
+      "brand": "Merial",
+      "lot": "L-1123",
+      "veterinarian": "Dra. Silva"
+    },
+    {
+      "id": 3,
+      "petName": "Rocky",
+      "vaccineName": "Séxtuple",
+      "appliedDate": "2025-03-20",
+      "nextDueDate": "2026-03-20",
+      "status": "Atrasada",
+      "brand": "MSD",
+      "lot": "L-4451",
+      "veterinarian": "Dr. Arturo"
+    },
+    {
+      "id": 4,
+      "petName": "Simba",
+      "vaccineName": "Leucemia",
+      "appliedDate": "2026-01-12",
+      "nextDueDate": "2027-01-12",
+      "status": "Al día",
+      "brand": "Zoetis",
+      "lot": "L-7721",
+      "veterinarian": "Dra. Silva"
+    },
+    {
+      "id": 5,
+      "petName": "Bella",
+      "vaccineName": "Antirrábica",
+      "appliedDate": "2025-04-30",
+      "nextDueDate": "2026-04-30",
+      "status": "Atrasada",
+      "brand": "Merial",
+      "lot": "L-2211",
+      "veterinarian": "Dr. Arturo"
+    },
+    {
+      "id": 6,
+      "petName": "Toby",
+      "vaccineName": "Quíntuple",
+      "appliedDate": "2026-02-28",
+      "nextDueDate": "2027-02-28",
+      "status": "Al día",
+      "brand": "MSD",
+      "lot": "L-6632",
+      "veterinarian": "Dr. Arturo"
+    },
+    {
+      "id": 7,
+      "petName": "Zeus",
+      "vaccineName": "Antirrábica",
+      "appliedDate": "2026-05-01",
+      "nextDueDate": "2027-05-01",
+      "status": "Al día",
+      "brand": "Zoetis",
+      "lot": "L-8932",
+      "veterinarian": "Dra. Silva"
+    },
+    {
+      "id": 8,
+      "petName": "Milo",
+      "vaccineName": "Triple Felina",
+      "appliedDate": "2026-04-05",
+      "nextDueDate": "2027-04-05",
+      "status": "Al día",
+      "brand": "Merial",
+      "lot": "L-1123",
+      "veterinarian": "Dr. Arturo"
+    },
+    {
+      "id": 9,
+      "petName": "Kiara",
+      "vaccineName": "Parvovirus",
+      "appliedDate": "2026-04-20",
+      "nextDueDate": "2026-10-20",
+      "status": "Al día",
+      "brand": "MSD",
+      "lot": "L-4451",
+      "veterinarian": "Dra. Silva"
+    },
+    {
+      "id": 10,
+      "petName": "Thor",
+      "vaccineName": "Séxtuple",
+      "appliedDate": "2025-06-15",
+      "nextDueDate": "2026-06-15",
+      "status": "Próxima",
+      "brand": "Zoetis",
+      "lot": "L-9988",
+      "veterinarian": "Dr. Arturo"
+    },
+    {
+      "id": 11,
+      "petName": "Nala",
+      "vaccineName": "Antirrábica",
+      "appliedDate": "2025-05-05",
+      "nextDueDate": "2026-05-05",
+      "status": "Próxima",
+      "brand": "Merial",
+      "lot": "L-1124",
+      "veterinarian": "Dra. Silva"
+    },
+    {
+      "id": 12,
+      "petName": "Max",
+      "vaccineName": "Giardia",
+      "appliedDate": "2025-11-20",
+      "nextDueDate": "2026-11-20",
+      "status": "Al día",
+      "brand": "MSD",
+      "lot": "L-5521",
+      "veterinarian": "Dr. Arturo"
     }
   ],
   "estados_hospitalizacion": [
@@ -313,7 +540,7 @@
       "time": "10:00 AM",
       "statusKey": "waiting",
       "statusClass": "warning",
-      "img": "https://i.pravatar.cc/150?img=12"
+      "img": "https://placedog.net/150/150?id=20"
     },
     {
       "id": 102,
@@ -322,7 +549,7 @@
       "time": "11:30 AM",
       "statusKey": "attending",
       "statusClass": "info",
-      "img": "https://i.pravatar.cc/150?img=5"
+      "img": "https://placecats.com/neo/150/150"
     },
     {
       "id": 103,
@@ -331,7 +558,7 @@
       "time": "02:00 PM",
       "statusKey": "scheduled",
       "statusClass": "success",
-      "img": "https://i.pravatar.cc/150?img=8"
+      "img": "https://placecats.com/millie/150/150"
     },
     {
       "id": 104,
@@ -340,7 +567,7 @@
       "time": "04:15 PM",
       "statusKey": "scheduled",
       "statusClass": "success",
-      "img": "https://i.pravatar.cc/150?img=11"
+      "img": "https://placecats.com/bella/150/150"
     }
   ],
   "dashboard_alertas": [
@@ -399,7 +626,7 @@
       "age": "3 años",
       "weight": "25.5 kg",
       "owner": "Juan Pérez",
-      "image": "https://i.pravatar.cc/150?img=11"
+      "image": "https://placedog.net/150/150?id=30"
     },
     {
       "id": 2,
@@ -409,8 +636,8 @@
       "status": "Activo",
       "age": "2 años",
       "weight": "4.2 kg",
-      "owner": "María García",
-      "image": "https://i.pravatar.cc/150?img=5"
+      "owner": "Ana García",
+      "image": "https://placecats.com/neo/150/150"
     },
     {
       "id": 3,
@@ -421,7 +648,7 @@
       "age": "5 años",
       "weight": "22.0 kg",
       "owner": "Carlos López",
-      "image": "https://i.pravatar.cc/150?img=12"
+      "image": "https://placedog.net/150/150?id=32"
     },
     {
       "id": 4,
@@ -431,8 +658,8 @@
       "status": "Activo",
       "age": "1 año",
       "weight": "3.5 kg",
-      "owner": "Ana Martínez",
-      "image": "https://i.pravatar.cc/150?img=8"
+      "owner": "María Rodríguez",
+      "image": "https://placecats.com/millie/150/150"
     },
     {
       "id": 5,
@@ -443,7 +670,7 @@
       "age": "4 años",
       "weight": "6.0 kg",
       "owner": "Lucía Torres",
-      "image": "https://i.pravatar.cc/150?img=9"
+      "image": "https://placedog.net/150/150?id=34"
     },
     {
       "id": 6,
@@ -454,7 +681,415 @@
       "age": "6 años",
       "weight": "14.0 kg",
       "owner": "Roberto Gómez",
-      "image": "https://i.pravatar.cc/150?img=13"
+      "image": "https://placedog.net/150/150?id=35"
+    },
+    {
+      "id": 7,
+      "code": "#P-007",
+      "name": "Zeus",
+      "species": "Perro - Pastor Alemán",
+      "status": "Activo",
+      "age": "4 años",
+      "weight": "32.0 kg",
+      "owner": "Diego Fernández",
+      "image": "https://placedog.net/150/150?id=36"
+    },
+    {
+      "id": 8,
+      "code": "#P-008",
+      "name": "Milo",
+      "species": "Gato - Bengalí",
+      "status": "Activo",
+      "age": "2 años",
+      "weight": "5.1 kg",
+      "owner": "Elena Castro",
+      "image": "https://placecats.com/bella/150/150"
+    },
+    {
+      "id": 9,
+      "code": "#P-009",
+      "name": "Kiara",
+      "species": "Perro - Labrador",
+      "status": "Activo",
+      "age": "1 año",
+      "weight": "18.0 kg",
+      "owner": "Carlos López",
+      "image": "https://placedog.net/150/150?id=38"
+    },
+    {
+      "id": 10,
+      "code": "#P-010",
+      "name": "Thor",
+      "species": "Perro - Husky",
+      "status": "Observación",
+      "age": "3 años",
+      "weight": "28.0 kg",
+      "owner": "Andrés Vargas",
+      "image": "https://placedog.net/150/150?id=39"
+    },
+    {
+      "id": 11,
+      "code": "#P-011",
+      "name": "Nala",
+      "species": "Gato - Esfinge",
+      "status": "Tratamiento",
+      "age": "5 años",
+      "weight": "3.8 kg",
+      "owner": "Ana García",
+      "image": "https://placecats.com/louie/150/150"
+    },
+    {
+      "id": 12,
+      "code": "#P-012",
+      "name": "Coco",
+      "species": "Ave - Loro",
+      "status": "Activo",
+      "age": "10 años",
+      "weight": "0.8 kg",
+      "owner": "Carlos López",
+      "image": "https://placedog.net/150/150?id=1"
+    }
+  ],
+  "inventory_products": [
+    {
+      "id": 1,
+      "code": "MED-001",
+      "name": "Amoxicilina 500mg",
+      "category": "Medicamento",
+      "stock": 45,
+      "minStock": 10,
+      "price": 18.5,
+      "status": "Normal"
+    },
+    {
+      "id": 2,
+      "code": "MED-002",
+      "name": "Vacuna Antirrábica",
+      "category": "Medicamento",
+      "stock": 3,
+      "minStock": 10,
+      "price": 25,
+      "status": "Bajo Stock"
+    },
+    {
+      "id": 3,
+      "code": "ALI-001",
+      "name": "Royal Canin Adulto 15kg",
+      "category": "Alimento",
+      "stock": 28,
+      "minStock": 5,
+      "price": 120,
+      "status": "Normal"
+    },
+    {
+      "id": 4,
+      "code": "MED-003",
+      "name": "Ivermectina 1%",
+      "category": "Medicamento",
+      "stock": 2,
+      "minStock": 5,
+      "price": 12,
+      "status": "Bajo Stock"
+    },
+    {
+      "id": 5,
+      "code": "SUM-001",
+      "name": "Jeringas 5ml (caja x100)",
+      "category": "Suministro",
+      "stock": 150,
+      "minStock": 20,
+      "price": 35,
+      "status": "Normal"
+    },
+    {
+      "id": 6,
+      "code": "ALI-002",
+      "name": "Hills Science Diet Puppy",
+      "category": "Alimento",
+      "stock": 4,
+      "minStock": 5,
+      "price": 95,
+      "status": "Bajo Stock"
+    },
+    {
+      "id": 7,
+      "code": "SUM-002",
+      "name": "Guantes de látex (caja x50)",
+      "category": "Suministro",
+      "stock": 80,
+      "minStock": 15,
+      "price": 22,
+      "status": "Normal"
+    },
+    {
+      "id": 8,
+      "code": "MED-004",
+      "name": "Dexametasona 4mg",
+      "category": "Medicamento",
+      "stock": 1,
+      "minStock": 5,
+      "price": 8.5,
+      "status": "Bajo Stock"
+    },
+    {
+      "id": 9,
+      "code": "MED-005",
+      "name": "Meloxicam 15mg",
+      "category": "Medicamento",
+      "stock": 32,
+      "minStock": 8,
+      "price": 14,
+      "status": "Normal"
+    },
+    {
+      "id": 10,
+      "code": "ALI-003",
+      "name": "Pro Plan Gato Adulto 7.5kg",
+      "category": "Alimento",
+      "stock": 18,
+      "minStock": 5,
+      "price": 85,
+      "status": "Normal"
+    },
+    {
+      "id": 11,
+      "code": "SUM-003",
+      "name": "Gasas estériles (paq x100)",
+      "category": "Suministro",
+      "stock": 60,
+      "minStock": 10,
+      "price": 15,
+      "status": "Normal"
+    },
+    {
+      "id": 12,
+      "code": "MED-006",
+      "name": "Cefalexina 250mg",
+      "category": "Medicamento",
+      "stock": 5,
+      "minStock": 8,
+      "price": 22,
+      "status": "Bajo Stock"
+    },
+    {
+      "id": 13,
+      "code": "ALI-004",
+      "name": "Whiskas Adulto Pollo 10kg",
+      "category": "Alimento",
+      "stock": 12,
+      "minStock": 5,
+      "price": 55,
+      "status": "Normal"
+    },
+    {
+      "id": 14,
+      "code": "SUM-004",
+      "name": "Catéter intravenoso 22G",
+      "category": "Suministro",
+      "stock": 3,
+      "minStock": 10,
+      "price": 4.5,
+      "status": "Bajo Stock"
+    },
+    {
+      "id": 15,
+      "code": "MED-007",
+      "name": "Metronidazol 500mg",
+      "category": "Medicamento",
+      "stock": 40,
+      "minStock": 10,
+      "price": 10,
+      "status": "Normal"
+    },
+    {
+      "id": 16,
+      "code": "SUM-005",
+      "name": "Esparadrapo 5cm x 5m",
+      "category": "Suministro",
+      "stock": 25,
+      "minStock": 5,
+      "price": 8,
+      "status": "Normal"
+    },
+    {
+      "id": 17,
+      "code": "MED-008",
+      "name": "Vacuna Séxtuple Canina",
+      "category": "Medicamento",
+      "stock": 7,
+      "minStock": 10,
+      "price": 45,
+      "status": "Bajo Stock"
+    },
+    {
+      "id": 18,
+      "code": "ALI-005",
+      "name": "Dog Chow Cachorro 21kg",
+      "category": "Alimento",
+      "stock": 2,
+      "minStock": 5,
+      "price": 78,
+      "status": "Bajo Stock"
+    },
+    {
+      "id": 19,
+      "code": "SUM-006",
+      "name": "Termómetro digital veterinario",
+      "category": "Suministro",
+      "stock": 10,
+      "minStock": 3,
+      "price": 28,
+      "status": "Normal"
+    },
+    {
+      "id": 20,
+      "code": "MED-009",
+      "name": "Prednisolona 20mg",
+      "category": "Medicamento",
+      "stock": 22,
+      "minStock": 5,
+      "price": 16,
+      "status": "Normal"
+    }
+  ],
+  "inventory_movements": [
+    {
+      "id": 1,
+      "productId": 1,
+      "type": "Salida",
+      "quantity": 2,
+      "date": "2026-05-09T10:00:00Z",
+      "reason": "Uso en consulta"
+    }
+  ],
+  "procurement_suppliers": [
+    {
+      "id": 1,
+      "name": "Distribuidora Veterinaria S.A.",
+      "contact": "Juan Pérez",
+      "phone": "+52 55 1234 5678",
+      "email": "ventas@distvet.com",
+      "status": "Activo"
+    },
+    {
+      "id": 2,
+      "name": "FarmaPet Labs",
+      "contact": "María Rodríguez",
+      "phone": "+52 55 8765 4321",
+      "email": "pedidos@farmapet.com",
+      "status": "Activo"
+    },
+    {
+      "id": 3,
+      "name": "NutriAnimal S.A.",
+      "contact": "Carlos Gómez",
+      "phone": "+52 81 2345 6789",
+      "email": "contacto@nutrianimal.mx",
+      "status": "Inactivo"
+    },
+    {
+      "id": 4,
+      "name": "MedVet Supply",
+      "contact": "Ana Torres",
+      "phone": "+52 33 9876 5432",
+      "email": "ventas@medvetsupply.com",
+      "status": "Activo"
+    },
+    {
+      "id": 5,
+      "name": "Equipos Clínicos Vet",
+      "contact": "Luis Martínez",
+      "phone": "+52 55 1122 3344",
+      "email": "info@equiposvet.com",
+      "status": "Activo"
+    },
+    {
+      "id": 6,
+      "name": "Insumos Paws & Claws",
+      "contact": "Sofía Díaz",
+      "phone": "+52 81 5566 7788",
+      "email": "pedidos@pawsclaws.mx",
+      "status": "Activo"
+    },
+    {
+      "id": 7,
+      "name": "Laboratorios Zoetis",
+      "contact": "Pedro Ruiz",
+      "phone": "+52 33 4455 6677",
+      "email": "p.ruiz@zoetis.com",
+      "status": "Inactivo"
+    },
+    {
+      "id": 8,
+      "name": "Merial Veterinaria",
+      "contact": "Carmen Sánchez",
+      "phone": "+52 55 9900 1122",
+      "email": "ventas@merial.com",
+      "status": "Activo"
+    },
+    {
+      "id": 9,
+      "name": "ProPlan Distribución",
+      "contact": "Jorge Morales",
+      "phone": "+52 81 2233 4455",
+      "email": "contacto@proplan.mx",
+      "status": "Activo"
+    },
+    {
+      "id": 10,
+      "name": "Suministros Médicos Caninos",
+      "contact": "Laura Herrera",
+      "phone": "+52 33 7788 9900",
+      "email": "ventas@suministroscaninos.com",
+      "status": "Activo"
+    }
+  ],
+  "procurement_orders": [
+    {
+      "id": 1,
+      "supplierId": 1,
+      "date": "2026-05-08T15:30:00Z",
+      "total": 500,
+      "status": "Pendiente"
+    },
+    {
+      "id": 2,
+      "supplierId": 2,
+      "date": "2026-05-09T10:15:00Z",
+      "total": 1250.50,
+      "status": "Completada"
+    },
+    {
+      "id": 3,
+      "supplierId": 4,
+      "date": "2026-05-10T14:20:00Z",
+      "total": 340.00,
+      "status": "Pendiente"
+    },
+    {
+      "id": 4,
+      "supplierId": 5,
+      "date": "2026-05-11T09:45:00Z",
+      "total": 8900.00,
+      "status": "Pendiente"
+    }
+  ],
+  "economics_entries": [
+    {
+      "id": 1,
+      "type": "Ingreso",
+      "category": "Consulta",
+      "amount": 80,
+      "date": "2026-05-09T11:00:00Z",
+      "description": "Consulta general Max"
+    },
+    {
+      "id": 2,
+      "type": "Egreso",
+      "category": "Insumos",
+      "amount": 150,
+      "date": "2026-05-08T09:00:00Z",
+      "description": "Compra de jeringas"
     }
   ]
 }

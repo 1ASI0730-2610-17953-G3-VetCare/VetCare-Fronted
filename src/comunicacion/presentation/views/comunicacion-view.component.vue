@@ -9,11 +9,11 @@
               <i class="pi pi-bell"></i>
             </div>
             <div class="header-text-group">
-              <h2 class="feed-title">Notificaciones</h2>
-              <p class="feed-subtitle">Actividad reciente de la clínica</p>
+              <h2 class="feed-title">{{ t('communication.notifications.title') }}</h2>
+              <p class="feed-subtitle">{{ t('communication.notifications.subtitle') }}</p>
             </div>
           </div>
-          <a href="#" class="feed-action" @click.prevent="markAllAsRead">Marcar todas como leídas</a>
+          <a href="#" class="feed-action" @click.prevent="markAllAsRead">{{ t('communication.notifications.markAllRead') }}</a>
         </div>
         <div class="feed-list">
           <div 
@@ -41,14 +41,14 @@
             <!-- Right Area -->
             <div class="notification-right">
               <span class="notif-time">{{ notif.timestamp }}</span>
-              <button v-if="!notif.is_read" class="btn-read" @click="markAsRead(notif.id)" title="Marcar como leída">
+              <button v-if="!notif.is_read" class="btn-read" @click="markAsRead(notif.id)" :title="t('communication.notifications.markRead')">
                 <i class="pi pi-check"></i>
               </button>
             </div>
           </div>
           
           <div v-if="notificaciones.length === 0" class="empty-state">
-             <p>No hay notificaciones.</p>
+             <p>{{ t('communication.notifications.empty') }}</p>
           </div>
         </div>
       </div>
@@ -61,11 +61,11 @@
               <i class="pi pi-list"></i>
             </div>
             <div class="header-text-group">
-              <h2 class="sidebar-title">Recordatorios</h2>
-              <p class="sidebar-subtitle">Eventos próximos</p>
+              <h2 class="sidebar-title">{{ t('communication.reminders.title') }}</h2>
+              <p class="sidebar-subtitle">{{ t('communication.reminders.subtitle') }}</p>
             </div>
           </div>
-          <a href="#" class="feed-action" style="font-size: 18px; color: #64748B;" title="Editar recordatorios">
+          <a href="#" class="feed-action" style="font-size: 18px; color: #64748B;" :title="t('communication.reminders.editTooltip')">
             <i class="pi pi-pencil"></i>
           </a>
         </div>
@@ -94,7 +94,7 @@
         </div>
         
         <div v-if="recordatorios.length === 0" class="empty-state">
-           <p>No hay recordatorios activos.</p>
+           <p>{{ t('communication.reminders.empty') }}</p>
         </div>
       </div>
     </div>
@@ -103,9 +103,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { ComunicacionApi } from '../../infrastructure/comunicacion-api.js';
 import { NotificacionEntity } from '../../domain/notificacion.entity.js';
 import { RecordatorioEntity } from '../../domain/recordatorio.entity.js';
+
+const { t } = useI18n();
+
 
 const api = new ComunicacionApi();
 const notificaciones = ref([]);

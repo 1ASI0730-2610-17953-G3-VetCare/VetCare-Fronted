@@ -23,7 +23,13 @@ app.use(PrimeVue, {
     }
 });
 
-app.use(createPinia());
+const pinia = createPinia();
+app.use(pinia);
+
+import { useIamStore } from './iam/application/iam.store.js';
+const iamStore = useIamStore(pinia);
+iamStore.restoreSession();
+
 app.use(router);
 app.use(i18n);
 

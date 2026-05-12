@@ -1,10 +1,12 @@
 <script setup>
 import { computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { usePanelResumenStore } from '../../application/panel-resumen.store'
 
 const { t } = useI18n()
 const store = usePanelResumenStore()
+const router = useRouter()
 
 onMounted(() => {
   store.fetchDashboardData()
@@ -50,9 +52,10 @@ const activityTimeline = computed(() => {
     <!-- Header & Quick Actions -->
     <div class="dashboard-header">
       <div class="quick-actions">
-        <button class="action-btn secondary-btn"><i class="pi pi-user-plus"></i> {{ $t('dashboard.actions.registerPatient') }}</button>
-        <button class="action-btn secondary-btn"><i class="pi pi-calendar-plus"></i> {{ $t('dashboard.actions.newAppointment') }}</button>
-        <button class="action-btn primary-btn"><i class="pi pi-heart-fill" style="margin-right: 8px"></i> {{ $t('dashboard.actions.newConsultation') }}</button>
+        <button class="action-btn secondary-btn" @click="router.push('/gestion-clinica/clientes')"><i class="pi pi-id-card"></i> {{ $t('dashboard.actions.registerClient') }}</button>
+        <button class="action-btn secondary-btn" @click="router.push('/gestion-clinica/pacientes')"><i class="pi pi-user-plus"></i> {{ $t('dashboard.actions.registerPatient') }}</button>
+        <button class="action-btn secondary-btn" @click="router.push('/gestion-clinica/consultas')"><i class="pi pi-folder-open"></i> {{ $t('dashboard.actions.newAppointment') }}</button>
+        <button class="action-btn primary-btn" @click="router.push('/gestion-clinica/vacunas')"><i class="pi pi-shield" style="margin-right: 8px"></i> {{ $t('dashboard.actions.newConsultation') }}</button>
       </div>
     </div>
 
