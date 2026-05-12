@@ -40,9 +40,9 @@ const headerTitle = computed(() => {
   if (route.path.includes('/perfil')) return t('layout.headerTitle.perfil')
   if (route.path.includes('/gestion-clinica')) return t('nav.clinicManagement')
   if (route.path.includes('/comunicacion')) return t('layout.headerTitle.communication')
-  if (route.path.includes('/admin/inventory')) return 'Inventario'
-  if (route.path.includes('/admin/procurement')) return 'Compras y Proveedores'
-  if (route.path.includes('/admin/economics')) return 'Económico'
+  if (route.path.includes('/admin/inventory')) return t('layout.headerTitle.inventory')
+  if (route.path.includes('/admin/procurement')) return t('layout.headerTitle.procurement')
+  if (route.path.includes('/admin/economics')) return t('layout.headerTitle.economics')
   return t('layout.headerTitle.default')
 })
 
@@ -52,7 +52,7 @@ const headerSubtitle = computed(() => {
   if (route.path.includes('/perfil')) return t('layout.headerSubtitle.perfil')
   if (route.path.includes('/gestion-clinica')) return t('layout.headerSubtitle.clinicManagement')
   if (route.path.includes('/comunicacion')) return t('layout.headerSubtitle.communication')
-  if (route.path.includes('/admin')) return 'Administración del sistema'
+  if (route.path.includes('/admin')) return t('layout.headerSubtitle.admin')
   return t('layout.headerSubtitle.default')
 })
 
@@ -68,9 +68,9 @@ const navLinks = computed(() => {
   }
 
   if (iamStore.roles.includes('admin')) {
-    links.push({ id: 'admin-inventory', label: 'Inventario', icon: 'pi-box', route: '/admin/inventory' });
-    links.push({ id: 'admin-procurement', label: 'Compras', icon: 'pi-shopping-cart', route: '/admin/procurement' });
-    links.push({ id: 'admin-economics', label: 'Económico', icon: 'pi-chart-line', route: '/admin/economics' });
+    links.push({ id: 'admin-inventory', label: t('nav.inventory'), icon: 'pi-box', route: '/admin/inventory' });
+    links.push({ id: 'admin-procurement', label: t('nav.procurement'), icon: 'pi-shopping-cart', route: '/admin/procurement' });
+    links.push({ id: 'admin-economics', label: t('nav.economics'), icon: 'pi-chart-line', route: '/admin/economics' });
   }
 
   return links;

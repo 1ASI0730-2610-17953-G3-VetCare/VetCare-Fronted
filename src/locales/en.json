@@ -4,7 +4,10 @@
     "clinicManagement": "Clinic Management",
     "agenda": "Calendar",
     "communication": "Communication",
-    "profile": "Profile"
+    "profile": "Profile",
+    "inventory": "Inventory",
+    "procurement": "Procurement",
+    "economics": "Economics"
   },
   "layout": {
     "headerTitle": {
@@ -12,6 +15,9 @@
       "agenda": "Appointment Agenda",
       "perfil": "My Profile",
       "communication": "Communication",
+      "inventory": "Inventory",
+      "procurement": "Procurement & Suppliers",
+      "economics": "Economics",
       "default": "VetCare Pro"
     },
     "headerSubtitle": {
@@ -20,6 +26,7 @@
       "perfil": "Manage your personal information and preferences",
       "clinicManagement": "Manage information, clinical history, and treatments of patients.",
       "communication": "Manage notifications and reminders",
+      "admin": "System administration",
       "default": "General administration"
     },
     "notifications": "Notifications",
