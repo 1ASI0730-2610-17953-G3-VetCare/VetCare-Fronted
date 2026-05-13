@@ -360,6 +360,8 @@
         "typeCheckup": "Chequeo Preventivo",
         "diagnosis": "Diagnóstico / Motivo",
         "diagnosisPlaceholder": "Describa el motivo o diagnóstico inicial",
+        "notes": "Notas Clínicas",
+        "notesPlaceholder": "Observaciones adicionales, indicaciones, seguimiento...",
         "statusLabel": "Estado de la Consulta",
         "statusPlaceholder": "Seleccione el estado...",
         "date": "Fecha",

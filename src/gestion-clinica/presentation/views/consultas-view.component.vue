@@ -37,6 +37,7 @@ const getDefaultForm = () => ({
   type: '',
   status: '',
   diagnosis: '',
+  notes: '',
   date: '',
   time: ''
 });
@@ -139,6 +140,7 @@ const openModal = (consulta = null) => {
     form.type = consulta.type;
     form.status = consulta.status;
     form.diagnosis = consulta.diagnosis;
+    form.notes = consulta.notes || '';
     form.date = '';
     form.time = '';
   } else {
@@ -396,6 +398,7 @@ const submitForm = async () => {
            type: form.type,
            status: form.status,
            diagnosis: form.diagnosis,
+           notes: form.notes.trim() || null,
            date: form.date ? formatDate(form.date) : consultas.value[idx].date,
            time: form.time ? formatTime(form.time) : consultas.value[idx].time
         };
@@ -409,6 +412,7 @@ const submitForm = async () => {
         client: { name: form.clientName, phone: '--' },
         type: form.type,
         diagnosis: form.diagnosis || 'Pendiente de evaluación',
+        notes: form.notes.trim() || null,
         date: formatDate(form.date),
         time: form.time ? formatTime(form.time) : '--:--',
         status: form.status
@@ -680,7 +684,12 @@ onMounted(() => {
                   <label>{{ t('clinicManagement.consultations.registerForm.diagnosis') }}</label>
                   <textarea v-model="form.diagnosis" :placeholder="t('clinicManagement.consultations.registerForm.diagnosisPlaceholder')" rows="2"></textarea>
                 </div>
-                
+
+                <div class="form-group span-full">
+                  <label>{{ t('clinicManagement.consultations.registerForm.notes') }}</label>
+                  <textarea v-model="form.notes" :placeholder="t('clinicManagement.consultations.registerForm.notesPlaceholder')" rows="3"></textarea>
+                </div>
+
                 <div class="form-group" :class="{ 'has-error': formErrors.date }">
                   <label>{{ t('clinicManagement.consultations.registerForm.date') }} *</label>
                   <input type="date" v-model="form.date" />
@@ -742,6 +751,10 @@ onMounted(() => {
                   <div class="detail-item span-full">
                      <span>Diagnóstico / Motivo:</span>
                      <div class="diagnosis-box">{{ viewedConsulta.diagnosis }}</div>
+                  </div>
+                  <div v-if="viewedConsulta.notes" class="detail-item span-full">
+                     <span>{{ t('clinicManagement.consultations.registerForm.notes') }}:</span>
+                     <div class="notes-box">{{ viewedConsulta.notes }}</div>
                   </div>
                </div>
             </div>
@@ -1446,5 +1459,10 @@ onMounted(() => {
 .diagnosis-box {
   background: #F8FAFC; padding: 12px 16px; border-radius: 8px; border: 1px solid #E2E8F0;
   color: #334155; font-size: 14px; line-height: 1.5; margin-top: 4px; font-style: italic;
+}
+.notes-box {
+  background: #FFFBEB; padding: 12px 16px; border-radius: 8px;
+  border: 1px solid #FDE68A; border-left: 4px solid #F59E0B;
+  color: #78350F; font-size: 14px; line-height: 1.6; margin-top: 4px; white-space: pre-wrap;
 }
 </style>

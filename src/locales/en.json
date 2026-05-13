@@ -360,6 +360,8 @@
         "typeCheckup": "Preventive Checkup",
         "diagnosis": "Diagnosis / Reason",
         "diagnosisPlaceholder": "Describe the reason or initial diagnosis",
+        "notes": "Clinical Notes",
+        "notesPlaceholder": "Additional observations, instructions, follow-up...",
         "statusLabel": "Consultation Status",
         "statusPlaceholder": "Select status...",
         "date": "Date",
