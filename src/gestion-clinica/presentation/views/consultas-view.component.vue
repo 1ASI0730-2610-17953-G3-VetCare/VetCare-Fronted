@@ -39,7 +39,11 @@ const getDefaultForm = () => ({
   diagnosis: '',
   notes: '',
   date: '',
-  time: ''
+  time: '',
+  vitalTemp: '',
+  vitalHR: '',
+  vitalWeight: '',
+  vitalCondition: ''
 });
 const form = reactive(getDefaultForm());
 
@@ -141,6 +145,10 @@ const openModal = (consulta = null) => {
     form.status = consulta.status;
     form.diagnosis = consulta.diagnosis;
     form.notes = consulta.notes || '';
+    form.vitalTemp = consulta.vitals?.temp || '';
+    form.vitalHR = consulta.vitals?.hr || '';
+    form.vitalWeight = consulta.vitals?.weight || '';
+    form.vitalCondition = consulta.vitals?.condition || '';
     form.date = '';
     form.time = '';
   } else {
@@ -399,6 +407,9 @@ const submitForm = async () => {
            status: form.status,
            diagnosis: form.diagnosis,
            notes: form.notes.trim() || null,
+           vitals: (form.vitalTemp || form.vitalHR || form.vitalWeight || form.vitalCondition)
+             ? { temp: form.vitalTemp, hr: form.vitalHR, weight: form.vitalWeight, condition: form.vitalCondition }
+             : null,
            date: form.date ? formatDate(form.date) : consultas.value[idx].date,
            time: form.time ? formatTime(form.time) : consultas.value[idx].time
         };
@@ -413,6 +424,9 @@ const submitForm = async () => {
         type: form.type,
         diagnosis: form.diagnosis || 'Pendiente de evaluación',
         notes: form.notes.trim() || null,
+        vitals: (form.vitalTemp || form.vitalHR || form.vitalWeight || form.vitalCondition)
+          ? { temp: form.vitalTemp, hr: form.vitalHR, weight: form.vitalWeight, condition: form.vitalCondition }
+          : null,
         date: formatDate(form.date),
         time: form.time ? formatTime(form.time) : '--:--',
         status: form.status
@@ -702,7 +716,37 @@ onMounted(() => {
               </div>
             </div>
 
-            
+
+            <div class="form-section">
+              <h3 class="section-label"><i class="pi pi-heart-fill"></i> {{ t('clinicManagement.consultations.registerForm.vitalsTitle') }}</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>{{ t('clinicManagement.consultations.registerForm.vitalTemp') }}</label>
+                  <input type="number" step="0.1" v-model="form.vitalTemp" :placeholder="t('clinicManagement.consultations.registerForm.vitalTempPlaceholder')" />
+                </div>
+                <div class="form-group">
+                  <label>{{ t('clinicManagement.consultations.registerForm.vitalHR') }}</label>
+                  <input type="number" v-model="form.vitalHR" :placeholder="t('clinicManagement.consultations.registerForm.vitalHRPlaceholder')" />
+                </div>
+                <div class="form-group">
+                  <label>{{ t('clinicManagement.consultations.registerForm.vitalWeight') }}</label>
+                  <input type="number" step="0.1" v-model="form.vitalWeight" :placeholder="t('clinicManagement.consultations.registerForm.vitalWeightPlaceholder')" />
+                </div>
+                <div class="form-group">
+                  <label>{{ t('clinicManagement.consultations.registerForm.vitalCondition') }}</label>
+                  <select v-model="form.vitalCondition">
+                    <option value="">{{ t('clinicManagement.consultations.registerForm.vitalConditionPlaceholder') }}</option>
+                    <option value="1">1 – Muy delgado</option>
+                    <option value="2">2 – Delgado</option>
+                    <option value="3">3 – Ideal</option>
+                    <option value="4">4 – Sobrepeso</option>
+                    <option value="5">5 – Obeso</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
             <div class="modal-actions">
               <button type="button" class="btn-cancel" @click="closeModal">{{ t('clinicManagement.consultations.registerForm.cancel') }}</button>
               <button type="submit" class="btn-submit" :disabled="isSaving">
@@ -755,6 +799,27 @@ onMounted(() => {
                   <div v-if="viewedConsulta.notes" class="detail-item span-full">
                      <span>{{ t('clinicManagement.consultations.registerForm.notes') }}:</span>
                      <div class="notes-box">{{ viewedConsulta.notes }}</div>
+                  </div>
+               </div>
+            </div>
+            <div v-if="viewedConsulta.vitals" class="detail-section">
+               <h3 class="detail-title"><i class="pi pi-heart-fill"></i> {{ t('clinicManagement.consultations.registerForm.vitalsTitle') }}</h3>
+               <div class="vitals-detail-grid">
+                  <div class="vital-detail-chip">
+                    <span class="vital-detail-label">{{ t('clinicManagement.consultations.registerForm.vitalTemp') }}</span>
+                    <span class="vital-detail-value">{{ viewedConsulta.vitals.temp }} °C</span>
+                  </div>
+                  <div class="vital-detail-chip">
+                    <span class="vital-detail-label">{{ t('clinicManagement.consultations.registerForm.vitalHR') }}</span>
+                    <span class="vital-detail-value">{{ viewedConsulta.vitals.hr }} lpm</span>
+                  </div>
+                  <div class="vital-detail-chip">
+                    <span class="vital-detail-label">{{ t('clinicManagement.consultations.registerForm.vitalWeight') }}</span>
+                    <span class="vital-detail-value">{{ viewedConsulta.vitals.weight }} kg</span>
+                  </div>
+                  <div class="vital-detail-chip">
+                    <span class="vital-detail-label">{{ t('clinicManagement.consultations.registerForm.vitalCondition') }}</span>
+                    <span class="vital-detail-value">{{ viewedConsulta.vitals.condition }}/5</span>
                   </div>
                </div>
             </div>
@@ -1465,4 +1530,14 @@ onMounted(() => {
   border: 1px solid #FDE68A; border-left: 4px solid #F59E0B;
   color: #78350F; font-size: 14px; line-height: 1.6; margin-top: 4px; white-space: pre-wrap;
 }
+.vitals-detail-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+.vital-detail-chip {
+  background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px;
+  padding: 12px 14px; display: flex; flex-direction: column; gap: 4px;
+}
+.vital-detail-label { font-size: 11px; font-weight: 500; color: #16a34a; text-transform: uppercase; }
+.vital-detail-value { font-size: 20px; font-weight: 700; color: #111827; }
+@media (max-width: 640px) { .vitals-detail-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
