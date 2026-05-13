@@ -386,6 +386,9 @@
     "vaccines": {
       "title": "Vaccines",
       "description": "Manage vaccines and vaccination schedules.",
+      "reminderBanner": {
+        "title": "{count} vaccine(s) require urgent attention"
+      },
       "pagination": {
         "showing": "Showing {from} to {to} of {total} vaccines"
       },

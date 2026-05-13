@@ -386,6 +386,9 @@
     "vaccines": {
       "title": "Vacunas",
       "description": "Gestión de vacunas y calendarios de vacunación.",
+      "reminderBanner": {
+        "title": "{count} vacuna(s) requieren atención urgente"
+      },
       "pagination": {
         "showing": "Mostrando {from} a {to} de {total} vacunas"
       },

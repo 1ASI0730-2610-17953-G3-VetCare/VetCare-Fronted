@@ -144,6 +144,11 @@ const expiredCount = computed(() => vaccines.value.filter(v => v.status === 'Ven
 const upcomingCount = computed(() => vaccines.value.filter(v => v.status === 'Próxima').length);
 const upToDateCount = computed(() => vaccines.value.filter(v => v.status === 'Al Día').length);
 
+const reminderDismissed = ref(false);
+const alertVaccines = computed(() =>
+  vaccines.value.filter(v => v.status === 'Vencida' || v.status === 'Próxima')
+);
+
 const submitForm = async () => {
   if (!validateForm()) return;
   isSaving.value = true;
@@ -197,6 +202,21 @@ const submitForm = async () => {
     </Transition>
 
     
+    <Transition name="fade">
+      <div v-if="alertVaccines.length > 0 && !reminderDismissed" class="vaccine-alert-banner">
+        <div class="banner-content">
+          <i class="pi pi-bell banner-icon"></i>
+          <div>
+            <strong>{{ t('clinicManagement.vaccines.reminderBanner.title', { count: alertVaccines.length }) }}</strong>
+            <span class="banner-patients">{{ alertVaccines.map(v => `${v.patientName} (${v.vaccineName})`).join(' · ') }}</span>
+          </div>
+        </div>
+        <button class="banner-dismiss" @click="reminderDismissed = true">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </Transition>
+
     <div class="actions-bar">
       <div class="view-info">
         <h1 class="view-title">{{ t('clinicManagement.vaccines.title') }}</h1>
@@ -1001,4 +1021,22 @@ const submitForm = async () => {
   .form-grid { grid-template-columns: 1fr; }
   .form-group.span-full { grid-column: 1; }
 }
+
+.vaccine-alert-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #fef3c7; border: 1px solid #fcd34d; border-left: 4px solid #f59e0b;
+  border-radius: 8px; padding: 14px 16px; gap: 12px;
+}
+.banner-content { display: flex; align-items: flex-start; gap: 12px; flex: 1; }
+.banner-icon { color: #d97706; font-size: 20px; margin-top: 2px; flex-shrink: 0; }
+.banner-content strong { display: block; font-size: 14px; font-weight: 600; color: #92400e; margin-bottom: 4px; }
+.banner-patients { font-size: 13px; color: #b45309; }
+.banner-dismiss {
+  background: none; border: none; cursor: pointer; padding: 4px;
+  color: #d97706; font-size: 16px; border-radius: 4px; flex-shrink: 0;
+  transition: background 0.2s;
+}
+.banner-dismiss:hover { background: #fde68a; }
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(-8px); }
 </style>
