@@ -89,16 +89,14 @@ const submitForm = async () => {
 
 <template>
   <div class="clientes-view">
-    <!-- Toast -->
-    <Transition name="toast">
+        <Transition name="toast">
       <div v-if="showToast" :class="['toast', `toast-${toastType}`]">
         <i :class="toastType === 'success' ? 'pi pi-check-circle' : 'pi pi-times-circle'"></i>
         <span>{{ toastMessage }}</span>
       </div>
     </Transition>
 
-    <!-- Header -->
-    <div class="actions-bar">
+        <div class="actions-bar">
       <div class="view-info">
         <h1 class="view-title">{{ t('clinicManagement.clients.title') }}</h1>
         <p class="view-description">{{ t('clinicManagement.clients.description') }}</p>
@@ -109,10 +107,8 @@ const submitForm = async () => {
       </button>
     </div>
 
-    <!-- Status Cards Row -->
-    <div class="status-cards-row">
-      <!-- Total Card -->
-      <div class="status-card card-info">
+        <div class="status-cards-row">
+            <div class="status-card card-info">
         <div class="card-header-row">
           <div class="icon-circle icon-info">
             <i class="pi pi-users"></i>
@@ -123,8 +119,7 @@ const submitForm = async () => {
         <p class="card-subtitle subtitle-info">{{ t('clinicManagement.clients.statusCards.total.subtitle') }}</p>
       </div>
 
-      <!-- Active Card -->
-      <div class="status-card card-success">
+            <div class="status-card card-success">
         <div class="card-header-row">
           <div class="icon-circle icon-success">
             <i class="pi pi-check-circle"></i>
@@ -135,8 +130,7 @@ const submitForm = async () => {
         <p class="card-subtitle subtitle-success">{{ t('clinicManagement.clients.statusCards.active.subtitle') }}</p>
       </div>
 
-      <!-- New Card -->
-      <div class="status-card card-primary">
+            <div class="status-card card-primary">
         <div class="card-header-row">
           <div class="icon-circle icon-primary">
             <i class="pi pi-star"></i>
@@ -148,8 +142,7 @@ const submitForm = async () => {
       </div>
     </div>
 
-    <!-- Filter Action Bar -->
-    <div class="filters-card">
+        <div class="filters-card">
       <div class="search-box">
         <i class="pi pi-search search-icon"></i>
         <input 
@@ -169,8 +162,7 @@ const submitForm = async () => {
       </div>
     </div>
 
-    <!-- Clients Table -->
-    <div class="table-container">
+        <div class="table-container">
       <div v-if="clientStore.loading" class="loading-state">
         <i class="pi pi-spin pi-spinner loading-icon"></i>
       </div>
@@ -229,10 +221,24 @@ const submitForm = async () => {
           </tr>
         </tbody>
       </table>
+      
+            <div class="pagination-bar" v-if="filteredClients.length > 0 && !clientStore.loading">
+        <div class="results-summary">
+          {{ t('clinicManagement.clients.pagination.showing', { from: 1, to: filteredClients.length, total: filteredClients.length }) }}
+        </div>
+        <div class="pagination-controls">
+          <button class="pagination-nav-btn disabled-btn" disabled>
+            <i class="pi pi-chevron-left"></i>
+          </button>
+          <button class="pagination-btn active">1</button>
+          <button class="pagination-nav-btn disabled-btn" disabled>
+            <i class="pi pi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Modal Registrar Cliente -->
-    <Transition name="modal">
+        <Transition name="modal">
       <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
         <div class="modal-container">
           <div class="modal-header">
@@ -245,8 +251,7 @@ const submitForm = async () => {
           </div>
 
           <form class="modal-body" @submit.prevent="submitForm">
-            <!-- Personal Info -->
-            <div class="form-section">
+                        <div class="form-section">
               <h3 class="section-label"><i class="pi pi-id-card"></i> {{ t('clinicManagement.clients.registerForm.personalInfo') }}</h3>
               <div class="form-grid">
                 <div class="form-group span-full" :class="{ 'has-error': formErrors.fullName }">
@@ -269,8 +274,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Contact Info -->
-            <div class="form-section">
+                        <div class="form-section">
               <h3 class="section-label"><i class="pi pi-address-book"></i> {{ t('clinicManagement.clients.registerForm.contactInfo') }}</h3>
               <div class="form-grid">
                 <div class="form-group" :class="{ 'has-error': formErrors.phone }">
@@ -289,8 +293,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Actions -->
-            <div class="modal-actions">
+                        <div class="modal-actions">
               <button type="button" class="btn-cancel" @click="closeModal">{{ t('clinicManagement.clients.registerForm.cancel') }}</button>
               <button type="submit" class="btn-submit" :disabled="clientStore.loading">
                 <i :class="clientStore.loading ? 'pi pi-spin pi-spinner' : 'pi pi-check'"></i>
@@ -312,7 +315,6 @@ const submitForm = async () => {
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* Header */
 .actions-bar {
   display: flex;
   justify-content: space-between;
@@ -322,20 +324,25 @@ const submitForm = async () => {
 }
 
 .view-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #1E293B;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.5px;
   margin: 0 0 4px 0;
 }
 
 .view-description {
   font-size: 14px;
-  color: #64748B;
+  line-height: 20px;
+  font-weight: 400;
+  color: #6b7280;
+  letter-spacing: -0.5px;
   margin: 0;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #0EA5E9, #0284C7);
+  background-color: #0EA5E9;
   color: #FFFFFF;
   border: none;
   border-radius: 8px;
@@ -346,21 +353,13 @@ const submitForm = async () => {
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2);
+  transition: background-color 0.2s;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #0284C7, #0369A1);
-  box-shadow: 0 4px 10px rgba(14, 165, 233, 0.4);
-  transform: translateY(-2px);
+  background-color: #0284C7;
 }
 
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-/* Status Cards Row */
 .status-cards-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -423,7 +422,6 @@ const submitForm = async () => {
   margin: 0;
 }
 
-/* Info Variant */
 .card-info {
   border: 1px solid #e0f2fe;
   background: linear-gradient(45deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -433,7 +431,6 @@ const submitForm = async () => {
 .title-info { color: #0369a1; }
 .subtitle-info { color: #0284c7; }
 
-/* Primary Variant */
 .card-primary {
   border: 1px solid #e0e7ff;
   background: linear-gradient(45deg, #eef2ff 0%, #e0e7ff 100%);
@@ -443,7 +440,6 @@ const submitForm = async () => {
 .title-primary { color: #3730a3; }
 .subtitle-primary { color: #4338ca; }
 
-/* Danger Variant */
 .card-danger {
   border: 1px solid #fecaca;
   background: linear-gradient(45deg, #fef2f2 0%, #fee2e2 100%);
@@ -453,7 +449,6 @@ const submitForm = async () => {
 .title-danger { color: #991b1b; }
 .subtitle-danger { color: #dc2626; }
 
-/* Success Variant */
 .card-success {
   border: 1px solid #bbf7d0;
   background: linear-gradient(45deg, #f0fdf4 0%, #dcfce7 100%);
@@ -463,7 +458,6 @@ const submitForm = async () => {
 .title-success { color: #166534; }
 .subtitle-success { color: #16a34a; }
 
-/* Filters */
 .filters-card {
   display: flex;
   gap: 16px;
@@ -539,7 +533,6 @@ const submitForm = async () => {
   font-size: 12px;
 }
 
-/* Table */
 .table-container {
   background-color: #FFFFFF;
   border-radius: 12px;
@@ -702,7 +695,73 @@ const submitForm = async () => {
   color: #94a3b8;
 }
 
-/* Toast */
+.pagination-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.results-summary {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #6b7280;
+  letter-spacing: -0.5px;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pagination-btn, .pagination-nav-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(.active), .pagination-nav-btn:hover:not(.disabled-btn) {
+  background-color: #f3f4f6;
+}
+
+.pagination-btn.active {
+  background-color: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  font-weight: 600;
+}
+
+.disabled-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f9fafb;
+}
+
+.pagination-dots {
+  color: #6b7280;
+  font-size: 14px;
+  padding: 0 4px;
+}
+
+.pagination-nav-btn i {
+  font-size: 12px;
+}
+
 .toast {
   position: fixed; top: 24px; right: 24px; z-index: 10000;
   display: flex; align-items: center; gap: 10px;
@@ -718,7 +777,6 @@ const submitForm = async () => {
 @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
-/* Modal Overlay */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 9000;
   background: rgba(15, 23, 42, 0.75);
@@ -734,14 +792,12 @@ const submitForm = async () => {
 @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes scaleOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.95); opacity: 0; } }
 
-/* Modal Container */
 .modal-container {
   background: #FFFFFF; border-radius: 16px;
   width: 100%; max-width: 680px; max-height: 90vh;
   overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
 
-/* Modal Header */
 .modal-header {
   display: flex; align-items: center; gap: 16px;
   padding: 24px 28px; border-bottom: 1px solid #E2E8F0;
@@ -764,10 +820,8 @@ const submitForm = async () => {
 }
 .modal-close:hover { background: #F1F5F9; color: #0F172A; }
 
-/* Modal Body */
 .modal-body { padding: 24px 28px; }
 
-/* Form Sections */
 .form-section {
   margin-bottom: 24px; padding-bottom: 20px;
   border-bottom: 1px solid #F1F5F9;
@@ -779,7 +833,6 @@ const submitForm = async () => {
 }
 .section-label i { color: #0EA5E9; font-size: 15px; }
 
-/* Form Grid */
 .form-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
@@ -810,12 +863,10 @@ const submitForm = async () => {
   padding-right: 32px;
 }
 
-/* Validation Errors */
 .has-error input, .has-error select { border-color: #EF4444; }
 .has-error input:focus, .has-error select:focus { box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
 .error-text { font-size: 12px; color: #EF4444; font-weight: 500; }
 
-/* Modal Actions */
 .modal-actions {
   display: flex; justify-content: flex-end; gap: 12px;
   padding: 20px 28px; border-top: 1px solid #E2E8F0;
@@ -838,7 +889,6 @@ const submitForm = async () => {
 .btn-submit:hover:not(:disabled) { background: linear-gradient(135deg, #0284C7, #0369A1); box-shadow: 0 4px 12px rgba(2,132,199,0.3); }
 .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
-/* Responsive */
 @media (max-width: 640px) {
   .modal-overlay { padding: 12px; }
   .modal-container { max-height: 95vh; }

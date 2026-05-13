@@ -7,11 +7,9 @@
     </div>
 
     <div v-else class="perfil-layout">
-      <!-- Main Content Area -->
-      <div class="perfil-main">
+            <div class="perfil-main">
         
-        <!-- Profile Header Section (as per flex-row-centered spec) -->
-        <div class="section-card profile-header-card">
+                <div class="section-card profile-header-card">
           <div class="profile-header-content">
             <div class="avatar-wrapper">
               <div class="avatar">{{ iniciales }}</div>
@@ -28,8 +26,7 @@
           </div>
         </div>
 
-        <!-- Datos Personales Card -->
-        <div class="section-card">
+                <div class="section-card">
           <div class="card-header">
             <div class="header-icon">
               <i class="pi pi-user"></i>
@@ -77,8 +74,7 @@
           </div>
         </div>
 
-        <!-- Seguridad Card -->
-        <div class="section-card">
+                <div class="section-card">
           <div class="card-header">
             <div class="header-icon icon-red">
               <i class="pi pi-lock"></i>
@@ -123,11 +119,9 @@
 
       </div>
 
-      <!-- Sidebar Content Area -->
-      <div class="perfil-sidebar">
+            <div class="perfil-sidebar">
         
-        <!-- Preferencias Card -->
-        <div class="section-card">
+                <div class="section-card">
           <div class="card-header">
             <div class="header-icon icon-purple">
               <i class="pi pi-cog"></i>
@@ -183,8 +177,7 @@
           </div>
         </div>
 
-        <!-- Stats Card -->
-        <div class="stats-card">
+                <div class="stats-card">
           <div class="stats-header">
             <h3 class="stats-title">{{ $t('profile.sidebar.productivity.title') }}</h3>
             <i class="pi pi-chart-line stats-icon"></i>
@@ -210,8 +203,7 @@
           </div>
         </div>
 
-        <!-- Action List -->
-        <div class="section-card mt-4">
+                <div class="section-card mt-4">
           <div class="card-header">
             <h2 class="card-title" style="font-size: 16px;">{{ $t('profile.sidebar.accountOptions.title') }}</h2>
           </div>
@@ -364,7 +356,6 @@ onMounted(() => {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* View Layout */
 .perfil-layout {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -374,7 +365,6 @@ onMounted(() => {
   .perfil-layout { grid-template-columns: 1fr; }
 }
 
-/* Section Card */
 .section-card {
   background-color: var(--color-bg-surface, #FFFFFF);
   border: 1px solid var(--color-border-light, #E2E8F0);
@@ -436,7 +426,6 @@ onMounted(() => {
   margin: 4px 0 0 0;
 }
 
-/* Profile Header Component */
 .profile-header-card {
   padding: 24px;
 }
@@ -453,7 +442,7 @@ onMounted(() => {
 .avatar {
   width: 80px;
   height: 80px;
-  border-radius: 9999px; /* full */
+  border-radius: 9999px; 
   background: #E0F2FE;
   color: #0369A1;
   display: flex;
@@ -493,7 +482,6 @@ onMounted(() => {
 .badge-label { font-size: 12px; color: #4B5563; }
 .badge-value { font-size: 14px; font-weight: 700; color: #0F172A; }
 
-/* Form Control Component */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -553,7 +541,6 @@ onMounted(() => {
   border-color: var(--color-primary-main, #0369A1);
 }
 
-/* Actions */
 .card-actions { margin-top: 20px; display: flex; justify-content: flex-end; }
 .page-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
 .vet-btn-primary {
@@ -593,7 +580,6 @@ onMounted(() => {
 }
 .vet-btn-danger:hover { opacity: 0.9; }
 
-/* Toggles */
 .preferences-list { display: flex; flex-direction: column; gap: 16px; }
 .preference-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #F1F5F9; }
 .preference-item:last-child { border-bottom: none; }
@@ -613,7 +599,6 @@ onMounted(() => {
 .custom-toggle input:checked + .toggle-track { background: var(--color-primary-main, #0369A1); }
 .custom-toggle input:checked + .toggle-track .toggle-thumb { transform: translateX(22px); }
 
-/* Stats Card */
 .stats-card {
   background-color: #0EA5E9;
   color: #FFFFFF;
@@ -639,7 +624,6 @@ onMounted(() => {
 .progress-track { width: 100%; height: 6px; background-color: rgba(255,255,255,0.3); border-radius: 9999px; }
 .progress-fill { height: 100%; background-color: #FFFFFF; border-radius: 9999px; }
 
-/* Action List */
 .mt-4 { margin-top: 16px; }
 .action-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .action-item {

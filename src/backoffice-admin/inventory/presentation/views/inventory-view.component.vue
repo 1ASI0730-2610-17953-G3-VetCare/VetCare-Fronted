@@ -143,7 +143,6 @@ const exportCSV = () => {
   displayToast(t('inventory.table.exportSuccess'), 'success');
 };
 
-// Modal state
 const showModal = ref(false);
 const isSaving = ref(false);
 const toastMessage = ref('');
@@ -216,18 +215,15 @@ const submitForm = async () => {
 <template>
   <div class="inventory-container">
 
-    <!-- Toast -->
-    <Transition name="toast">
+        <Transition name="toast">
       <div v-if="showToast" :class="['toast', `toast-${toastType}`]">
         <i :class="toastType === 'success' ? 'pi pi-check-circle' : 'pi pi-times-circle'"></i>
         <span>{{ toastMessage }}</span>
       </div>
     </Transition>
 
-    <!-- Stat Cards -->
-    <div class="stat-cards">
-      <!-- Total -->
-      <div class="stat-card">
+        <div class="stat-cards">
+            <div class="stat-card">
         <div class="stat-top">
           <div class="icon-box" style="background: #eff6ff; color: #3b82f6;">
             <i class="pi pi-box"></i>
@@ -240,8 +236,7 @@ const submitForm = async () => {
         </div>
       </div>
       
-      <!-- Stock Normal -->
-      <div class="stat-card">
+            <div class="stat-card">
         <div class="stat-top">
           <div class="icon-box" style="background: #f0fdf4; color: #22c55e;">
             <i class="pi pi-check-circle"></i>
@@ -254,8 +249,7 @@ const submitForm = async () => {
         </div>
       </div>
 
-      <!-- Alerta -->
-      <div class="stat-card">
+            <div class="stat-card">
         <div class="stat-top">
           <div class="icon-box" style="background: #fff7ed; color: #f97316;">
             <i class="pi pi-exclamation-triangle"></i>
@@ -268,8 +262,7 @@ const submitForm = async () => {
         </div>
       </div>
 
-      <!-- Categorías -->
-      <div class="stat-card">
+            <div class="stat-card">
         <div class="stat-top">
           <div class="icon-box" style="background: #faf5ff; color: #a855f7;">
             <i class="pi pi-tags"></i>
@@ -283,8 +276,7 @@ const submitForm = async () => {
       </div>
     </div>
 
-    <!-- Toolbar -->
-    <div class="toolbar">
+        <div class="toolbar">
       <div class="search-input-wrapper">
         <i class="pi pi-search search-icon"></i>
         <input type="text" v-model="searchQuery" :placeholder="t('inventory.toolbar.search')" class="search-input" />
@@ -301,16 +293,13 @@ const submitForm = async () => {
       </button>
     </div>
 
-    <!-- Table Section -->
-    <div class="table-section">
-      <!-- Header -->
-      <div class="table-header-row">
+        <div class="table-section">
+            <div class="table-header-row">
         <h3 class="table-title">{{ t('inventory.table.title') }}</h3>
         <span class="record-badge">{{ filteredProducts.length }} {{ t('inventory.table.records') }}</span>
       </div>
 
-      <!-- Actions -->
-      <div class="table-actions-row">
+            <div class="table-actions-row">
         <button class="btn-ghost" @click="exportCSV">
           <i class="pi pi-download"></i> {{ t('inventory.table.export') }}
         </button>
@@ -319,8 +308,7 @@ const submitForm = async () => {
         </button>
       </div>
 
-      <!-- Extended Filters -->
-      <Transition name="fade">
+            <Transition name="fade">
         <div v-if="showFilters" class="extended-filters">
           <div class="filter-group">
             <label>{{ t('inventory.table.filterStatus') }}</label>
@@ -398,8 +386,7 @@ const submitForm = async () => {
         </table>
       </div>
 
-      <!-- Footer / Pagination -->
-      <div class="table-footer" v-if="!store.isLoading && !store.error">
+            <div class="table-footer" v-if="!store.isLoading && !store.error">
         <div class="footer-info">
           {{ t('inventory.pagination.showing') }} <strong>{{ filteredProducts.length ? (currentPage - 1) * itemsPerPage + 1 : 0 }}-{{ Math.min(currentPage * itemsPerPage, filteredProducts.length) }}</strong> {{ t('inventory.pagination.of') }} <strong>{{ filteredProducts.length }}</strong> {{ t('inventory.pagination.records') }}
         </div>
@@ -420,8 +407,7 @@ const submitForm = async () => {
 
     </div>
 
-    <!-- Modal Nuevo Producto -->
-    <Transition name="modal">
+        <Transition name="modal">
       <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
         <div class="modal-container">
           <div class="modal-header">
@@ -434,8 +420,7 @@ const submitForm = async () => {
           </div>
 
           <form class="modal-body" @submit.prevent="submitForm">
-            <!-- Product Info -->
-            <div class="form-section">
+                        <div class="form-section">
               <h3 class="section-label"><i class="pi pi-tag"></i> {{ t('inventory.modal.productInfo') }}</h3>
               <div class="form-grid">
                 <div class="form-group span-full" :class="{ 'has-error': formErrors.name }">
@@ -460,8 +445,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Stock Info -->
-            <div class="form-section">
+                        <div class="form-section">
               <h3 class="section-label"><i class="pi pi-chart-bar"></i> {{ t('inventory.modal.stockControl') }}</h3>
               <div class="form-grid">
                 <div class="form-group" :class="{ 'has-error': formErrors.stock }">
@@ -479,8 +463,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Actions -->
-            <div class="modal-actions">
+                        <div class="modal-actions">
               <button type="button" class="btn-cancel" @click="closeModal">{{ t('inventory.modal.cancel') }}</button>
               <button type="submit" class="btn-submit" :disabled="isSaving">
                 <i :class="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"></i>
@@ -496,7 +479,6 @@ const submitForm = async () => {
 </template>
 
 <style scoped>
-/* Font imported as requested or assumes project has it */
 .inventory-container {
   padding: 32px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -506,7 +488,6 @@ const submitForm = async () => {
   gap: 24px;
 }
 
-/* Stat Cards */
 .stat-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -576,7 +557,6 @@ const submitForm = async () => {
   color: #6b7280;
 }
 
-/* Toolbar */
 .toolbar {
   display: flex;
   gap: 12px;
@@ -654,7 +634,6 @@ const submitForm = async () => {
   background: #1d4ed8;
 }
 
-/* Table Section */
 .table-section {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -723,7 +702,6 @@ const submitForm = async () => {
   color: #3b82f6;
 }
 
-/* Extended Filters */
 .extended-filters {
   display: flex;
   gap: 16px;
@@ -754,7 +732,6 @@ const submitForm = async () => {
   transform: translateY(-10px);
 }
 
-/* Table */
 .table-wrapper {
   overflow-x: auto;
 }
@@ -790,7 +767,6 @@ const submitForm = async () => {
   background: #f9fafb;
 }
 
-/* Cells */
 .code-cell {
   background: #f9fafb;
   border: 1px solid #e5e7eb;
@@ -913,7 +889,6 @@ const submitForm = async () => {
   background: #2563eb;
 }
 
-/* Footer / Pagination */
 .table-footer {
   display: flex;
   justify-content: space-between;
@@ -983,7 +958,6 @@ const submitForm = async () => {
   font-weight: 700;
 }
 
-/* Toast */
 .toast {
   position: fixed; top: 24px; right: 24px; z-index: 10000;
   display: flex; align-items: center; gap: 10px;
@@ -998,7 +972,6 @@ const submitForm = async () => {
 @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
-/* Modal Overlay */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 9000;
   background: rgba(15, 23, 42, 0.65);
@@ -1014,14 +987,12 @@ const submitForm = async () => {
 @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes scaleOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.95); opacity: 0; } }
 
-/* Modal Container */
 .modal-container {
   background: #FFFFFF; border-radius: 16px;
   width: 100%; max-width: 600px; max-height: 90vh;
   overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
 
-/* Modal Header */
 .modal-header {
   display: flex; align-items: center; gap: 16px;
   padding: 24px 28px; border-bottom: 1px solid #e5e7eb;
@@ -1044,10 +1015,8 @@ const submitForm = async () => {
 }
 .modal-close:hover { background: #f3f4f6; color: #111827; }
 
-/* Modal Body */
 .modal-body { padding: 24px 28px; }
 
-/* Form Sections */
 .form-section {
   margin-bottom: 24px; padding-bottom: 20px;
   border-bottom: 1px solid #f3f4f6;
@@ -1059,7 +1028,6 @@ const submitForm = async () => {
 }
 .section-label i { color: #3b82f6; font-size: 15px; }
 
-/* Form Grid */
 .form-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
@@ -1087,13 +1055,11 @@ const submitForm = async () => {
   padding-right: 32px;
 }
 
-/* Validation Errors */
 .has-error input, .has-error select { border-color: #ef4444; }
 .has-error input:focus, .has-error select:focus { box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
 .error-text { font-size: 12px; color: #ef4444; font-weight: 500; }
 .helper-text { font-size: 11px; color: #9ca3af; font-weight: 400; }
 
-/* Modal Actions */
 .modal-actions {
   display: flex; justify-content: flex-end; gap: 12px;
   padding: 20px 28px; border-top: 1px solid #e5e7eb;
@@ -1116,7 +1082,6 @@ const submitForm = async () => {
 .btn-submit:hover { background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
 .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
-/* Responsive */
 @media (max-width: 768px) {
   .stat-cards { grid-template-columns: repeat(2, 1fr); }
   .toolbar { flex-wrap: wrap; }

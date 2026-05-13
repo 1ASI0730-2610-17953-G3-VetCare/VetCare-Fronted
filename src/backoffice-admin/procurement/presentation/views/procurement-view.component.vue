@@ -141,8 +141,7 @@ const createSupplier = async () => {
 <template>
   <div class="procurement-view">
     
-    <!-- Toast -->
-    <Transition name="toast">
+        <Transition name="toast">
       <div v-if="showToast" :class="['toast', `toast-${toastType}`]">
         <i :class="toastType === 'success' ? 'pi pi-check-circle' : 'pi pi-times-circle'"></i>
         <span>{{ toastMessage }}</span>
@@ -150,11 +149,9 @@ const createSupplier = async () => {
     </Transition>
 
     <div class="main-layout">
-      <!-- Left Column: Table -->
-      <div class="left-panel">
+            <div class="left-panel">
         
-        <!-- Toolbar -->
-        <div class="toolbar">
+                <div class="toolbar">
           <div class="search-input-wrapper">
             <i class="pi pi-search search-icon"></i>
             <input type="text" v-model="searchQuery" :placeholder="t('procurement.toolbar.search')" class="search-input" />
@@ -164,8 +161,7 @@ const createSupplier = async () => {
           </button>
         </div>
 
-        <!-- Table Container -->
-        <div class="table-container">
+                <div class="table-container">
           <div v-if="store.isLoading" class="loading-state">Cargando...</div>
           <div v-else-if="store.error" class="error-state">Error al cargar proveedores</div>
           <div v-else>
@@ -213,8 +209,7 @@ const createSupplier = async () => {
           </div>
         </div>
 
-        <!-- Pagination -->
-        <div class="table-footer" v-if="!store.isLoading && !store.error">
+                <div class="table-footer" v-if="!store.isLoading && !store.error">
           <div class="footer-info">
             {{ t('procurement.pagination.showing') }} <strong>{{ filteredSuppliers.length ? (currentPage - 1) * itemsPerPage + 1 : 0 }}-{{ Math.min(currentPage * itemsPerPage, filteredSuppliers.length) }}</strong> {{ t('procurement.pagination.of') }} <strong>{{ filteredSuppliers.length }}</strong> {{ t('procurement.pagination.records') }}
           </div>
@@ -234,11 +229,9 @@ const createSupplier = async () => {
         </div>
       </div>
 
-      <!-- Right Column: Forms & Summaries -->
-      <div class="right-panel">
+            <div class="right-panel">
         
-        <!-- New Order Form Card -->
-        <div class="order-card">
+                <div class="order-card">
           <div class="order-card-header">
             <div class="header-icon-box">🗒</div>
             <div class="header-titles">
@@ -288,8 +281,7 @@ const createSupplier = async () => {
           </form>
         </div>
 
-        <!-- Month Summary Card -->
-        <div class="summary-card">
+                <div class="summary-card">
           <div class="summary-header">
             <span class="summary-icon">🥧</span>
             <h3>{{ t('procurement.summary.title') }}</h3>
@@ -329,8 +321,7 @@ const createSupplier = async () => {
       </div>
     </div>
 
-    <!-- Modal Nuevo Proveedor -->
-    <Transition name="modal">
+        <Transition name="modal">
       <div v-if="showSupplierModal" class="modal-overlay" @click.self="closeSupplierModal">
         <div class="modal-container">
           <div class="modal-header">
@@ -343,8 +334,7 @@ const createSupplier = async () => {
           </div>
 
           <form class="modal-body" @submit.prevent="createSupplier">
-            <!-- Contact Info -->
-            <div class="form-section">
+                        <div class="form-section">
               <h3 class="section-label"><i class="pi pi-address-book"></i> {{ t('procurement.supplierModal.personalInfo') }}</h3>
               <div class="form-grid">
                 <div class="form-group span-full" :class="{ 'has-error': supplierFormErrors.name }">
@@ -377,8 +367,7 @@ const createSupplier = async () => {
               </div>
             </div>
 
-            <!-- Actions -->
-            <div class="modal-actions">
+                        <div class="modal-actions">
               <button type="button" class="btn-cancel" @click="closeSupplierModal">{{ t('procurement.supplierModal.cancel') }}</button>
               <button type="submit" class="btn-submit" :disabled="isSavingSupplier">
                 <i :class="isSavingSupplier ? 'pi pi-spin pi-spinner' : 'pi pi-check'"></i>
@@ -410,7 +399,7 @@ const createSupplier = async () => {
 
 .left-panel {
   flex: 1;
-  min-width: 0; /* Prevents flex item from overflowing */
+  min-width: 0; 
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -423,7 +412,6 @@ const createSupplier = async () => {
   gap: 24px;
 }
 
-/* Toolbar & Search */
 .toolbar {
   display: flex;
   gap: 12px;
@@ -482,7 +470,6 @@ const createSupplier = async () => {
   background: #1d4ed8;
 }
 
-/* Table Container */
 .table-container {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -525,7 +512,6 @@ const createSupplier = async () => {
   background: #f9fafb;
 }
 
-/* Table Cells */
 .supplier-cell {
   display: flex;
   align-items: center;
@@ -569,7 +555,6 @@ const createSupplier = async () => {
   text-decoration: underline;
 }
 
-/* Status Badges */
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -618,7 +603,6 @@ const createSupplier = async () => {
   color: #374151;
 }
 
-/* Pagination */
 .table-footer {
   display: flex;
   justify-content: space-between;
@@ -692,7 +676,6 @@ const createSupplier = async () => {
   font-weight: 700;
 }
 
-/* Right Panel Cards */
 .order-card, .summary-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -729,7 +712,6 @@ const createSupplier = async () => {
   margin: 0;
 }
 
-/* Order Form */
 .order-form {
   display: flex;
   flex-direction: column;
@@ -839,7 +821,6 @@ const createSupplier = async () => {
   color: #f59e0b;
 }
 
-/* Summary Card */
 .summary-header {
   display: flex;
   align-items: center;
@@ -896,7 +877,6 @@ const createSupplier = async () => {
 .val-orange { color: #d97706; }
 .val-purple { color: #7c3aed; }
 
-/* Toast Notification */
 .toast {
   position: fixed; top: 24px; right: 24px; z-index: 10000;
   display: flex; align-items: center; gap: 10px;
@@ -911,7 +891,6 @@ const createSupplier = async () => {
 @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
-/* Modal Overlay */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 9000;
   background: rgba(15, 23, 42, 0.65);
@@ -927,14 +906,12 @@ const createSupplier = async () => {
 @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes scaleOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.95); opacity: 0; } }
 
-/* Modal Container */
 .modal-container {
   background: #FFFFFF; border-radius: 16px;
   width: 100%; max-width: 600px; max-height: 90vh;
   overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
 
-/* Modal Header */
 .modal-header {
   display: flex; align-items: center; gap: 16px;
   padding: 24px 28px; border-bottom: 1px solid #e5e7eb;
@@ -957,10 +934,8 @@ const createSupplier = async () => {
 }
 .modal-close:hover { background: #f3f4f6; color: #111827; }
 
-/* Modal Body */
 .modal-body { padding: 24px 28px; }
 
-/* Form Sections */
 .form-section {
   margin-bottom: 24px; padding-bottom: 20px;
   border-bottom: 1px solid #f3f4f6;
@@ -972,7 +947,6 @@ const createSupplier = async () => {
 }
 .section-label i { color: #3b82f6; font-size: 15px; }
 
-/* Form Grid */
 .form-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
@@ -986,7 +960,6 @@ const createSupplier = async () => {
   background: #FFFFFF;
 }
 
-/* Modal Actions */
 .modal-actions {
   display: flex; justify-content: flex-end; gap: 12px;
   padding: 20px 28px; border-top: 1px solid #e5e7eb;

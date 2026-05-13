@@ -1,12 +1,22 @@
 <script setup>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRoute, useRouter } from 'vue-router';
 
 const { t } = useI18n();
+const route = useRoute();
+const router = useRouter();
 
 const searchQuery = ref('');
 const statusFilter = ref('');
 const dateFilter = ref('');
+
+const currentPage = ref(1);
+const itemsPerPage = ref(5);
+
+watch([searchQuery, statusFilter, dateFilter], () => {
+  currentPage.value = 1;
+});
 
 const showModal = ref(false);
 const isSaving = ref(false);
@@ -122,10 +132,10 @@ const getAvatarClass = (breed) => {
 };
 
 const getPetIcon = (type) => {
-  // We can use a generic icon or specific ones if available. PrimeIcons might not have specific dog/cat.
-  // We'll use a paw icon.
-  return 'pi pi-twitter'; // PrimeIcons doesn't have a paw, pi-twitter looks a bit like a bird, let's use pi-heart or something, wait, PrimeIcons 7 has pi-objects or we can just use a text initial.
-  // Actually, let's use an initial if no icon.
+
+
+  return 'pi pi-twitter';
+
 };
 
 const openModal = (consulta = null) => { 
@@ -258,8 +268,8 @@ const printConsulta = async (consulta) => {
         window.onload = function() {
           setTimeout(function() {
             window.print();
-            // Optional: close after printing window closes
-            // setTimeout(function() { window.close(); }, 500);
+
+
           }, 500);
         }
       <\/script>
@@ -339,6 +349,35 @@ const filteredConsultas = computed(() => {
   });
 });
 
+const totalPages = computed(() => {
+  return Math.ceil(filteredConsultas.value.length / itemsPerPage.value) || 1;
+});
+
+const paginatedConsultas = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return filteredConsultas.value.slice(start, end);
+});
+
+const visiblePages = computed(() => {
+  const total = totalPages.value;
+  const current = currentPage.value;
+  const pages = [];
+  
+  if (total <= 5) {
+    for (let i = 1; i <= total; i++) pages.push(i);
+  } else {
+    if (current <= 3) {
+      pages.push(1, 2, 3, 4, '...', total);
+    } else if (current >= total - 2) {
+      pages.push(1, '...', total - 3, total - 2, total - 1, total);
+    } else {
+      pages.push(1, '...', current - 1, current, current + 1, '...', total);
+    }
+  }
+  return pages;
+});
+
 const submitForm = async () => {
   if (!validateForm()) return;
   isSaving.value = true;
@@ -384,11 +423,19 @@ const submitForm = async () => {
     isSaving.value = false;
   }
 };
+
+onMounted(() => {
+  if (route.query.new === 'true') {
+    openModal();
+
+    router.replace({ query: {} });
+  }
+});
 </script>
 
 <template>
   <div class="consultas-view">
-    <!-- Toast -->
+    
     <Transition name="toast">
       <div v-if="showToast" :class="['toast', `toast-${toastType}`]">
         <i :class="toastType === 'success' ? 'pi pi-check-circle' : (toastType === 'info' ? 'pi pi-info-circle' : 'pi pi-times-circle')"></i>
@@ -462,7 +509,7 @@ const submitForm = async () => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="consulta in filteredConsultas" :key="consulta.id">
+            <tr v-for="consulta in paginatedConsultas" :key="consulta.id">
               <td :data-label="t('clinicManagement.consultations.columns.id')" class="cell-id">{{ consulta.id }}</td>
               <td :data-label="t('clinicManagement.consultations.columns.patient')">
                 <div class="patient-cell">
@@ -511,23 +558,54 @@ const submitForm = async () => {
         </table>
       </div>
 
-      <div class="pagination-bar">
+      <div class="pagination-bar" v-if="filteredConsultas.length > 0">
         <div class="results-summary">
-          {{ t('clinicManagement.consultations.pagination.showing', { from: 1, to: 5, total: 47 }) }}
+          {{ t('clinicManagement.consultations.pagination.showing', { 
+            from: (currentPage - 1) * itemsPerPage + 1, 
+            to: Math.min(currentPage * itemsPerPage, filteredConsultas.length), 
+            total: filteredConsultas.length 
+          }) }}
         </div>
         <div class="pagination-controls">
-          <button class="pagination-nav-btn"><i class="pi pi-chevron-left"></i></button>
-          <button class="pagination-btn active">1</button>
-          <button class="pagination-btn">2</button>
-          <button class="pagination-btn">3</button>
-          <span class="pagination-dots">…</span>
-          <button class="pagination-btn">10</button>
-          <button class="pagination-nav-btn"><i class="pi pi-chevron-right"></i></button>
+          <button 
+            class="pagination-nav-btn" 
+            @click="currentPage > 1 && currentPage--" 
+            :disabled="currentPage === 1"
+            :class="{ 'disabled-btn': currentPage === 1 }"
+          >
+            <i class="pi pi-chevron-left"></i>
+          </button>
+          
+          <template v-for="(page, index) in visiblePages" :key="index">
+            <span v-if="page === '...'" class="pagination-dots">…</span>
+            <button 
+              v-else 
+              class="pagination-btn" 
+              :class="{ active: currentPage === page }"
+              @click="currentPage = page"
+            >
+              {{ page }}
+            </button>
+          </template>
+          
+          <button 
+            class="pagination-nav-btn" 
+            @click="currentPage < totalPages && currentPage++" 
+            :disabled="currentPage === totalPages"
+            :class="{ 'disabled-btn': currentPage === totalPages }"
+          >
+            <i class="pi pi-chevron-right"></i>
+          </button>
         </div>
+      </div>
+      
+      <div v-else class="empty-state-container" style="padding: 40px; text-align: center; color: #6b7280;">
+        <i class="pi pi-inbox" style="font-size: 32px; margin-bottom: 12px; color: #9ca3af;"></i>
+        <p>No se encontraron consultas que coincidan con los filtros.</p>
       </div>
     </div>
 
-    <!-- Modal Registrar Consulta -->
+    
     <Transition name="modal">
       <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
         <div class="modal-container">
@@ -541,7 +619,7 @@ const submitForm = async () => {
           </div>
 
           <form class="modal-body" @submit.prevent="submitForm">
-            <!-- Patient & Client Info -->
+            
             <div class="form-section">
               <h3 class="section-label"><i class="pi pi-users"></i> {{ t('clinicManagement.consultations.registerForm.patientInfo') }}</h3>
               <div class="form-grid">
@@ -558,7 +636,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Consultation Info -->
+            
             <div class="form-section">
               <h3 class="section-label"><i class="pi pi-folder-open"></i> {{ t('clinicManagement.consultations.registerForm.consultationInfo') }}</h3>
               <div class="form-grid">
@@ -603,7 +681,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Actions -->
+            
             <div class="modal-actions">
               <button type="button" class="btn-cancel" @click="closeModal">{{ t('clinicManagement.consultations.registerForm.cancel') }}</button>
               <button type="submit" class="btn-submit" :disabled="isSaving">
@@ -616,7 +694,7 @@ const submitForm = async () => {
       </div>
     </Transition>
 
-    <!-- Modal Ver Detalle -->
+    
     <Transition name="modal">
       <div v-if="showViewModal" class="modal-overlay" @click.self="closeViewModal">
         <div class="modal-container">
@@ -1112,6 +1190,12 @@ const submitForm = async () => {
   font-weight: 600;
 }
 
+.disabled-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f9fafb;
+}
+
 .pagination-dots {
   color: #6b7280;
   font-size: 14px;
@@ -1122,7 +1206,7 @@ const submitForm = async () => {
   font-size: 12px;
 }
 
-/* Toast */
+
 .toast {
   position: fixed; top: 24px; right: 24px; z-index: 10000;
   display: flex; align-items: center; gap: 10px;
@@ -1139,7 +1223,7 @@ const submitForm = async () => {
 @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
-/* Modal Overlay */
+
 .modal-overlay {
   position: fixed; inset: 0; z-index: 9000;
   background: rgba(15, 23, 42, 0.75);
@@ -1155,14 +1239,14 @@ const submitForm = async () => {
 @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes scaleOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.95); opacity: 0; } }
 
-/* Modal Container */
+
 .modal-container {
   background: #FFFFFF; border-radius: 16px;
   width: 100%; max-width: 680px; max-height: 90vh;
   overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
 
-/* Modal Header */
+
 .modal-header {
   display: flex; align-items: center; gap: 16px;
   padding: 24px 28px; border-bottom: 1px solid #E2E8F0;
@@ -1185,10 +1269,10 @@ const submitForm = async () => {
 }
 .modal-close:hover { background: #F1F5F9; color: #0F172A; }
 
-/* Modal Body */
+
 .modal-body { padding: 24px 28px; }
 
-/* Form Sections */
+
 .form-section {
   margin-bottom: 24px; padding-bottom: 20px;
   border-bottom: 1px solid #F1F5F9;
@@ -1200,7 +1284,7 @@ const submitForm = async () => {
 }
 .section-label i { color: #0EA5E9; font-size: 15px; }
 
-/* Form Grid */
+
 .form-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
@@ -1231,12 +1315,12 @@ const submitForm = async () => {
   padding-right: 32px;
 }
 
-/* Validation Errors */
+
 .has-error input, .has-error select, .has-error textarea { border-color: #EF4444; }
 .has-error input:focus, .has-error select:focus, .has-error textarea:focus { box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
 .error-text { font-size: 12px; color: #EF4444; font-weight: 500; }
 
-/* Modal Actions */
+
 .modal-actions {
   display: flex; justify-content: flex-end; gap: 12px;
   padding: 20px 28px; border-top: 1px solid #E2E8F0;
@@ -1259,7 +1343,7 @@ const submitForm = async () => {
 .btn-submit:hover { background: linear-gradient(135deg, #0284C7, #0369A1); box-shadow: 0 4px 12px rgba(2,132,199,0.3); }
 .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
-/* Responsive */
+
 @media (max-width: 1024px) {
   .actions-bar { flex-direction: column; align-items: stretch; gap: 16px; }
   .filters-bar { flex-direction: column; align-items: stretch; }
@@ -1325,7 +1409,7 @@ const submitForm = async () => {
   .detail-item.span-full { grid-column: 1; }
 }
 
-/* Details Modal */
+
 .detail-section {
   margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #F1F5F9;
 }

@@ -7,7 +7,7 @@ export class Client {
     this.phone = phone || '';
     this.email = email || '';
     this.address = address || '';
-    this.status = status || 'Activo'; // Activo, Inactivo
+    this.status = status || 'Activo';
     this.petsCount = petsCount || 0;
     this.lastVisitAt = lastVisitAt || null;
   }

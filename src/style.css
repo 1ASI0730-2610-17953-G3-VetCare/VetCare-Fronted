@@ -1,21 +1,17 @@
 :root {
-  /* Colors - Primary */
   --color-primary-main: #0084C7;
   --color-primary-hover: #0073AD;
   --color-primary-contrastText: #FFFFFF;
 
-  /* Colors - Background */
   --color-background-main: #F1F5F9;
   --color-background-surface: #FFFFFF;
   --color-background-sidebar: #F8FAFC;
 
-  /* Colors - Text */
   --color-text-primary: #1E293B;
   --color-text-secondary: #64748B;
   --color-text-muted: #94A3B8;
   --color-text-accent: #0084C7;
 
-  /* Colors - Status */
   --color-status-success-bg: #DCFCE7;
   --color-status-success-text: #166534;
   --color-status-success-indicator: #22C55E;
@@ -32,10 +28,8 @@
   --color-status-danger-text: #991B1B;
   --color-status-danger-indicator: #EF4444;
 
-  /* Colors - Border */
   --color-border-light: #E2E8F0;
 
-  /* Typography */
   --font-family: 'Inter', system-ui, sans-serif;
   
   --font-title-size: 24px;
@@ -56,7 +50,6 @@
   --font-body-tag-size: 11px;
   --font-body-tag-weight: 600;
 
-  /* Spacing */
   --spacing-container-padding: 24px;
   --spacing-element-gap: 16px;
   
@@ -64,7 +57,6 @@
   --radius-large: 16px;
   --radius-full: 9999px;
 
-  /* Shadows */
   --shadow-card: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
 }
 

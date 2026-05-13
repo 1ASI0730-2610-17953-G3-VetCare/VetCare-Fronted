@@ -175,6 +175,66 @@
     }
   },
   "clinicManagement": {
+    "medicalHistory": {
+      "header": {
+        "owner": "Propietario:",
+        "print": "Imprimir",
+        "newConsultation": "Nueva Consulta",
+        "changePatient": "Cambiar Paciente"
+      },
+      "stats": {
+        "totalConsultations": "Total Consultas",
+        "vaccinesApplied": "Vacunas Aplicadas",
+        "hospitalizations": "Hospitalizaciones",
+        "lastVisit": "Última Visita"
+      },
+      "timeline": {
+        "emptyTimeline": "No hay registros en el historial clínico de este paciente.",
+        "generalConsultation": "Consulta General",
+        "subjective": "Subjetivo (S)",
+        "objective": "Objetivo (O)",
+        "vitals": {
+          "temperature": "Temperatura",
+          "heartRate": "Frecuencia Cardíaca",
+          "weight": "Peso",
+          "bodyCondition": "Condición Corporal"
+        },
+        "evaluation": "Evaluación (A)",
+        "evalLabels": {
+          "presumptiveDiagnosis": "Diagnóstico Presuntivo:",
+          "differentialDiagnosis": "Diagnósticos Diferenciales:",
+          "prognosis": "Pronóstico:"
+        },
+        "plan": "Plan (P)",
+        "planLabels": {
+          "pharmacologicalTreatment": "Tratamiento Farmacológico:",
+          "dietaryRecommendations": "Recomendaciones Dietéticas:",
+          "followUp": "Seguimiento:"
+        },
+        "tags": {
+          "gastroenterology": "Gastroenterología",
+          "prevention": "Prevención",
+          "traumatology": "Traumatología",
+          "surgery": "Cirugía"
+        },
+        "annualVaccination": "Vacunación Anual",
+        "vaccinesApplied": "Vacunas Aplicadas",
+        "hospitalizationSurgery": "Hospitalización - Cirugía",
+        "hospitalizationSummary": "Resumen de Hospitalización",
+        "hospLabels": {
+          "reason": "Motivo:",
+          "procedure": "Procedimiento:",
+          "evolution": "Evolución:"
+        },
+        "postOpParameters": "Parámetros Post-Operatorios",
+        "postOpVitals": {
+          "temp": "Temp. Post-Op",
+          "hr": "FC",
+          "spo2": "SpO2",
+          "crt": "TRC"
+        }
+      }
+    },
     "tabs": {
       "patients": "Pacientes",
       "clients": "Clientes",
@@ -310,6 +370,9 @@
     "vaccines": {
       "title": "Vacunas",
       "description": "Gestión de vacunas y calendarios de vacunación.",
+      "pagination": {
+        "showing": "Mostrando {from} a {to} de {total} vacunas"
+      },
       "register": "Registrar Vacuna",
       "search": "Buscar paciente o vacuna...",
       "allStatuses": "Todos los estados",
@@ -364,6 +427,97 @@
         "required": "Campo requerido"
       }
     },
+    "hospitalization": {
+      "title": "Pacientes Hospitalizados",
+      "description": "Gestión y seguimiento de pacientes en hospitalización",
+      "register": "Registrar Ingreso",
+      "stats": {
+        "total": "Total Hospitalizados",
+        "activePatients": "Pacientes activos",
+        "critical": "Estado Crítico",
+        "immediateAttention": "Requieren atención inmediata",
+        "surgeriesToday": "Cirugías Hoy",
+        "scheduledToday": "Programadas para hoy"
+      },
+      "tabs": {
+        "all": "Todos"
+      },
+      "status": {
+        "Crítico": "Crítico",
+        "Estable": "Estable",
+        "Recuperación": "Recuperación"
+      },
+      "table": {
+        "title": "Lista de Pacientes",
+        "columns": {
+          "patient": "PACIENTE",
+          "owner": "PROPIETARIO",
+          "status": "ESTADO",
+          "admissionDate": "FECHA INGRESO",
+          "diagnosis": "DIAGNÓSTICO",
+          "treatment": "TRATAMIENTO",
+          "actions": "ACCIONES"
+        }
+      },
+      "actions": {
+        "view": "Ver detalle",
+        "edit": "Editar"
+      },
+      "pagination": {
+        "showing": "Mostrando {from} a {to} de {total} pacientes"
+      },
+      "dailyTracking": {
+        "title": "Seguimiento Diario"
+      },
+      "pendingTasks": {
+        "title": "Tareas Pendientes",
+        "status": {
+          "urgent": "Urgente",
+          "today": "Hoy",
+          "scheduled": "Programada",
+          "tomorrow": "Mañana"
+        }
+      },
+      "modals": {
+        "cancel": "Cancelar",
+        "save": "Guardar Cambios",
+        "view": {
+          "title": "Detalles del Paciente",
+          "patient": "Paciente",
+          "owner": "Propietario",
+          "status": "Estado",
+          "admissionDate": "Fecha de Ingreso",
+          "diagnosis": "Diagnóstico",
+          "treatments": "Tratamientos"
+        },
+        "edit": {
+          "title": "Editar Paciente",
+          "patientName": "Nombre del Paciente",
+          "diagnosis": "Diagnóstico",
+          "status": "Estado"
+        },
+        "register": {
+          "title": "Registrar Ingreso",
+          "patientName": "Nombre del Paciente",
+          "patientNamePlaceholder": "Ej. Max",
+          "species": "Especie",
+          "speciesDog": "Perro",
+          "speciesCat": "Gato",
+          "breed": "Raza",
+          "breedPlaceholder": "Ej. Golden Retriever",
+          "age": "Edad",
+          "agePlaceholder": "Ej. 5 años",
+          "owner": "Propietario",
+          "ownerPlaceholder": "Nombre completo",
+          "phone": "Teléfono",
+          "phonePlaceholder": "Ej. +34 612 345 678",
+          "diagnosis": "Diagnóstico Inicial",
+          "diagnosisPlaceholder": "Motivo de ingreso",
+          "status": "Estado de Ingreso",
+          "submit": "Registrar Paciente"
+        }
+      }
+    },
     "clients": {
       "title": "Clientes Registrados",
       "description": "Gestión de clientes y propietarios de mascotas.",
@@ -396,6 +550,9 @@
       "status": {
         "Activo": "Activo",
         "Inactivo": "Inactivo"
+      },
+      "pagination": {
+        "showing": "Mostrando {from} a {to} de {total} clientes"
       },
       "registerForm": {
         "title": "Registrar Nuevo Cliente",

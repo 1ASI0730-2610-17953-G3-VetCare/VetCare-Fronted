@@ -5,7 +5,7 @@ export const tokenStorage = {
   saveSession(accessToken, user, roles) {
     localStorage.setItem(TOKEN_KEY, accessToken);
     if (user) {
-      // Guardamos los roles junto con el usuario para poder restaurarlos
+
       const userToSave = { ...user, roles: roles || [] };
       localStorage.setItem(USER_KEY, JSON.stringify(userToSave));
     }

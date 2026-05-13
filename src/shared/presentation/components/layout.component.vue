@@ -79,8 +79,7 @@ const navLinks = computed(() => {
 
 <template>
   <div class="layout-wrapper">
-    <!-- Sidebar -->
-    <aside class="sidebar">
+        <aside class="sidebar">
       <div class="sidebar-brand text-title">
         <i class="pi pi-briefcase" style="font-size: 1.5rem; color: var(--color-primary-main)"></i>
         VetCare Pro
@@ -112,31 +111,26 @@ const navLinks = computed(() => {
       </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
+        <div class="main-content">
       <header class="main-header">
         <div class="header-info">
           <h2 class="header-title" style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-text-primary);">{{ headerTitle }}</h2>
           <p class="header-subtitle" style="margin: 4px 0 0; font-size: 0.875rem; color: var(--color-text-secondary);">{{ headerSubtitle }}</p>
         </div>
         <div class="header-actions">
-          <!-- Language Switcher -->
-          <LanguageSwitcher />
+                    <LanguageSwitcher />
 
-          <!-- Notifications -->
-          <button class="action-btn icon-btn" :title="$t('layout.notifications')">
+                    <button class="action-btn icon-btn" :title="$t('layout.notifications')">
             <i class="pi pi-bell"></i>
           </button>
 
-          <!-- Logout -->
-          <button class="action-btn icon-btn" title="Cerrar sesión" @click="handleLogout">
+                    <button class="action-btn icon-btn" title="Cerrar sesión" @click="handleLogout">
             <i class="pi pi-sign-out"></i>
           </button>
         </div>
       </header>
 
-      <!-- Dynamic View (Dashboard/Agenda/etc) -->
-      <main class="page-container">
+            <main class="page-container">
         <slot></slot>
       </main>
     </div>
@@ -150,7 +144,6 @@ const navLinks = computed(() => {
   width: 100%;
 }
 
-/* --- SIDEBAR --- */
 .sidebar {
   width: 260px;
   background-color: var(--color-background-sidebar);
@@ -201,7 +194,7 @@ const navLinks = computed(() => {
   border-left: 4px solid var(--color-primary-main);
   border-radius: 0 8px 8px 0;
   margin-left: 0;
-  padding-left: 32px; /* compensate for margin lost */
+  padding-left: 32px; 
 }
 
 .nav-icon {
@@ -235,7 +228,6 @@ const navLinks = computed(() => {
   color: var(--color-text-primary);
 }
 
-/* --- MAIN CONTENT --- */
 .main-content {
   flex: 1;
   display: flex;

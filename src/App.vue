@@ -20,5 +20,4 @@ const isPublicRoute = computed(() => {
 </template>
 
 <style>
-/* Global styles are imported via main.js importing style.css */
 </style>

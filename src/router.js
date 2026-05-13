@@ -25,8 +25,6 @@ const routes = [
   {
     path: '/',
     redirect: to => {
-      // Redirección dinámica basada en roles se manejará en el guard
-      // Por defecto enviamos a dashboard, el guard redirigirá si no tiene permisos
       return '/dashboard';
     }
   }

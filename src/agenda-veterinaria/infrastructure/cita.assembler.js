@@ -1,9 +1,6 @@
 import { Cita } from '../domain/model/cita.entity.js';
 
 export class CitaAssembler {
-  /**
-   * Translates a resource JSON from the API into a Cita entity.
-   */
   static toEntityFromResource(resource) {
     return new Cita(
       resource.id,
@@ -17,9 +14,6 @@ export class CitaAssembler {
     );
   }
 
-  /**
-   * Translates an array of resources into an array of Cita entities.
-   */
   static toEntitiesFromResources(resources) {
     return resources.map(resource => this.toEntityFromResource(resource));
   }

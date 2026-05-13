@@ -20,13 +20,10 @@ function toggleLanguage() {
     @click="toggleLanguage"
     aria-label="Toggle language"
   >
-    <!-- Track -->
-    <span class="lang-track">
-      <!-- Thumb / sliding pill -->
-      <span class="lang-thumb"></span>
+        <span class="lang-track">
+            <span class="lang-thumb"></span>
 
-      <!-- Labels inside the track -->
-      <span class="lang-label lang-label--es" :class="{ 'is-active': isSpanish }">
+            <span class="lang-label lang-label--es" :class="{ 'is-active': isSpanish }">
         <span class="lang-text">ES</span>
       </span>
       <span class="lang-label lang-label--en" :class="{ 'is-active': !isSpanish }">
@@ -37,7 +34,6 @@ function toggleLanguage() {
 </template>
 
 <style scoped>
-/* ───── Base ───── */
 .lang-switcher {
   --switcher-h: 36px;
   --switcher-w: 88px;
@@ -63,7 +59,6 @@ function toggleLanguage() {
     0 2px 8px rgba(0, 0, 0, 0.14);
 }
 
-/* ───── Track ───── */
 .lang-track {
   position: relative;
   display: flex;
@@ -88,7 +83,6 @@ function toggleLanguage() {
     inset 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
-/* ───── Sliding thumb ───── */
 .lang-thumb {
   position: absolute;
   top: var(--gap);
@@ -105,7 +99,6 @@ function toggleLanguage() {
   pointer-events: none;
 }
 
-/* Thumb moves to EN side */
 .is-en .lang-thumb {
   transform: translateX(calc(var(--switcher-w) - var(--thumb-w)));
   background: linear-gradient(135deg, #d4a017 0%, #f0b429 100%);
@@ -114,7 +107,6 @@ function toggleLanguage() {
     0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* ───── Labels ───── */
 .lang-label {
   position: relative;
   z-index: 2;
@@ -141,13 +133,11 @@ function toggleLanguage() {
   transition: color var(--transition);
 }
 
-/* Active label (under the thumb) becomes white */
 .lang-label.is-active .lang-text {
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-/* ───── Micro-animation on press ───── */
 .lang-switcher:active .lang-thumb {
   transform: scaleX(1.05) translateX(0);
 }
@@ -155,7 +145,6 @@ function toggleLanguage() {
   transform: scaleX(1.05) translateX(calc(var(--switcher-w) - var(--thumb-w)));
 }
 
-/* ───── Hover glow ───── */
 .lang-switcher:hover .lang-track {
   box-shadow:
     0 4px 12px rgba(0, 132, 199, 0.2),

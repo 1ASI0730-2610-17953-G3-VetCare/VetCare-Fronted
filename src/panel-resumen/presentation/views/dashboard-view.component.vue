@@ -12,7 +12,6 @@ onMounted(() => {
   store.fetchDashboardData()
 })
 
-// KPIs — map titleKey from db to translations
 const kpiStats = computed(() => {
   return store.kpis.map(kpi => ({
     ...kpi,
@@ -20,7 +19,6 @@ const kpiStats = computed(() => {
   }))
 })
 
-// Citas — map keys to translations
 const recentAppointments = computed(() => {
   return store.citas.map(apt => ({
     ...apt,
@@ -29,7 +27,6 @@ const recentAppointments = computed(() => {
   }))
 })
 
-// Alertas
 const alerts = computed(() => {
   return store.alertas.map(alert => ({
     ...alert,
@@ -37,7 +34,6 @@ const alerts = computed(() => {
   }))
 })
 
-// Actividad reciente
 const activityTimeline = computed(() => {
   return store.actividad.map(activity => ({
     ...activity,
@@ -49,8 +45,7 @@ const activityTimeline = computed(() => {
 
 <template>
   <div class="dashboard-wrapper">
-    <!-- Header & Quick Actions -->
-    <div class="dashboard-header">
+        <div class="dashboard-header">
       <div class="quick-actions">
         <button class="action-btn secondary-btn" @click="router.push('/gestion-clinica/clientes')"><i class="pi pi-id-card"></i> {{ $t('dashboard.actions.registerClient') }}</button>
         <button class="action-btn secondary-btn" @click="router.push('/gestion-clinica/pacientes')"><i class="pi pi-user-plus"></i> {{ $t('dashboard.actions.registerPatient') }}</button>
@@ -59,8 +54,7 @@ const activityTimeline = computed(() => {
       </div>
     </div>
 
-    <!-- KPI Stats Grid -->
-    <div class="kpi-grid">
+        <div class="kpi-grid">
       <div class="stat-card" v-for="stat in kpiStats" :key="stat.id">
         <div class="stat-header">
           <div :class="['icon-badge', `bg-${stat.colorClass}`]">
@@ -78,13 +72,10 @@ const activityTimeline = computed(() => {
       </div>
     </div>
 
-    <!-- Main Layout (Asymmetric 70/30) -->
-    <div class="dashboard-body">
+        <div class="dashboard-body">
       
-      <!-- Main Content (70%) -->
-      <section class="main-column">
-        <!-- Próximas Citas -->
-        <div class="card">
+            <section class="main-column">
+                <div class="card">
           <div class="card-header">
             <h3 class="text-cardTitle">{{ $t('dashboard.appointments.title') }}</h3>
             <button class="link-btn">{{ $t('dashboard.appointments.viewAgenda') }}</button>
@@ -107,11 +98,9 @@ const activityTimeline = computed(() => {
         </div>
       </section>
 
-      <!-- Side Content (30%) -->
-      <section class="side-column">
+            <section class="side-column">
         
-        <!-- Alertas -->
-        <div class="card mb-4">
+                <div class="card mb-4">
           <div class="card-header">
             <h3 class="text-cardTitle" style="color: var(--color-status-danger-text)">{{ $t('dashboard.alerts.title') }}</h3>
           </div>
@@ -125,8 +114,7 @@ const activityTimeline = computed(() => {
           </div>
         </div>
 
-        <!-- Actividad Reciente -->
-        <div class="card">
+                <div class="card">
           <div class="card-header">
             <h3 class="text-cardTitle">{{ $t('dashboard.activity.title') }}</h3>
           </div>
@@ -199,7 +187,6 @@ const activityTimeline = computed(() => {
   transform: translateY(-1px);
 }
 
-/* --- KPI GRID --- */
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -248,7 +235,6 @@ const activityTimeline = computed(() => {
 
 .bg-border-light { background-color: var(--color-background-sidebar); border: 1px solid var(--color-border-light); }
 
-/* Utility colors */
 .bg-success { background-color: var(--color-status-success-bg); }
 .text-success { color: var(--color-status-success-text); }
 .bg-warning { background-color: var(--color-status-warning-bg); }
@@ -258,7 +244,6 @@ const activityTimeline = computed(() => {
 .bg-danger { background-color: var(--color-status-danger-bg); }
 .text-danger { color: var(--color-status-danger-text); }
 
-/* --- ASYMMETRIC GRID --- */
 .dashboard-body {
   display: grid;
   grid-template-columns: 7fr 3fr;
@@ -295,7 +280,6 @@ const activityTimeline = computed(() => {
   text-decoration: underline;
 }
 
-/* --- CITAS (DATA ROW) --- */
 .data-row {
   display: flex;
   justify-content: space-between;
@@ -351,7 +335,6 @@ const activityTimeline = computed(() => {
   text-align: center;
 }
 
-/* --- ALERTAS --- */
 .alerts-list {
   display: flex;
   flex-direction: column;
@@ -389,7 +372,6 @@ const activityTimeline = computed(() => {
   line-height: 1.4;
 }
 
-/* --- ACTIVITY TIMELINE --- */
 .activity-timeline {
   display: flex;
   flex-direction: column;
@@ -397,7 +379,6 @@ const activityTimeline = computed(() => {
   position: relative;
 }
 
-/* The vertical line */
 .activity-timeline::before {
   content: '';
   position: absolute;

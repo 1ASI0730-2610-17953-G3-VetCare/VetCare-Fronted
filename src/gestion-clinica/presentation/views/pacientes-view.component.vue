@@ -1,9 +1,11 @@
 <script setup>
 import { ref, computed, reactive, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import { PatientService } from '../../infrastructure/services/patient.service.js';
 
 const { t } = useI18n();
+const router = useRouter();
 const patientService = new PatientService();
 
 const searchQuery = ref('');
@@ -77,6 +79,10 @@ const calcAge = (dateStr) => {
   return `${months} mes${months !== 1 ? 'es' : ''}`;
 };
 
+const viewClinicalHistory = (patient) => {
+  router.push({ path: '/gestion-clinica/historial', query: { patientId: patient.id } });
+};
+
 const submitForm = async () => {
   if (!validateForm()) return;
   isSaving.value = true;
@@ -100,7 +106,7 @@ const submitForm = async () => {
 
 <template>
   <div class="pacientes-view">
-    <!-- Toast -->
+    
     <Transition name="toast">
       <div v-if="showToast" :class="['toast', `toast-${toastType}`]">
         <i :class="toastType === 'success' ? 'pi pi-check-circle' : 'pi pi-times-circle'"></i>
@@ -108,7 +114,7 @@ const submitForm = async () => {
       </div>
     </Transition>
 
-    <!-- Barra de Acciones -->
+    
     <div class="actions-bar">
       <div class="view-info">
         <h1 class="view-title">{{ t('clinicManagement.patients.title') }}</h1>
@@ -120,7 +126,7 @@ const submitForm = async () => {
       </button>
     </div>
 
-    <!-- Filtros -->
+    
     <div class="filters-card">
       <div class="search-box">
         <i class="pi pi-search search-icon"></i>
@@ -136,7 +142,7 @@ const submitForm = async () => {
       </div>
     </div>
 
-    <!-- Grid de Pacientes -->
+    
     <div class="patients-grid">
       <div class="patient-card" v-for="patient in filteredPatients" :key="patient.id">
         <div class="card-header">
@@ -170,7 +176,7 @@ const submitForm = async () => {
           </div>
         </div>
         <div class="card-footer">
-          <button class="btn-link">
+          <button class="btn-link" @click="viewClinicalHistory(patient)">
             {{ t('clinicManagement.patients.viewRecord') }}
             <i class="pi pi-arrow-right"></i>
           </button>
@@ -178,14 +184,14 @@ const submitForm = async () => {
       </div>
     </div>
 
-    <!-- Empty State -->
+    
     <div v-if="filteredPatients.length === 0" class="empty-state">
       <i class="pi pi-inbox empty-icon"></i>
       <h3>{{ t('clinicManagement.patients.emptyState.title') }}</h3>
       <p>{{ t('clinicManagement.patients.emptyState.description') }}</p>
     </div>
 
-    <!-- Modal Registrar Paciente -->
+    
     <Transition name="modal">
       <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
         <div class="modal-container">
@@ -199,7 +205,7 @@ const submitForm = async () => {
           </div>
 
           <form class="modal-body" @submit.prevent="submitForm">
-            <!-- Pet Info Section -->
+            
             <div class="form-section">
               <h3 class="section-label"><i class="pi pi-github"></i> {{ t('clinicManagement.patients.registerForm.petInfo') }}</h3>
               <div class="form-grid">
@@ -244,7 +250,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Owner Info Section -->
+            
             <div class="form-section">
               <h3 class="section-label"><i class="pi pi-user"></i> {{ t('clinicManagement.patients.registerForm.ownerInfo') }}</h3>
               <div class="form-grid">
@@ -264,7 +270,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Notes -->
+            
             <div class="form-section">
               <div class="form-group span-full">
                 <label>{{ t('clinicManagement.patients.registerForm.notes') }}</label>
@@ -272,7 +278,7 @@ const submitForm = async () => {
               </div>
             </div>
 
-            <!-- Actions -->
+            
             <div class="modal-actions">
               <button type="button" class="btn-cancel" @click="closeModal">{{ t('clinicManagement.patients.registerForm.cancel') }}</button>
               <button type="submit" class="btn-submit" :disabled="isSaving">
@@ -294,7 +300,7 @@ const submitForm = async () => {
   gap: 24px;
 }
 
-/* Barra de Acciones */
+
 .actions-bar {
   display: flex;
   justify-content: space-between;
@@ -304,15 +310,20 @@ const submitForm = async () => {
 }
 
 .view-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #1E293B;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.5px;
   margin: 0 0 4px 0;
 }
 
 .view-description {
   font-size: 14px;
-  color: #64748B;
+  line-height: 20px;
+  font-weight: 400;
+  color: #6b7280;
+  letter-spacing: -0.5px;
   margin: 0;
 }
 
@@ -335,7 +346,7 @@ const submitForm = async () => {
   background-color: #0284C7;
 }
 
-/* Filtros */
+
 .filters-card {
   display: flex;
   gap: 16px;
@@ -414,7 +425,7 @@ const submitForm = async () => {
   font-size: 12px;
 }
 
-/* Grid de Pacientes */
+
 .patients-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -562,7 +573,7 @@ const submitForm = async () => {
   font-size: 12px;
 }
 
-/* Empty State */
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -593,7 +604,7 @@ const submitForm = async () => {
   margin: 0;
 }
 
-/* Toast */
+
 .toast {
   position: fixed; top: 24px; right: 24px; z-index: 10000;
   display: flex; align-items: center; gap: 10px;
@@ -609,7 +620,7 @@ const submitForm = async () => {
 @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
-/* Modal Overlay */
+
 .modal-overlay {
   position: fixed; inset: 0; z-index: 9000;
   background: rgba(15, 23, 42, 0.75);
@@ -625,14 +636,14 @@ const submitForm = async () => {
 @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes scaleOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.95); opacity: 0; } }
 
-/* Modal Container */
+
 .modal-container {
   background: #FFFFFF; border-radius: 16px;
   width: 100%; max-width: 680px; max-height: 90vh;
   overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
 
-/* Modal Header */
+
 .modal-header {
   display: flex; align-items: center; gap: 16px;
   padding: 24px 28px; border-bottom: 1px solid #E2E8F0;
@@ -655,10 +666,10 @@ const submitForm = async () => {
 }
 .modal-close:hover { background: #F1F5F9; color: #0F172A; }
 
-/* Modal Body */
+
 .modal-body { padding: 24px 28px; }
 
-/* Form Sections */
+
 .form-section {
   margin-bottom: 24px; padding-bottom: 20px;
   border-bottom: 1px solid #F1F5F9;
@@ -670,7 +681,7 @@ const submitForm = async () => {
 }
 .section-label i { color: #0EA5E9; font-size: 15px; }
 
-/* Form Grid */
+
 .form-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
@@ -701,12 +712,12 @@ const submitForm = async () => {
   padding-right: 32px;
 }
 
-/* Validation Errors */
+
 .has-error input, .has-error select { border-color: #EF4444; }
 .has-error input:focus, .has-error select:focus { box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
 .error-text { font-size: 12px; color: #EF4444; font-weight: 500; }
 
-/* Modal Actions */
+
 .modal-actions {
   display: flex; justify-content: flex-end; gap: 12px;
   padding: 20px 28px; border-top: 1px solid #E2E8F0;
@@ -729,7 +740,7 @@ const submitForm = async () => {
 .btn-submit:hover { background: linear-gradient(135deg, #0284C7, #0369A1); box-shadow: 0 4px 12px rgba(2,132,199,0.3); }
 .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
-/* Responsive */
+
 @media (max-width: 640px) {
   .modal-overlay { padding: 12px; }
   .modal-container { max-height: 95vh; }

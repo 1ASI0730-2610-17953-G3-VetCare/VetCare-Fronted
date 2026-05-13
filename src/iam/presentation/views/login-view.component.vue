@@ -1,10 +1,10 @@
 <template>
   <div class="login-screen">
-    <!-- Left Panel -->
+    
     <div class="left-panel">
       <div class="content-wrapper">
         
-        <!-- Logo Block -->
+        
         <div class="logo-block">
           <div class="logo-icon">
             <i class="pi pi-paw"></i>
@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <!-- Form Card -->
+        
         <div class="form-card">
           <div class="heading-block">
             <h2 class="section-heading">Iniciar Sesión</h2>
@@ -23,7 +23,7 @@
           </div>
 
           <form @submit.prevent="handleLogin" class="form-fields">
-            <!-- Email Input -->
+            
             <div class="input-group">
               <label class="label">Correo Electrónico</label>
               <div class="input-wrapper" :class="{ 'error': v$.email.$error, 'focus': emailFocus }">
@@ -40,7 +40,7 @@
               <span v-if="v$.email.$error" class="error-text">Correo inválido</span>
             </div>
 
-            <!-- Password Input -->
+            
             <div class="input-group">
               <label class="label">Contraseña</label>
               <div class="input-wrapper" :class="{ 'error': v$.password.$error, 'focus': passwordFocus }">
@@ -57,23 +57,23 @@
               <span v-if="v$.password.$error" class="error-text">Contraseña requerida</span>
             </div>
 
-            <!-- Forgot Password -->
+            
             <div class="forgot-password">
               <a href="#" class="link">¿Olvidaste tu contraseña?</a>
             </div>
 
-            <!-- Error Message -->
+            
             <div v-if="iamStore.error" class="error-alert">
               {{ iamStore.error }}
             </div>
 
-            <!-- Submit Button -->
+            
             <button type="submit" class="button-primary" :disabled="iamStore.isLoading">
               <span v-if="iamStore.isLoading"><i class="pi pi-spin pi-spinner"></i></span>
               <span v-else>Iniciar Sesión</span>
             </button>
 
-            <!-- Demo Credentials Hint -->
+            
             <div class="demo-credentials">
               <p><strong>Cuentas de prueba:</strong></p>
               <p>Admin: admin@veterinaria.com / admin123</p>
@@ -88,7 +88,7 @@
       </div>
     </div>
 
-    <!-- Right Panel -->
+    
     <div class="right-panel">
       <div class="panel-content">
         <h2 class="panel-heading">Cuidado Profesional para Mascotas</h2>
@@ -154,7 +154,7 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
-/* Base Styles & Variables from Design System */
+
 .login-screen {
   display: flex;
   width: 100%;
@@ -163,7 +163,7 @@ const handleLogin = async () => {
   letter-spacing: -0.5px;
 }
 
-/* Left Panel */
+
 .left-panel {
   flex: 0 0 650px;
   background-color: #f8fafc;
@@ -182,7 +182,7 @@ const handleLogin = async () => {
   align-items: center;
 }
 
-/* Logo Block */
+
 .logo-block {
   display: flex;
   align-items: center;
@@ -218,7 +218,7 @@ const handleLogin = async () => {
   margin: 0;
 }
 
-/* Form Card */
+
 .form-card {
   width: 100%;
   background-color: #ffffff;
@@ -407,7 +407,7 @@ const handleLogin = async () => {
   margin: 4px 0;
 }
 
-/* Right Panel */
+
 .right-panel {
   flex: 1;
   background: linear-gradient(135deg, #2563eb 0%, #059669 100%);
@@ -475,7 +475,7 @@ const handleLogin = async () => {
   color: #ffffff;
 }
 
-/* Responsive */
+
 @media (max-width: 1024px) {
   .right-panel {
     display: none;

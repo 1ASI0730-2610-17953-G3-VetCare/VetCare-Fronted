@@ -2,7 +2,6 @@ export class PerfilEntity {
   constructor(data) {
     this.id = data.id || null;
     
-    // Datos Personales
     const personal = data.datosPersonales || {};
     this.nombre = personal.nombre || '';
     this.apellidos = personal.apellidos || '';
@@ -11,7 +10,6 @@ export class PerfilEntity {
     this.especialidad = personal.especialidad || '';
     this.dni = personal.dni || '';
     
-    // Preferencias
     const pref = data.preferencias || {};
     this.notificacionesEmail = pref.notificacionesEmail ?? false;
     this.notificacionesPush = pref.notificacionesPush ?? false;
@@ -19,7 +17,6 @@ export class PerfilEntity {
     this.modoOscuro = pref.modoOscuro ?? false;
     this.sonidosSistema = pref.sonidosSistema ?? false;
     
-    // Actividad
     const act = data.actividad || {};
     this.citasEsteMes = act.citasEsteMes || 0;
     this.pacientesAtendidos = act.pacientesAtendidos || 0;

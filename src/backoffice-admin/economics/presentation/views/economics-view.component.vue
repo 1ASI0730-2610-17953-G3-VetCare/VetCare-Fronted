@@ -133,8 +133,7 @@ const totalExpensePercent = computed(() => {
 
 <template>
   <div class="economics-view">
-    <!-- Toast -->
-    <Transition name="toast">
+        <Transition name="toast">
       <div v-if="showToast" :class="['toast', `toast-${toastType}`]">
         <i :class="toastType === 'success' ? 'pi pi-check-circle' : 'pi pi-times-circle'"></i>
         <span>{{ toastMessage }}</span>
@@ -142,8 +141,7 @@ const totalExpensePercent = computed(() => {
     </Transition>
 
     <div class="kpi-row">
-      <!-- Ingresos -->
-      <div class="kpi-card">
+            <div class="kpi-card">
         <div class="kpi-header">
           <span class="kpi-label">{{ t('economics.kpi.income') }}</span>
           <div class="kpi-icon-box icon-income"><i class="pi pi-arrow-up-right"></i></div>
@@ -160,8 +158,7 @@ const totalExpensePercent = computed(() => {
         </div>
       </div>
 
-      <!-- Egresos -->
-      <div class="kpi-card">
+            <div class="kpi-card">
         <div class="kpi-header">
           <span class="kpi-label">{{ t('economics.kpi.expense') }}</span>
           <div class="kpi-icon-box icon-expense"><i class="pi pi-arrow-down-right"></i></div>
@@ -178,8 +175,7 @@ const totalExpensePercent = computed(() => {
         </div>
       </div>
 
-      <!-- Balance -->
-      <div class="kpi-card">
+            <div class="kpi-card">
         <div class="kpi-header">
           <span class="kpi-label">{{ t('economics.kpi.balance') }}</span>
           <div class="kpi-icon-box icon-balance"><i class="pi pi-wallet"></i></div>
@@ -215,8 +211,7 @@ const totalExpensePercent = computed(() => {
               </button>
             </div>
             
-            <!-- Extended Filters -->
-            <Transition name="fade">
+                        <Transition name="fade">
               <div v-if="showFilters" class="extended-filters">
                 <div class="filter-group">
                   <label>{{ t('economics.table.filterType') }}</label>
@@ -271,8 +266,7 @@ const totalExpensePercent = computed(() => {
             </table>
           </div>
 
-          <!-- Footer / Pagination -->
-          <div class="table-footer" v-if="!store.isLoading">
+                    <div class="table-footer" v-if="!store.isLoading">
             <div class="footer-info">
               {{ t('economics.pagination.showing') }} <strong>{{ filteredEntries.length ? (currentPage - 1) * itemsPerPage + 1 : 0 }}–{{ Math.min(currentPage * itemsPerPage, filteredEntries.length) }}</strong> {{ t('economics.pagination.of') }} <strong>{{ filteredEntries.length }}</strong> {{ t('economics.pagination.records') }}
             </div>
@@ -298,8 +292,7 @@ const totalExpensePercent = computed(() => {
           <h3 class="summary-title">{{ t('economics.summary.title') }}</h3>
           
           <div class="summary-metrics">
-            <!-- Ingresos -->
-            <div class="summary-metric">
+                        <div class="summary-metric">
               <div class="metric-label-row">
                 <span class="metric-label">{{ t('economics.summary.income') }}</span>
                 <span class="metric-percentage percentage-positive">{{ totalIncomePercent }}%</span>
@@ -309,8 +302,7 @@ const totalExpensePercent = computed(() => {
               </div>
             </div>
             
-            <!-- Egresos -->
-            <div class="summary-metric">
+                        <div class="summary-metric">
               <div class="metric-label-row">
                 <span class="metric-label">{{ t('economics.summary.expense') }}</span>
                 <span class="metric-percentage percentage-negative">{{ totalExpensePercent }}%</span>
@@ -459,7 +451,6 @@ const totalExpensePercent = computed(() => {
   align-items: start;
 }
 
-/* Recent Transactions Panel */
 .recent-transactions-panel {
   display: flex;
   flex-direction: column;
@@ -534,7 +525,6 @@ const totalExpensePercent = computed(() => {
   color: #3b82f6;
 }
 
-/* Extended Filters */
 .extended-filters {
   display: flex;
   gap: 16px;
@@ -585,7 +575,6 @@ const totalExpensePercent = computed(() => {
   transform: translateY(-10px);
 }
 
-/* Toast */
 .toast {
   position: fixed; top: 24px; right: 24px; z-index: 10000;
   display: flex; align-items: center; gap: 10px;
@@ -711,7 +700,6 @@ const totalExpensePercent = computed(() => {
 .monto-positivo { color: #16a34a; }
 .monto-negativo { color: #ef4444; }
 
-/* Table Footer / Pagination */
 .table-footer {
   display: flex;
   justify-content: space-between;
@@ -784,7 +772,6 @@ const totalExpensePercent = computed(() => {
   font-weight: 700;
 }
 
-/* Summary Card */
 .summary-card {
   display: flex;
   flex-direction: column;

@@ -1,8 +1,7 @@
 <template>
   <div class="comu-container">
     <div class="comu-layout">
-      <!-- Main Content Area: Notificaciones Feed -->
-      <div class="notification-feed">
+            <div class="notification-feed">
         <div class="feed-header">
           <div style="display: flex; align-items: center;">
             <div class="header-icon-main icon-blue">
@@ -22,13 +21,11 @@
             class="notification-item" 
             :class="getRowClass(notif.status)"
           >
-            <!-- Timeline Badge Icon -->
-            <div class="timeline-badge" :class="`badge-${notif.type}`">
+                        <div class="timeline-badge" :class="`badge-${notif.type}`">
               <i :class="getIconForType(notif.type)"></i>
             </div>
             
-            <!-- Center Content -->
-            <div class="notification-content">
+                        <div class="notification-content">
               <h3 class="notif-title">{{ notif.title }}</h3>
               <p class="notif-desc">{{ notif.description }}</p>
               <div class="notif-meta">
@@ -38,8 +35,7 @@
               </div>
             </div>
 
-            <!-- Right Area -->
-            <div class="notification-right">
+                        <div class="notification-right">
               <span class="notif-time">{{ notif.timestamp }}</span>
               <button v-if="!notif.is_read" class="btn-read" @click="markAsRead(notif.id)" :title="t('communication.notifications.markRead')">
                 <i class="pi pi-check"></i>
@@ -53,8 +49,7 @@
         </div>
       </div>
 
-      <!-- Sidebar Area: Recordatorios -->
-      <div class="comu-sidebar outer-card">
+            <div class="comu-sidebar outer-card">
         <div class="sidebar-header">
           <div style="display: flex; align-items: center;">
             <div class="header-icon-main icon-purple">

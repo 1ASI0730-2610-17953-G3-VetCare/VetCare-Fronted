@@ -20,7 +20,7 @@ export class ClientService {
         email: item.email,
         address: item.direccion || item.address,
         status: item.status || 'Activo',
-        petsCount: item.petsCount || Math.floor(Math.random() * 3) + 1, // Mock pets count
+        petsCount: item.petsCount || Math.floor(Math.random() * 3) + 1,
         lastVisitAt: item.lastVisitAt || '2026-04-28'
       }));
     } catch (error) {

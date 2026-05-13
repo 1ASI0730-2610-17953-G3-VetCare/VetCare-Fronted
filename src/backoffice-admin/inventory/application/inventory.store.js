@@ -23,7 +23,7 @@ export const useInventoryStore = defineStore('inventory', {
     async updateStock(id, newStock) {
       try {
         await InventoryApi.updateProductStock(id, newStock);
-        await this.fetchProducts(); // Refresh
+        await this.fetchProducts();
       } catch (err) {
         this.error = err;
       }
@@ -31,7 +31,7 @@ export const useInventoryStore = defineStore('inventory', {
     async createProduct(productData) {
       try {
         await InventoryApi.createProduct(productData);
-        await this.fetchProducts(); // Refresh
+        await this.fetchProducts();
         return true;
       } catch (err) {
         this.error = err;

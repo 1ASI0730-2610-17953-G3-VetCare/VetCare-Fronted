@@ -26,7 +26,7 @@ export const useIamStore = defineStore('iam', {
       try {
         const response = await IamApi.login(credentials);
         
-        // Asume que el backend retorna accessToken, user, y roles
+
         const { accessToken, user, roles } = response;
         
         this.session.token = accessToken;
@@ -65,7 +65,7 @@ export const useIamStore = defineStore('iam', {
       if (token) {
         this.session.token = token;
         this.session.user = user;
-        // Si tienes roles en el user, puedes setearlos aquí
+
         this.session.roles = user?.roles || [];
       }
     }

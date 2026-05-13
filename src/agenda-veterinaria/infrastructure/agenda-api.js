@@ -1,20 +1,11 @@
 import { BaseApi } from '@/shared/infrastructure/base-api.js';
 
-/**
- * Agenda API
- * 
- * Handles the communication with backend for appointments.
- */
 export class AgendaApi {
   constructor() {
     this.endpoint = '/appointments'; 
-    // Example: this is where we would call the actual axios instance
-    // but without base-api for now, we'll assume a generic setup or mock it.
   }
 
   getAll() {
-    // Mock return, replace with axios call when backend is integrated.
-    // e.g., return http.get(this.endpoint);
     return Promise.resolve({
       data: [
         { id: '1', patientName: 'Firulais', ownerName: 'Juan Perez', date: '2026-04-20', timeStart: '10:00', timeEnd: '11:00', status: 'Confirmada', type: 'Consulta General' },

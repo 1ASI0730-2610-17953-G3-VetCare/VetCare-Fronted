@@ -52,7 +52,7 @@ const { t, locale } = useI18n();
 
 const store = useAgendaStore();
 
-// Qalendar configuration — locale is reactive
+
 const config = computed(() => ({
   locale: locale.value === 'es' ? 'es-ES' : 'en-US',
   defaultMode: 'week',
@@ -92,23 +92,23 @@ const getBadgeClass = (status) => {
   return '';
 };
 
-// Translate domain values (stored in Spanish) to the active locale
+
 const translateStatus = (status) => t(`agenda.status.${status}`, status);
 const translateType   = (type)   => t(`agenda.types.${type}`,   type);
 </script>
 
 <style scoped>
-/* Main Layout Mapping */
+
 .agenda-layout {
   display: grid;
-  grid-template-columns: 1fr 320px; /* Switch to 1fr 320px for better fit (List on right as usual or inverted based on typical UX) */
+  grid-template-columns: 1fr 320px; 
   gap: 0;
   height: calc(100vh - 128px);
   overflow: hidden;
   background-color: var(--color-background-main, #f8fafc);
 }
 
-/* Calendar View Container */
+
 .calendar-panel {
   padding: 24px;
   display: flex;
@@ -144,7 +144,7 @@ const translateType   = (type)   => t(`agenda.types.${type}`,   type);
   align-items: center;
 }
 
-/* Calendar Grid */
+
 .calendar-grid {
   flex: 1;
   display: flex;
@@ -206,7 +206,7 @@ const translateType   = (type)   => t(`agenda.types.${type}`,   type);
   color: white;
 }
 
-/* Event Badges */
+
 .events-container {
   display: flex;
   flex-direction: column;
@@ -239,7 +239,7 @@ const translateType   = (type)   => t(`agenda.types.${type}`,   type);
   color: #166534;
 }
 
-/* List Section */
+
 .list-section {
   padding: 32px 24px;
   background-color: var(--p-surface-50, #f8fafc);
@@ -270,7 +270,7 @@ const translateType   = (type)   => t(`agenda.types.${type}`,   type);
   font-weight: 700;
 }
 
-/* Appointment Card */
+
 .appointments-list {
   display: flex;
   flex-direction: column;
