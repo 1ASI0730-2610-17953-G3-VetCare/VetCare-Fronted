@@ -241,7 +241,8 @@
       "consultations": "Consultas",
       "clinicalHistory": "Historial Clínico",
       "vaccines": "Vacunas",
-      "hospitalization": "Hospitalización"
+      "hospitalization": "Hospitalización",
+      "labResults": "Resultados de Lab."
     },
     "patients": {
       "title": "Pacientes Registrados",
@@ -599,6 +600,76 @@
       }
     }
   },
+  "labResults": {
+      "title": "Resultados de Laboratorio",
+      "description": "Adjunta y gestiona resultados diagnósticos de los pacientes.",
+      "attach": "Adjuntar Resultado",
+      "search": "Buscar por paciente o tipo de examen...",
+      "allStatuses": "Todos los estados",
+      "emptyState": "No se encontraron resultados.",
+      "markedReviewed": "Resultado marcado como revisado",
+      "statsCards": {
+        "total": { "title": "Total Resultados", "subtitle": "Archivos adjuntos" },
+        "pending": { "title": "Pendientes", "subtitle": "Por revisar" },
+        "reviewed": { "title": "Revisados", "subtitle": "Evaluación completa" }
+      },
+      "status": {
+        "Pendiente": "Pendiente",
+        "Revisado": "Revisado"
+      },
+      "columns": {
+        "patient": "Paciente",
+        "examType": "Tipo de Examen",
+        "file": "Archivo",
+        "date": "Fecha",
+        "notes": "Observaciones",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "actions": {
+        "download": "Descargar archivo",
+        "markReviewed": "Marcar como revisado"
+      },
+      "pagination": {
+        "showing": "Mostrando {from} a {to} de {total} resultados",
+        "previous": "Anterior",
+        "next": "Siguiente"
+      },
+      "registerForm": {
+        "title": "Adjuntar Resultado de Laboratorio",
+        "subtitle": "Sube el archivo del resultado diagnóstico",
+        "patientInfo": "Información del Paciente",
+        "examInfo": "Detalles del Examen",
+        "patientName": "Nombre del Paciente",
+        "patientNamePlaceholder": "Ej: Max, Luna...",
+        "species": "Especie",
+        "speciesPlaceholder": "Seleccionar especie",
+        "speciesDog": "Perro",
+        "speciesCat": "Gato",
+        "speciesBird": "Ave",
+        "speciesRabbit": "Conejo",
+        "speciesOther": "Otro",
+        "examType": "Tipo de Examen",
+        "examTypePlaceholder": "Seleccionar...",
+        "examHemogram": "Hemograma",
+        "examBiochemistry": "Bioquímica Sérica",
+        "examXray": "Radiografía",
+        "examUltrasound": "Ecografía Abdominal",
+        "examCulture": "Cultivo Bacteriano",
+        "examOther": "Otro",
+        "date": "Fecha del Examen",
+        "file": "Archivo (PDF o Imagen)",
+        "filePlaceholder": "Haz clic para seleccionar archivo",
+        "fileHint": "PDF, JPG o PNG",
+        "notes": "Observaciones",
+        "notesPlaceholder": "Hallazgos relevantes, observaciones del resultado...",
+        "cancel": "Cancelar",
+        "save": "Adjuntar Resultado",
+        "saving": "Adjuntando...",
+        "successMessage": "Resultado adjuntado exitosamente",
+        "required": "Campo requerido"
+      }
+    },
   "inventory": {
     "stats": {
       "total": "Total",

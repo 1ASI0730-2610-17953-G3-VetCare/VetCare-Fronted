@@ -5,6 +5,7 @@ import ConsultasView from './views/consultas-view.component.vue';
 import HistorialView from './views/historial-view.component.vue';
 import VacunasView from './views/vacunas-view.component.vue';
 import HospitalizacionView from './views/hospitalizacion-view.component.vue';
+import ResultadosLabView from './views/resultados-lab-view.component.vue';
 
 export const gestionClinicaRoutes = [
   {
@@ -45,6 +46,11 @@ export const gestionClinicaRoutes = [
         path: 'hospitalizacion',
         name: 'gestion-clinica-hospitalizacion',
         component: HospitalizacionView
+      },
+      {
+        path: 'resultados-lab',
+        name: 'gestion-clinica-resultados-lab',
+        component: ResultadosLabView
       }
     ]
   }

@@ -241,7 +241,8 @@
       "consultations": "Consultations",
       "clinicalHistory": "Clinical History",
       "vaccines": "Vaccines",
-      "hospitalization": "Hospitalization"
+      "hospitalization": "Hospitalization",
+      "labResults": "Lab Results"
     },
     "patients": {
       "title": "Registered Patients",
@@ -599,6 +600,76 @@
       }
     }
   },
+  "labResults": {
+      "title": "Lab Results",
+      "description": "Attach and manage diagnostic results for patients.",
+      "attach": "Attach Result",
+      "search": "Search by patient or exam type...",
+      "allStatuses": "All statuses",
+      "emptyState": "No results found.",
+      "markedReviewed": "Result marked as reviewed",
+      "statsCards": {
+        "total": { "title": "Total Results", "subtitle": "Attached files" },
+        "pending": { "title": "Pending", "subtitle": "Awaiting review" },
+        "reviewed": { "title": "Reviewed", "subtitle": "Evaluation complete" }
+      },
+      "status": {
+        "Pendiente": "Pending",
+        "Revisado": "Reviewed"
+      },
+      "columns": {
+        "patient": "Patient",
+        "examType": "Exam Type",
+        "file": "File",
+        "date": "Date",
+        "notes": "Notes",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "download": "Download file",
+        "markReviewed": "Mark as reviewed"
+      },
+      "pagination": {
+        "showing": "Showing {from} to {to} of {total} results",
+        "previous": "Previous",
+        "next": "Next"
+      },
+      "registerForm": {
+        "title": "Attach Lab Result",
+        "subtitle": "Upload the diagnostic result file",
+        "patientInfo": "Patient Information",
+        "examInfo": "Exam Details",
+        "patientName": "Patient Name",
+        "patientNamePlaceholder": "E.g.: Max, Luna...",
+        "species": "Species",
+        "speciesPlaceholder": "Select species",
+        "speciesDog": "Dog",
+        "speciesCat": "Cat",
+        "speciesBird": "Bird",
+        "speciesRabbit": "Rabbit",
+        "speciesOther": "Other",
+        "examType": "Exam Type",
+        "examTypePlaceholder": "Select...",
+        "examHemogram": "Complete Blood Count",
+        "examBiochemistry": "Serum Biochemistry",
+        "examXray": "X-Ray",
+        "examUltrasound": "Abdominal Ultrasound",
+        "examCulture": "Bacterial Culture",
+        "examOther": "Other",
+        "date": "Exam Date",
+        "file": "File (PDF or Image)",
+        "filePlaceholder": "Click to select file",
+        "fileHint": "PDF, JPG or PNG",
+        "notes": "Notes",
+        "notesPlaceholder": "Relevant findings, result observations...",
+        "cancel": "Cancel",
+        "save": "Attach Result",
+        "saving": "Attaching...",
+        "successMessage": "Result attached successfully",
+        "required": "Required field"
+      }
+    },
   "inventory": {
     "stats": {
       "total": "Total",
