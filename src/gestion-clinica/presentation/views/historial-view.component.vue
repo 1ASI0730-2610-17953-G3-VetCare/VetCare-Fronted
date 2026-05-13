@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import { API_BASE_URL } from '../../../shared/infrastructure/api-base-url.js';
 
 const { t, te } = useI18n();
 const route = useRoute();
@@ -33,9 +34,9 @@ const loadPatientHistory = async (patientId) => {
   loading.value = true;
   try {
     const [patientRes, timelineRes, statsRes] = await Promise.all([
-      fetch(`http://localhost:3000/pacientes/${patientId}`),
-      fetch(`http://localhost:3000/historial_clinico?patientId=${patientId}`),
-      fetch('http://localhost:3000/historial_stats')
+      fetch(`${API_BASE_URL}/pacientes/${patientId}`),
+      fetch(`${API_BASE_URL}/historial_clinico?patientId=${patientId}`),
+      fetch(`${API_BASE_URL}/historial_stats`)
     ]);
     
     if (patientRes.ok) {

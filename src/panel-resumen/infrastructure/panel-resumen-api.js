@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../../shared/infrastructure/api-base-url.js';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = API_BASE_URL;
 
 export const panelResumenApi = {
   getKpis: async () => {

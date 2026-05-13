@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { tokenStorage } from '../../iam/infrastructure/token-storage.js';
 import router from '../../router.js';
+import { API_BASE_URL } from './api-base-url.js';
 
 export const BaseApi = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`, 
+  baseURL: `${API_BASE_URL}/api/v1`, 
   headers: {
     'Content-type': 'application/json',
   }

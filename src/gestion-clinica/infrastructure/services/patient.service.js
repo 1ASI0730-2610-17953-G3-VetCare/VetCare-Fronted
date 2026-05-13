@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { Patient } from '../../domain/model/patient.entity';
+import { API_BASE_URL } from '../../../shared/infrastructure/api-base-url.js';
 
 const http = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
+  baseURL: API_BASE_URL
 });
 
 export class PatientService {

@@ -1,6 +1,7 @@
 import { Client } from '../../domain/model/client.entity.js';
+import { API_BASE_URL } from '../../../shared/infrastructure/api-base-url.js';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = API_BASE_URL;
 
 export class ClientService {
   async getAllClients() {
