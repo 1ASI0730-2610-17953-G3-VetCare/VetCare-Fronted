@@ -294,8 +294,10 @@
         "ownerPhonePlaceholder": "Ej: 999 888 777",
         "ownerEmail": "Correo Electrónico",
         "ownerEmailPlaceholder": "Ej: correo{'@'}ejemplo.com",
+        "allergies": "Alergias conocidas",
+        "allergiesPlaceholder": "Ej: Penicilina, AINEs... (dejar vacío si ninguna)",
         "notes": "Notas Adicionales",
-        "notesPlaceholder": "Alergias, condiciones especiales, observaciones...",
+        "notesPlaceholder": "Condiciones especiales, observaciones...",
         "cancel": "Cancelar",
         "save": "Registrar Paciente",
         "saving": "Registrando...",
@@ -332,8 +334,11 @@
       "actions": {
         "viewDetail": "Ver detalle de consulta",
         "edit": "Editar consulta",
-        "print": "Imprimir consulta"
+        "print": "Imprimir consulta",
+        "close": "Cerrar consulta",
+        "closedTooltip": "Consulta cerrada"
       },
+      "closeSuccess": "Consulta cerrada exitosamente",
       "pagination": {
         "showing": "Mostrando {from} a {to} de {total} consultas"
       },
@@ -658,6 +663,10 @@
       "invalidPrice": "Ingresa un precio válido",
       "invalidStock": "Ingresa un stock válido",
       "invalidMinStock": "Ingresa un valor válido"
+    },
+    "lowStockBanner": {
+      "title": "Alerta de Stock Bajo: ",
+      "dismiss": "Descartar"
     },
     "loading": "Cargando...",
     "error": "Error al cargar"

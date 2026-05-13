@@ -20,7 +20,7 @@ const formErrors = reactive({});
 const getDefaultForm = () => ({
   name: '', species: '', breed: '', sex: '',
   birthDate: '', weight: '', ownerName: '',
-  ownerPhone: '', ownerEmail: '', notes: ''
+  ownerPhone: '', ownerEmail: '', allergies: '', notes: ''
 });
 const form = reactive(getDefaultForm());
 
@@ -91,6 +91,7 @@ const submitForm = async () => {
     code, name: form.name, species: `${form.species}${form.breed ? ' - ' + form.breed : ''}`,
     status: 'Activo', age: calcAge(form.birthDate),
     weight: form.weight ? `${form.weight} kg` : '', owner: form.ownerName,
+    allergies: form.allergies.trim() || null,
     image: `https://placedog.net/150/150?id=${Math.floor(Math.random() * 70)}`
   };
   try {
@@ -154,6 +155,10 @@ const submitForm = async () => {
             </div>
           </div>
           <span :class="['status-badge', getStatusClass(patient.status)]">{{ t(`clinicManagement.patients.status.${patient.status}`) }}</span>
+        </div>
+        <div v-if="patient.allergies" class="allergy-alert">
+          <i class="pi pi-exclamation-triangle allergy-icon"></i>
+          <span><strong>{{ t('clinicManagement.patients.registerForm.allergies') }}:</strong> {{ patient.allergies }}</span>
         </div>
         <div class="card-body">
           <div class="patient-data-list">
@@ -270,11 +275,17 @@ const submitForm = async () => {
               </div>
             </div>
 
-            
+
             <div class="form-section">
-              <div class="form-group span-full">
-                <label>{{ t('clinicManagement.patients.registerForm.notes') }}</label>
-                <textarea v-model="form.notes" :placeholder="t('clinicManagement.patients.registerForm.notesPlaceholder')" rows="3"></textarea>
+              <div class="form-grid">
+                <div class="form-group span-full allergy-field">
+                  <label><i class="pi pi-exclamation-triangle" style="color:#ef4444;margin-right:6px;font-size:13px;"></i>{{ t('clinicManagement.patients.registerForm.allergies') }}</label>
+                  <input type="text" v-model="form.allergies" :placeholder="t('clinicManagement.patients.registerForm.allergiesPlaceholder')" />
+                </div>
+                <div class="form-group span-full">
+                  <label>{{ t('clinicManagement.patients.registerForm.notes') }}</label>
+                  <textarea v-model="form.notes" :placeholder="t('clinicManagement.patients.registerForm.notesPlaceholder')" rows="3"></textarea>
+                </div>
               </div>
             </div>
 
@@ -484,6 +495,25 @@ const submitForm = async () => {
 .status-treatment {
   background-color: #FEF9C3;
   color: #A16207;
+}
+
+.allergy-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-left: 3px solid #ef4444;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #be123c;
+}
+
+.allergy-icon {
+  color: #ef4444;
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
 .card-body {

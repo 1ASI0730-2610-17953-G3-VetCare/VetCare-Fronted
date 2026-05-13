@@ -102,6 +102,11 @@ const setPage = (p) => {
   currentPage.value = p;
 };
 
+const alertDismissed = ref(false);
+const lowStockProducts = computed(() =>
+  store.products.filter(p => p.stock <= (p.minStock || 5))
+);
+
 const exportCSV = () => {
   if (filteredProducts.value.length === 0) {
     displayToast(t('inventory.table.exportNoData'), 'error');
@@ -219,6 +224,21 @@ const submitForm = async () => {
       <div v-if="showToast" :class="['toast', `toast-${toastType}`]">
         <i :class="toastType === 'success' ? 'pi pi-check-circle' : 'pi pi-times-circle'"></i>
         <span>{{ toastMessage }}</span>
+      </div>
+    </Transition>
+
+        <Transition name="fade">
+      <div v-if="lowStockProducts.length > 0 && !alertDismissed" class="low-stock-banner">
+        <div class="banner-content">
+          <i class="pi pi-exclamation-triangle banner-icon"></i>
+          <div>
+            <strong>{{ t('inventory.lowStockBanner.title') }}</strong>
+            <span class="banner-products">{{ lowStockProducts.map(p => p.name).join(' · ') }}</span>
+          </div>
+        </div>
+        <button class="banner-dismiss" @click="alertDismissed = true" :title="t('inventory.lowStockBanner.dismiss')">
+          <i class="pi pi-times"></i>
+        </button>
       </div>
     </Transition>
 
@@ -486,6 +506,60 @@ const submitForm = async () => {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.low-stock-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-left: 4px solid #f97316;
+  border-radius: 10px;
+  padding: 14px 20px;
+  gap: 12px;
+}
+
+.banner-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.banner-icon {
+  color: #f97316;
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.banner-content strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9a3412;
+  display: block;
+}
+
+.banner-products {
+  font-size: 13px;
+  color: #c2410c;
+  display: block;
+  margin-top: 2px;
+}
+
+.banner-dismiss {
+  background: none;
+  border: none;
+  color: #f97316;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.banner-dismiss:hover {
+  background: #fed7aa;
 }
 
 .stat-cards {

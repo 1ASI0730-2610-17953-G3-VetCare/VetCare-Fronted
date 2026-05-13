@@ -131,13 +131,6 @@ const getAvatarClass = (breed) => {
   return 'avatar-default';
 };
 
-const getPetIcon = (type) => {
-
-
-  return 'pi pi-twitter';
-
-};
-
 const openModal = (consulta = null) => { 
   if (consulta && consulta.id) {
     editingId.value = consulta.id;
@@ -164,6 +157,14 @@ const openViewModal = (consulta) => {
 const closeViewModal = () => {
   showViewModal.value = false;
   viewedConsulta.value = null;
+};
+
+const closeConsulta = (consulta) => {
+  const idx = consultas.value.findIndex(c => c.id === consulta.id);
+  if (idx !== -1) {
+    consultas.value[idx] = { ...consultas.value[idx], status: 'completada' };
+    displayToast(t('clinicManagement.consultations.closeSuccess'), 'success');
+  }
 };
 
 const printConsulta = async (consulta) => {
@@ -546,12 +547,23 @@ onMounted(() => {
                 <button class="action-btn view-btn" :title="t('clinicManagement.consultations.actions.viewDetail')" @click="openViewModal(consulta)">
                   <i class="pi pi-eye"></i>
                 </button>
-                <button class="action-btn edit-btn" :title="t('clinicManagement.consultations.actions.edit')" @click="openModal(consulta)">
+                <button class="action-btn edit-btn" :title="t('clinicManagement.consultations.actions.edit')" @click="openModal(consulta)" :disabled="consulta.status === 'completada'">
                   <i class="pi pi-pencil"></i>
                 </button>
                 <button class="action-btn print-btn" :title="t('clinicManagement.consultations.actions.print')" @click="printConsulta(consulta)" :disabled="isPrinting && printId === consulta.id">
                   <i :class="isPrinting && printId === consulta.id ? 'pi pi-spin pi-spinner' : 'pi pi-print'"></i>
                 </button>
+                <button
+                  v-if="consulta.status !== 'completada'"
+                  class="action-btn close-btn"
+                  :title="t('clinicManagement.consultations.actions.close')"
+                  @click="closeConsulta(consulta)"
+                >
+                  <i class="pi pi-lock-open"></i>
+                </button>
+                <span v-else class="closed-indicator" :title="t('clinicManagement.consultations.actions.closedTooltip')">
+                  <i class="pi pi-lock"></i>
+                </span>
               </td>
             </tr>
           </tbody>
@@ -1138,6 +1150,10 @@ onMounted(() => {
 .view-btn i { color: #0ea5e9; font-size: 18px; }
 .edit-btn i { color: #6b7280; font-size: 18px; }
 .print-btn i { color: #6b7280; font-size: 18px; }
+.close-btn i { color: #f97316; font-size: 18px; }
+.closed-indicator { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+.closed-indicator i { color: #10b981; font-size: 16px; }
+.action-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
 .pagination-bar {
   display: flex;

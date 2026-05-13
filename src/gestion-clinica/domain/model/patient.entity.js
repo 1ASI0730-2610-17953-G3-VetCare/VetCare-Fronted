@@ -8,7 +8,8 @@ export class Patient {
     age,
     weight,
     owner,
-    image
+    image,
+    allergies = null
   }) {
     this.id = id;
     this.code = code;
@@ -19,5 +20,6 @@ export class Patient {
     this.weight = weight;
     this.owner = owner;
     this.image = image;
+    this.allergies = allergies;
   }
 }

@@ -626,6 +626,7 @@
       "age": "3 años",
       "weight": "25.5 kg",
       "owner": "Juan Pérez",
+      "allergies": "Penicilina",
       "image": "https://placedog.net/150/150?id=30"
     },
     {
@@ -648,6 +649,7 @@
       "age": "5 años",
       "weight": "22.0 kg",
       "owner": "Carlos López",
+      "allergies": "AINEs, Ibuprofeno",
       "image": "https://placedog.net/150/150?id=32"
     },
     {

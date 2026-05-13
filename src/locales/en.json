@@ -294,8 +294,10 @@
         "ownerPhonePlaceholder": "E.g.: 999 888 777",
         "ownerEmail": "Email",
         "ownerEmailPlaceholder": "E.g.: email{'@'}example.com",
+        "allergies": "Known allergies",
+        "allergiesPlaceholder": "E.g.: Penicillin, NSAIDs... (leave empty if none)",
         "notes": "Additional Notes",
-        "notesPlaceholder": "Allergies, special conditions, observations...",
+        "notesPlaceholder": "Special conditions, observations...",
         "cancel": "Cancel",
         "save": "Register Patient",
         "saving": "Registering...",
@@ -332,8 +334,11 @@
       "actions": {
         "viewDetail": "View consultation details",
         "edit": "Edit consultation",
-        "print": "Print consultation"
+        "print": "Print consultation",
+        "close": "Close consultation",
+        "closedTooltip": "Consultation closed"
       },
+      "closeSuccess": "Consultation closed successfully",
       "pagination": {
         "showing": "Showing {from} to {to} of {total} consultations"
       },
@@ -658,6 +663,10 @@
       "invalidPrice": "Enter a valid price",
       "invalidStock": "Enter a valid stock",
       "invalidMinStock": "Enter a valid value"
+    },
+    "lowStockBanner": {
+      "title": "Low Stock Alert: ",
+      "dismiss": "Dismiss"
     },
     "loading": "Loading...",
     "error": "Error loading"
