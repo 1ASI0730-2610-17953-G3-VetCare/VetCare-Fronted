@@ -242,7 +242,8 @@
       "clinicalHistory": "Historial Clínico",
       "vaccines": "Vacunas",
       "hospitalization": "Hospitalización",
-      "labResults": "Resultados de Lab."
+      "labResults": "Resultados de Lab.",
+      "prescriptions": "Recetas"
     },
     "patients": {
       "title": "Pacientes Registrados",
@@ -598,6 +599,106 @@
         "errorMessage": "Error al registrar cliente",
         "required": "Campo requerido"
       }
+    }
+  },
+  "prescriptions": {
+    "title": "Recetas Digitales",
+    "description": "Genera y gestiona recetas médicas vinculadas a consultas veterinarias.",
+    "newPrescription": "Nueva Receta",
+    "search": "Buscar por paciente, propietario o ID...",
+    "allStatuses": "Todos los estados",
+    "emptyState": "No se encontraron recetas.",
+    "printSuccess": "Receta enviada a impresión",
+    "statsCards": {
+      "total":   { "title": "Total Recetas",  "subtitle": "Generadas en el sistema" },
+      "active":  { "title": "Activas",         "subtitle": "Dentro de vigencia" },
+      "issued":  { "title": "Emitidas",        "subtitle": "Recién generadas" },
+      "expired": { "title": "Vencidas",        "subtitle": "Fuera de vigencia" }
+    },
+    "status": {
+      "Activa":  "Activa",
+      "Emitida": "Emitida",
+      "Vencida": "Vencida"
+    },
+    "columns": {
+      "id":           "ID",
+      "patient":      "Paciente",
+      "owner":        "Propietario",
+      "medications":  "Medicamentos",
+      "veterinarian": "Veterinario",
+      "date":         "Fecha",
+      "expires":      "Vence",
+      "status":       "Estado",
+      "actions":      "Acciones"
+    },
+    "actions": {
+      "view":  "Ver detalle",
+      "print": "Imprimir receta"
+    },
+    "pagination": {
+      "showing":  "Mostrando {from} a {to} de {total} recetas",
+      "previous": "Anterior",
+      "next":     "Siguiente"
+    },
+    "registerForm": {
+      "title":    "Nueva Receta Digital",
+      "subtitle": "Completa los datos del paciente y los medicamentos prescritos",
+      "patientInfo":       "Información del Paciente",
+      "medicationsInfo":   "Medicamentos Prescritos",
+      "additionalInfo":    "Instrucciones Adicionales",
+      "patientName":            "Nombre del Paciente",
+      "patientNamePlaceholder": "Ej: Max, Luna...",
+      "species":            "Especie",
+      "speciesPlaceholder": "Seleccionar especie",
+      "speciesDog":    "Perro",
+      "speciesCat":    "Gato",
+      "speciesBird":   "Ave",
+      "speciesRabbit": "Conejo",
+      "speciesOther":  "Otro",
+      "ownerName":            "Propietario",
+      "ownerNamePlaceholder": "Nombre completo",
+      "consultationId":            "ID de Consulta",
+      "consultationIdPlaceholder": "Ej: #C-1245 (opcional)",
+      "veterinarian": "Veterinario Responsable",
+      "addMedication": "+ Agregar Medicamento",
+      "medicationN":   "Medicamento {n}",
+      "medName":            "Medicamento",
+      "medNamePlaceholder": "Ej: Amoxicilina 500mg",
+      "medDose":            "Dosis",
+      "medDosePlaceholder": "Ej: 1 comprimido",
+      "medFrequency":            "Frecuencia",
+      "medFrequencyPlaceholder": "Ej: Cada 12 horas",
+      "medDuration":            "Duración",
+      "medDurationPlaceholder": "Ej: 7 días",
+      "medRoute":            "Vía",
+      "medRoutePlaceholder": "Seleccionar...",
+      "routeOral":        "Oral",
+      "routeTopical":     "Tópico",
+      "routeInjectable":  "Inyectable",
+      "routeOphthalmic":  "Oftálmico",
+      "routeOtic":        "Ótico",
+      "instructions":            "Instrucciones para el propietario",
+      "instructionsPlaceholder": "Ej: Administrar con comida. No interrumpir el tratamiento...",
+      "cancel":          "Cancelar",
+      "save":            "Emitir Receta",
+      "saving":          "Emitiendo...",
+      "successMessage":  "Receta emitida exitosamente",
+      "required":        "Campo requerido"
+    },
+    "detail": {
+      "title":        "Receta Digital",
+      "patient":      "Paciente",
+      "owner":        "Propietario",
+      "consultation": "Consulta vinculada",
+      "expires":      "Fecha de vencimiento",
+      "medications":  "Medicamentos",
+      "dose":         "Dosis",
+      "frequency":    "Frecuencia",
+      "duration":     "Duración",
+      "route":        "Vía",
+      "instructions": "Instrucciones",
+      "close":        "Cerrar",
+      "print":        "Imprimir"
     }
   },
   "labResults": {

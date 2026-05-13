@@ -242,7 +242,8 @@
       "clinicalHistory": "Clinical History",
       "vaccines": "Vaccines",
       "hospitalization": "Hospitalization",
-      "labResults": "Lab Results"
+      "labResults": "Lab Results",
+      "prescriptions": "Prescriptions"
     },
     "patients": {
       "title": "Registered Patients",
@@ -598,6 +599,106 @@
         "errorMessage": "Error registering client",
         "required": "Required field"
       }
+    }
+  },
+  "prescriptions": {
+    "title": "Digital Prescriptions",
+    "description": "Generate and manage medical prescriptions linked to veterinary consultations.",
+    "newPrescription": "New Prescription",
+    "search": "Search by patient, owner or ID...",
+    "allStatuses": "All statuses",
+    "emptyState": "No prescriptions found.",
+    "printSuccess": "Prescription sent to printer",
+    "statsCards": {
+      "total":   { "title": "Total",   "subtitle": "Generated in system" },
+      "active":  { "title": "Active",  "subtitle": "Within validity period" },
+      "issued":  { "title": "Issued",  "subtitle": "Recently generated" },
+      "expired": { "title": "Expired", "subtitle": "Past validity date" }
+    },
+    "status": {
+      "Activa":  "Active",
+      "Emitida": "Issued",
+      "Vencida": "Expired"
+    },
+    "columns": {
+      "id":           "ID",
+      "patient":      "Patient",
+      "owner":        "Owner",
+      "medications":  "Medications",
+      "veterinarian": "Veterinarian",
+      "date":         "Date",
+      "expires":      "Expires",
+      "status":       "Status",
+      "actions":      "Actions"
+    },
+    "actions": {
+      "view":  "View details",
+      "print": "Print prescription"
+    },
+    "pagination": {
+      "showing":  "Showing {from} to {to} of {total} prescriptions",
+      "previous": "Previous",
+      "next":     "Next"
+    },
+    "registerForm": {
+      "title":    "New Digital Prescription",
+      "subtitle": "Fill in the patient details and prescribed medications",
+      "patientInfo":       "Patient Information",
+      "medicationsInfo":   "Prescribed Medications",
+      "additionalInfo":    "Additional Instructions",
+      "patientName":            "Patient Name",
+      "patientNamePlaceholder": "E.g.: Max, Luna...",
+      "species":            "Species",
+      "speciesPlaceholder": "Select species",
+      "speciesDog":    "Dog",
+      "speciesCat":    "Cat",
+      "speciesBird":   "Bird",
+      "speciesRabbit": "Rabbit",
+      "speciesOther":  "Other",
+      "ownerName":            "Owner",
+      "ownerNamePlaceholder": "Full name",
+      "consultationId":            "Consultation ID",
+      "consultationIdPlaceholder": "E.g.: #C-1245 (optional)",
+      "veterinarian": "Responsible Veterinarian",
+      "addMedication": "+ Add Medication",
+      "medicationN":   "Medication {n}",
+      "medName":            "Medication",
+      "medNamePlaceholder": "E.g.: Amoxicillin 500mg",
+      "medDose":            "Dose",
+      "medDosePlaceholder": "E.g.: 1 tablet",
+      "medFrequency":            "Frequency",
+      "medFrequencyPlaceholder": "E.g.: Every 12 hours",
+      "medDuration":            "Duration",
+      "medDurationPlaceholder": "E.g.: 7 days",
+      "medRoute":            "Route",
+      "medRoutePlaceholder": "Select...",
+      "routeOral":        "Oral",
+      "routeTopical":     "Topical",
+      "routeInjectable":  "Injectable",
+      "routeOphthalmic":  "Ophthalmic",
+      "routeOtic":        "Otic",
+      "instructions":            "Instructions for owner",
+      "instructionsPlaceholder": "E.g.: Administer with food. Do not interrupt treatment...",
+      "cancel":          "Cancel",
+      "save":            "Issue Prescription",
+      "saving":          "Issuing...",
+      "successMessage":  "Prescription issued successfully",
+      "required":        "Required field"
+    },
+    "detail": {
+      "title":        "Digital Prescription",
+      "patient":      "Patient",
+      "owner":        "Owner",
+      "consultation": "Linked consultation",
+      "expires":      "Expiry date",
+      "medications":  "Medications",
+      "dose":         "Dose",
+      "frequency":    "Frequency",
+      "duration":     "Duration",
+      "route":        "Route",
+      "instructions": "Instructions",
+      "close":        "Close",
+      "print":        "Print"
     }
   },
   "labResults": {

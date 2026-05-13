@@ -13,7 +13,8 @@ const tabs = computed(() => [
   { id: 'historial', label: t('clinicManagement.tabs.clinicalHistory'), route: '/gestion-clinica/historial', icon: 'pi pi-book' },
   { id: 'vacunas', label: t('clinicManagement.tabs.vaccines'), route: '/gestion-clinica/vacunas', icon: 'pi pi-shield' },
   { id: 'hospitalizacion', label: t('clinicManagement.tabs.hospitalization'), route: '/gestion-clinica/hospitalizacion', icon: 'pi pi-home' },
-  { id: 'resultados-lab', label: t('clinicManagement.tabs.labResults'), route: '/gestion-clinica/resultados-lab', icon: 'pi pi-file' }
+  { id: 'resultados-lab', label: t('clinicManagement.tabs.labResults'), route: '/gestion-clinica/resultados-lab', icon: 'pi pi-file' },
+  { id: 'recetas', label: t('clinicManagement.tabs.prescriptions'), route: '/gestion-clinica/recetas', icon: 'pi pi-file-edit' }
 ]);
 </script>
 
