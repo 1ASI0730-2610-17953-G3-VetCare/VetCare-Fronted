@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="VetCare Pro">
+  <defs>
+    <linearGradient id="vetcareGrad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0084C7"/>
+      <stop offset="1" stop-color="#22C55E"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0084C7" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <circle cx="24" cy="24" r="22" fill="url(#vetcareGrad)" filter="url(#softGlow)"/>
+  <circle cx="24" cy="24" r="22" stroke="white" stroke-opacity="0.18" stroke-width="1"/>
+  <g fill="#FFFFFF">
+    <ellipse cx="24" cy="28.5" rx="7.2" ry="6.4"/>
+    <circle cx="14.5" cy="18.5" r="3.6"/>
+    <circle cx="24" cy="15" r="3.8"/>
+    <circle cx="33.5" cy="18.5" r="3.6"/>
+    <circle cx="19" cy="13" r="2.8" opacity="0.92"/>
+    <circle cx="29" cy="13" r="2.8" opacity="0.92"/>
+  </g>
+  <path d="M24 21.5v4.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+  <path d="M21.7 23.7h4.6" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+</svg>
