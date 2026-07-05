@@ -139,11 +139,11 @@ const handleLogin = async () => {
               <div class="demo-credentials-list">
                 <div class="demo-row">
                   <span class="demo-role">Admin</span>
-                  <span class="demo-detail">carlos@vetcare.com · Password123!</span>
+                  <span class="demo-detail">mario@gmail.com · mario123456</span>
                 </div>
                 <div class="demo-row">
                   <span class="demo-role">Veterinario</span>
-                  <span class="demo-detail">ana@vetcare.com · Password123!</span>
+                  <span class="demo-detail">dario@gmail.com · dario123456</span>
                 </div>
               </div>
             </div>
