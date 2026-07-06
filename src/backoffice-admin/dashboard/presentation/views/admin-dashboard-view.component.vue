@@ -222,8 +222,11 @@
         </header>
         <div class="bi-report-controls">
           <div class="bi-report-field bi-report-field--wide">
-            <label>Nombre del doctor</label>
-            <input type="text" v-model="commissionDoctor" placeholder="Ej: Dr. Arturo" class="bi-report-input" />
+            <label>Doctor</label>
+            <select v-model="commissionDoctor" class="bi-report-input">
+              <option v-if="doctorNames.length === 0" value="" disabled>Sin consultas registradas</option>
+              <option v-for="name in doctorNames" :key="name" :value="name">{{ name }}</option>
+            </select>
           </div>
           <div class="bi-report-field">
             <label>Comisión (%)</label>
@@ -261,6 +264,7 @@
 
 <script setup>
 import { onMounted, onBeforeUnmount, computed, ref, nextTick } from 'vue';
+import { BaseApi } from '@/shared/infrastructure/base-api.js';
 
 import { useAdminDashboardStore } from '../../application/admin-dashboard.store.js';
 import { useAdminDateLabel } from '@/shared/presentation/composables/use-admin-date-label.js';
@@ -297,6 +301,16 @@ onMounted(async () => {
   if (!dashboardStore.error) {
     await nextTick();
     chartsVisible.value = true;
+  }
+  try {
+    const res = await BaseApi.get('/consultations');
+    const names = (res.data ?? [])
+      .map((c) => c.doctorName ?? c.DoctorName ?? '')
+      .filter(Boolean);
+    doctorNames.value = [...new Set(names)].sort();
+    if (doctorNames.value.length > 0) commissionDoctor.value = doctorNames.value[0];
+  } catch {
+    doctorNames.value = [];
   }
 });
 
@@ -430,6 +444,7 @@ const runSalesReport = () => {
 // Commissions
 const commissionDoctor = ref('');
 const commissionRate = ref(10);
+const doctorNames = ref([]);
 const runCommissions = () => {
   if (!commissionDoctor.value.trim()) return;
   dashboardStore.fetchCommissions(commissionDoctor.value.trim(), commissionRate.value);

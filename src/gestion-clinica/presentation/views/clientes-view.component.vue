@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, onActivated } from 'vue';
+import { ref, reactive, computed, onActivated, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useClientStore } from '../../application/store/client.store.js';
 import { usePatientStore } from '../../application/store/patient.store.js';
@@ -67,7 +67,7 @@ const addHourToTime = (timeStr) => {
   return `${String(end.getHours()).padStart(2, '0')}:${String(end.getMinutes()).padStart(2, '0')}`;
 };
 
-onActivated(async () => {
+const loadClients = async () => {
   const needsLoader = !clientStore.hasCachedClients || !patientStore.hasCachedPatients;
   if (needsLoader) isPageLoading.value = true;
   try {
@@ -80,6 +80,11 @@ onActivated(async () => {
   } finally {
     isPageLoading.value = false;
   }
+};
+
+onMounted(loadClients);
+
+onActivated(loadClients);
 });
 
 const clientPets = computed(() => {

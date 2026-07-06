@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onActivated, watch } from 'vue';
+import { ref, onActivated, onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -98,6 +98,10 @@ const activateView = () => {
     loadPatientsList();
   }
 };
+
+onMounted(() => {
+  activateView();
+});
 
 onActivated(() => {
   activateView();

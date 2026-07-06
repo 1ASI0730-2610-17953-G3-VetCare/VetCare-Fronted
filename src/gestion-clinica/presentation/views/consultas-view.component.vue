@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, watch, onActivated } from 'vue';
+import { ref, reactive, computed, watch, onActivated, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -658,6 +658,11 @@ const handleRouteQuery = () => {
     router.replace({ query: {} });
   }
 };
+
+onMounted(async () => {
+  await loadInitialData();
+  handleRouteQuery();
+});
 
 onActivated(async () => {
   await loadInitialData();

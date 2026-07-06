@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, reactive, onActivated } from 'vue';
+import { ref, computed, reactive, onActivated, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -64,6 +64,10 @@ const loadPageData = async () => {
     isPageFetching.value = false;
   }
 };
+
+onMounted(() => {
+  loadPageData();
+});
 
 onActivated(() => {
   loadPageData();
