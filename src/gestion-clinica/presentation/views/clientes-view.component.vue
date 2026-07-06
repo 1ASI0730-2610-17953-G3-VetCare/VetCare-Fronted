@@ -85,7 +85,6 @@ const loadClients = async () => {
 onMounted(loadClients);
 
 onActivated(loadClients);
-});
 
 const clientPets = computed(() => {
   if (!selectedClient.value) return [];
