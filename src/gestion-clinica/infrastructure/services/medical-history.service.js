@@ -88,7 +88,7 @@ export function mapConsultationToTimeline(raw) {
   };
 }
 
-export function computeMedicalHistoryStats(consultations) {
+export function computeMedicalHistoryStats(consultations, hospitalizationCount = 0) {
   const vaccineCount = consultations.filter((c) =>
     isVacunacionType(c.type ?? c.Type)
   ).length;
@@ -106,8 +106,30 @@ export function computeMedicalHistoryStats(consultations) {
   return {
     totalConsultations: consultations.length,
     vaccinesApplied: vaccineCount,
-    hospitalizations: 0,
+    hospitalizations: hospitalizationCount,
     lastVisit
+  };
+}
+
+function mapHospitalizationToTimeline(raw) {
+  const id = raw.id ?? raw.Id;
+  const date = formatHistoryDate(raw.admissionDate ?? raw.AdmissionDate);
+  const treatments = raw.treatments ?? raw.Treatments ?? [];
+  const status = raw.status ?? raw.Status ?? '—';
+  const diagnosis = raw.diagnosis ?? raw.Diagnosis ?? '—';
+
+  return {
+    id: `hospitalizacion-${id}`,
+    type: 'hospitalizacion',
+    date,
+    doctor: '—',
+    details: {
+      reason: diagnosis,
+      procedure: treatments.length > 0 ? treatments.join(', ') : '—',
+      evolution: status,
+      postOpVitals: { temp: '—', hr: '—', spo2: '—', crt: '—' },
+      tags: [`H-${String(id).padStart(3, '0')}`]
+    }
   };
 }
 
@@ -127,22 +149,34 @@ export class MedicalHistoryService {
   }
 
   async getMedicalHistory(patientId) {
-    const [patient, response] = await Promise.all([
+    const [patient, consultationsRes, hospitalizationsRes] = await Promise.all([
       this.getPatientById(patientId),
-      BaseApi.get(`/consultations/patient/${patientId}`)
+      BaseApi.get(`/consultations/patient/${patientId}`),
+      BaseApi.get(`/hospitalizations/patient/${patientId}`).catch(() => ({ data: [] }))
     ]);
 
-    const rawConsultations = response.data ?? [];
-    const sorted = [...rawConsultations].sort((a, b) => {
-      const da = new Date(a.date ?? a.Date);
-      const db = new Date(b.date ?? b.Date);
-      return db - da;
+    const rawConsultations = consultationsRes.data ?? [];
+    const rawHospitalizations = hospitalizationsRes.data ?? [];
+
+    const consultationItems = rawConsultations.map(mapConsultationToTimeline);
+    const hospitalizationItems = rawHospitalizations.map(mapHospitalizationToTimeline);
+
+    const allItems = [...consultationItems, ...hospitalizationItems].sort((a, b) => {
+      const parseDate = (item) => {
+        const parts = (item.date ?? '').split(' ');
+        if (parts.length === 3) {
+          const months = { 'Ene': 0, 'Feb': 1, 'Mar': 2, 'Abr': 3, 'May': 4, 'Jun': 5, 'Jul': 6, 'Ago': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dic': 11 };
+          return new Date(Number(parts[2]), months[parts[1]] ?? 0, Number(parts[0]));
+        }
+        return new Date(item.date ?? 0);
+      };
+      return parseDate(b) - parseDate(a);
     });
 
     return {
       patient,
-      timeline: sorted.map(mapConsultationToTimeline),
-      stats: computeMedicalHistoryStats(rawConsultations)
+      timeline: allItems,
+      stats: computeMedicalHistoryStats(rawConsultations, rawHospitalizations.length)
     };
   }
 }

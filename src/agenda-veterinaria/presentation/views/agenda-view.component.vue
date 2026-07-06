@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { computed, onActivated } from 'vue';
+import { computed, onActivated, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import PageViewLoading from '@/shared/presentation/components/page-view-loading.component.vue';
 import { useAgendaStore } from '../../application/agenda.store.js';
@@ -155,6 +155,10 @@ const formattedEvents = computed(() => {
     isEditable: true,
     description: `${t('agenda.statusLabel')}: ${translateStatus(cita.status)}`
   }));
+});
+
+onMounted(async () => {
+  await store.fetchCitas();
 });
 
 onActivated(async () => {

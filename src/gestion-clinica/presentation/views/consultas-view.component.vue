@@ -276,6 +276,7 @@ const showPaymentModal = ref(false);
 const currentTicket = ref(null);
 const paymentMethod = ref('Efectivo');
 const pendingConsultaId = ref(null);
+const pendingConsultationOriginalId = ref(null);
 const discountPercent = ref(0);
 const useSplitPay = ref(false);
 const splitPayments = ref([{ method: 'Efectivo', amount: '' }, { method: 'Tarjeta', amount: '' }]);
@@ -307,6 +308,7 @@ const openPaymentModalForConsultation = async (consultationId, displayId) => {
   const ticketRes = await BaseApi.get(`/tickets/consultation/${consultationId}`);
   currentTicket.value = ticketRes.data;
   pendingConsultaId.value = displayId;
+  pendingConsultationOriginalId.value = consultationId;
   paymentMethod.value = 'Efectivo';
   discountPercent.value = 0;
   useSplitPay.value = false;
@@ -348,10 +350,14 @@ const processPayment = async () => {
     } else {
       await BaseApi.post(`/tickets/${currentTicket.value.id}/pay`, { paymentMethod: paymentMethod.value });
     }
+    if (pendingConsultationOriginalId.value) {
+      try { await consultationService.completeConsultation(pendingConsultationOriginalId.value); } catch (_) { /* best-effort */ }
+    }
     displayToast(t('clinicManagement.consultations.payment.success'), 'success');
     showPaymentModal.value = false;
     currentTicket.value = null;
     pendingConsultaId.value = null;
+    pendingConsultationOriginalId.value = null;
     await fetchConsultations(true);
   } catch (e) {
     displayToast(t('clinicManagement.consultations.payment.error'), 'error');
@@ -362,6 +368,7 @@ const cancelPaymentModal = () => {
   showPaymentModal.value = false;
   currentTicket.value = null;
   pendingConsultaId.value = null;
+  pendingConsultationOriginalId.value = null;
   displayToast(t('clinicManagement.consultations.payment.pending'), 'info');
 };
 
