@@ -16,7 +16,6 @@ const orderTotalHint = computed(() =>
   t('procurement.orderForm.totalHint', { currency: symbol.value === 'S/' ? 'PEN' : 'USD' })
 );
 
-const TOTAL_SPENT_USD = 48300;
 
 const searchQuery = ref('');
 const currentPage = ref(1);
@@ -26,7 +25,7 @@ const newOrder = ref({
   supplierId: '',
   total: '',
   notes: '',
-  status: 'Pendiente',
+  status: 'Completada',
   date: new Date().toISOString()
 });
 
@@ -38,6 +37,7 @@ const formErrors = ref({});
 
 onMounted(() => {
   store.fetchSuppliers();
+  store.fetchOrders();
 });
 
 const filteredSuppliers = computed(() => {
@@ -340,21 +340,21 @@ const createSupplier = async () => {
                 <i class="pi pi-check-circle summary-item-icon text-green"></i>
                 {{ t('procurement.summary.completed') }}
               </div>
-              <span class="summary-val val-green">14</span>
+              <span class="summary-val val-green">{{ store.completedOrders.length }}</span>
             </div>
             <div class="summary-item">
               <div class="summary-label">
                 <i class="pi pi-clock summary-item-icon text-orange"></i>
                 {{ t('procurement.summary.pending') }}
               </div>
-              <span class="summary-val val-orange">4</span>
+              <span class="summary-val val-orange">{{ store.pendingOrders.length }}</span>
             </div>
             <div class="summary-item item-money">
               <div class="summary-label">
                 <i class="pi pi-wallet summary-item-icon text-purple"></i>
                 {{ t('procurement.summary.totalSpent') }}
               </div>
-              <span class="summary-val val-purple">{{ formatPlainAmount(TOTAL_SPENT_USD) }}</span>
+              <span class="summary-val val-purple">{{ formatPlainAmount(store.totalSpent) }}</span>
             </div>
           </div>
         </div>

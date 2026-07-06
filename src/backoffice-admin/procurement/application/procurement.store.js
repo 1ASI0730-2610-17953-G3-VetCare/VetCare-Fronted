@@ -5,9 +5,15 @@ import { Supplier } from '../domain/model/supplier.entity.js';
 export const useProcurementStore = defineStore('procurement', {
   state: () => ({
     suppliers: [],
+    orders: [],
     isLoading: false,
     error: null
   }),
+  getters: {
+    completedOrders: (state) => state.orders.filter((o) => (o.status ?? o.Status) === 'Completada'),
+    pendingOrders: (state) => state.orders.filter((o) => (o.status ?? o.Status) !== 'Completada'),
+    totalSpent: (state) => state.orders.reduce((sum, o) => sum + Number(o.total ?? o.Total ?? 0), 0)
+  },
   actions: {
     async fetchSuppliers() {
       const isInitialLoad = this.suppliers.length === 0;
@@ -22,9 +28,17 @@ export const useProcurementStore = defineStore('procurement', {
         if (isInitialLoad) this.isLoading = false;
       }
     },
+    async fetchOrders() {
+      try {
+        this.orders = await ProcurementApi.getOrders();
+      } catch (err) {
+        console.error('Error fetching orders', err);
+      }
+    },
     async createOrder(orderData) {
       try {
-        await ProcurementApi.createOrder(orderData);
+        const created = await ProcurementApi.createOrder(orderData);
+        this.orders.unshift(created);
       } catch (err) {
         throw err;
       }
