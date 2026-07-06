@@ -13,7 +13,7 @@ export class HospitalizationService {
       patientId: Number(patientId),
       status,
       diagnosis,
-      admissionDate: admissionDate ? `${admissionDate}T00:00:00` : null,
+      admissionDate: admissionDate ? `${admissionDate}T00:00:00Z` : null,
       treatments: treatments ?? []
     });
     return response.data;
@@ -38,7 +38,7 @@ export class HospitalizationService {
       status,
       title,
       description,
-      taskDate: `${date}T00:00:00`,
+      taskDate: `${date}T00:00:00Z`,
       taskTime: time
     });
     return mapTaskFromApi(response.data);
