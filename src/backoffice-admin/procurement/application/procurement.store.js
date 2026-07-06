@@ -12,6 +12,7 @@ export const useProcurementStore = defineStore('procurement', {
     async fetchSuppliers() {
       const isInitialLoad = this.suppliers.length === 0;
       if (isInitialLoad) this.isLoading = true;
+      this.error = null;
       try {
         const data = await ProcurementApi.getSuppliers();
         this.suppliers = data.map(s => new Supplier(s));
@@ -25,7 +26,6 @@ export const useProcurementStore = defineStore('procurement', {
       try {
         await ProcurementApi.createOrder(orderData);
       } catch (err) {
-        this.error = err;
         throw err;
       }
     },
@@ -35,7 +35,7 @@ export const useProcurementStore = defineStore('procurement', {
         this.suppliers.push(new Supplier(data));
         return true;
       } catch (err) {
-        this.error = err;
+        console.error('Error creating supplier', err);
         return false;
       }
     }

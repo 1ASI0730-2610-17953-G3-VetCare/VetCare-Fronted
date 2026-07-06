@@ -22,8 +22,8 @@ export class VaccineService {
       patientId: Number(patientId),
       vaccineName,
       disease: disease || '-',
-      lastApplication: `${lastApplication}T00:00:00`,
-      nextDose: nextDose ? `${nextDose}T00:00:00` : null,
+      lastApplication: `${lastApplication}T00:00:00Z`,
+      nextDose: nextDose ? `${nextDose}T00:00:00Z` : null,
       productId: productId ? Number(productId) : null
     };
 
@@ -35,8 +35,8 @@ export class VaccineService {
 
   async applyVaccine(id, { lastApplication, nextDose }) {
     const response = await BaseApi.patch(`/vaccine-records/${id}/apply`, {
-      lastApplication: `${lastApplication}T00:00:00`,
-      nextDose: `${nextDose}T00:00:00`
+      lastApplication: `${lastApplication}T00:00:00Z`,
+      nextDose: `${nextDose}T00:00:00Z`
     });
     const updated = mapVaccineFromApi(response.data);
     vaccinesState.value = vaccinesState.value.map((v) => (v.id === updated.id ? updated : v));

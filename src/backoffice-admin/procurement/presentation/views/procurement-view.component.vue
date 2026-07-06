@@ -41,10 +41,11 @@ onMounted(() => {
 });
 
 const filteredSuppliers = computed(() => {
-  return store.suppliers.filter(s => 
-    s.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-    s.email.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-    s.contact.toLowerCase().includes(searchQuery.value.toLowerCase())
+  const q = searchQuery.value.toLowerCase();
+  return store.suppliers.filter(s =>
+    (s.name ?? '').toLowerCase().includes(q) ||
+    (s.email ?? '').toLowerCase().includes(q) ||
+    (s.contact ?? '').toLowerCase().includes(q)
   );
 });
 

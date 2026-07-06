@@ -5,7 +5,7 @@ const USD_TO_PEN_RATE = 3.45
 
 export const useCurrencyStore = defineStore('currency', {
   state: () => ({
-    currency: localStorage.getItem(STORAGE_KEY) || 'USD',
+    currency: localStorage.getItem(STORAGE_KEY) || 'PEN',
     usdToPenRate: USD_TO_PEN_RATE
   }),
 
@@ -20,9 +20,9 @@ export const useCurrencyStore = defineStore('currency', {
       localStorage.setItem(STORAGE_KEY, this.currency)
     },
 
-    convertFromUsd(amountUsd) {
-      const value = Number(amountUsd) || 0
-      return this.currency === 'PEN' ? value * this.usdToPenRate : value
+    convertFromUsd(amountPen) {
+      const value = Number(amountPen) || 0
+      return this.currency === 'PEN' ? value : value / this.usdToPenRate
     }
   }
 })
