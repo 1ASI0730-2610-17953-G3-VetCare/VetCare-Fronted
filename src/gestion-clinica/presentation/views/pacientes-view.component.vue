@@ -38,7 +38,8 @@ const form = reactive(getDefaultForm());
 
 const getDefaultEditForm = () => ({
   age: '',
-  weight: ''
+  weight: '',
+  allergies: ''
 });
 const editForm = reactive(getDefaultEditForm());
 const editErrors = reactive({});
@@ -105,6 +106,7 @@ const openEditModal = (patient) => {
   selectedPatient.value = patient;
   editForm.age = patient.age ?? '';
   editForm.weight = parseWeightValue(patient.weight);
+  editForm.allergies = patient.allergies ?? '';
   Object.keys(editErrors).forEach((key) => delete editErrors[key]);
   showEditModal.value = true;
 };
@@ -143,7 +145,8 @@ const submitEditForm = async () => {
   try {
     await patientStore.updatePatient(selectedPatient.value.id, {
       age: Number(editForm.age),
-      weight: Number(editForm.weight)
+      weight: Number(editForm.weight),
+      allergies: editForm.allergies || null
     });
     displayToast(t('clinicManagement.patients.updateForm.successMessage'), 'success');
     closeEditModal();
@@ -214,7 +217,8 @@ const submitForm = async () => {
     species: speciesLabel,
     age: calcAgeYears(form.birthDate),
     weight: parseFloat(form.weight) || 1,
-    ownerId: form.ownerId
+    ownerId: form.ownerId,
+    allergies: form.allergies || null
   };
   try {
     const newPatient = await patientStore.createPatient(payload);
@@ -586,6 +590,15 @@ const submitForm = async () => {
                     />
                     <span class="field-hint">{{ t('clinicManagement.patients.updateForm.weightHint') }}</span>
                     <span v-if="editErrors.weight" class="error-text">{{ t('clinicManagement.patients.registerForm.required') }}</span>
+                  </div>
+                  <div class="form-group span-full">
+                    <label for="edit-patient-allergies">{{ t('clinicManagement.patients.registerForm.allergies') }}</label>
+                    <input
+                      id="edit-patient-allergies"
+                      type="text"
+                      v-model="editForm.allergies"
+                      :placeholder="t('clinicManagement.patients.registerForm.allergiesPlaceholder')"
+                    />
                   </div>
                 </div>
               </section>

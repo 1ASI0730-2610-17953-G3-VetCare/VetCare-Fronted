@@ -73,6 +73,23 @@ export const useIamStore = defineStore('iam', {
       }
     },
 
+    async verifySession() {
+      if (!this.session.token) return false;
+      try {
+        const data = await IamApi.verify();
+        const serverRoles = normalizeRoles(data.roles);
+        this.session.roles = serverRoles;
+        tokenStorage.saveSession(this.session.token, this.session.user, serverRoles);
+        return true;
+      } catch {
+        this.session.token = null;
+        this.session.user = null;
+        this.session.roles = [];
+        tokenStorage.clearSession();
+        return false;
+      }
+    },
+
     setAvatarUrl(avatarUrl) {
       if (!this.session.user) return;
       this.avatarVersion += 1;

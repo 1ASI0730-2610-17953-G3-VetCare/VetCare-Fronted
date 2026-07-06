@@ -161,19 +161,133 @@ const openModal = (consulta = null) => {
 };
 const closeModal = () => { showModal.value = false; };
 
+const fetchAttachments = async (consultationId) => {
+  attachmentsLoading.value = true;
+  try {
+    const res = await BaseApi.get(`/consultations/${consultationId}/attachments`);
+    attachments.value = res.data;
+  } catch {
+    attachments.value = [];
+  } finally {
+    attachmentsLoading.value = false;
+  }
+};
+
 const openViewModal = (consulta) => {
   viewedConsulta.value = consulta;
   showViewModal.value = true;
+  attachments.value = [];
+  attachmentFile.value = null;
+  if (consulta.originalId) fetchAttachments(consulta.originalId);
 };
 const closeViewModal = () => {
   showViewModal.value = false;
   viewedConsulta.value = null;
+  attachments.value = [];
+  attachmentFile.value = null;
+};
+
+const onAttachmentFileChange = (event) => {
+  attachmentFile.value = event.target.files[0] || null;
+};
+
+const uploadAttachment = async () => {
+  if (!attachmentFile.value || !viewedConsulta.value?.originalId) return;
+  attachmentUploading.value = true;
+  try {
+    const formData = new FormData();
+    formData.append('file', attachmentFile.value);
+    await BaseApi.post(`/consultations/${viewedConsulta.value.originalId}/attachments`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+    attachmentFile.value = null;
+    const inp = document.getElementById('consult-attach-input');
+    if (inp) inp.value = '';
+    await fetchAttachments(viewedConsulta.value.originalId);
+    displayToast('Archivo subido exitosamente', 'success');
+  } catch {
+    displayToast('Error al subir archivo', 'error');
+  } finally {
+    attachmentUploading.value = false;
+  }
+};
+
+const downloadAttachment = async (attachment) => {
+  try {
+    const res = await BaseApi.get(
+      `/consultations/${viewedConsulta.value.originalId}/attachments/${attachment.id}`,
+      { responseType: 'blob' }
+    );
+    const url = URL.createObjectURL(res.data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = attachment.fileName;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch {
+    displayToast('Error al descargar archivo', 'error');
+  }
+};
+
+const deleteAttachment = async (attachmentId) => {
+  if (!viewedConsulta.value?.originalId) return;
+  try {
+    await BaseApi.delete(`/consultations/${viewedConsulta.value.originalId}/attachments/${attachmentId}`);
+    await fetchAttachments(viewedConsulta.value.originalId);
+    displayToast('Archivo eliminado', 'success');
+  } catch {
+    displayToast('Error al eliminar archivo', 'error');
+  }
+};
+
+const openVoidModal = async (consulta) => {
+  try {
+    const ticketRes = await BaseApi.get(`/tickets/consultation/${consulta.originalId}`);
+    voidTicketTarget.value = ticketRes.data;
+    voidReason.value = '';
+    showVoidModal.value = true;
+  } catch {
+    displayToast('No se encontró ticket para esta consulta', 'error');
+  }
+};
+const closeVoidModal = () => {
+  showVoidModal.value = false;
+  voidTicketTarget.value = null;
+  voidReason.value = '';
+};
+const submitVoid = async () => {
+  if (!voidTicketTarget.value) return;
+  if (!voidReason.value.trim()) {
+    displayToast('Ingresa el motivo de anulación', 'error');
+    return;
+  }
+  try {
+    await BaseApi.post(`/tickets/${voidTicketTarget.value.id}/void`, { reason: voidReason.value.trim() });
+    displayToast('Ticket anulado exitosamente', 'success');
+    closeVoidModal();
+    closeViewModal();
+    await fetchConsultations(true);
+  } catch {
+    displayToast('Error al anular ticket', 'error');
+  }
 };
 
 const showPaymentModal = ref(false);
 const currentTicket = ref(null);
 const paymentMethod = ref('Efectivo');
 const pendingConsultaId = ref(null);
+const discountPercent = ref(0);
+const useSplitPay = ref(false);
+const splitPayments = ref([{ method: 'Efectivo', amount: '' }, { method: 'Tarjeta', amount: '' }]);
+
+const showVoidModal = ref(false);
+const voidReason = ref('');
+const voidTicketTarget = ref(null);
+
+const attachments = ref([]);
+const attachmentsLoading = ref(false);
+const attachmentFile = ref(null);
+const attachmentUploading = ref(false);
 
 const closeConsulta = async (consulta) => {
   try {
@@ -194,13 +308,46 @@ const openPaymentModalForConsultation = async (consultationId, displayId) => {
   currentTicket.value = ticketRes.data;
   pendingConsultaId.value = displayId;
   paymentMethod.value = 'Efectivo';
+  discountPercent.value = 0;
+  useSplitPay.value = false;
+  splitPayments.value = [{ method: 'Efectivo', amount: '' }, { method: 'Tarjeta', amount: '' }];
   showPaymentModal.value = true;
+};
+
+const computedDiscount = computed(() => {
+  if (!currentTicket.value) return 0;
+  return parseFloat((currentTicket.value.totalAmount * discountPercent.value / 100).toFixed(2));
+});
+const finalAmount = computed(() => {
+  if (!currentTicket.value) return 0;
+  return parseFloat(Math.max(0, currentTicket.value.totalAmount - computedDiscount.value).toFixed(2));
+});
+
+const addSplitRow = () => {
+  splitPayments.value.push({ method: 'Efectivo', amount: '' });
+};
+const removeSplitRow = (i) => {
+  splitPayments.value.splice(i, 1);
 };
 
 const processPayment = async () => {
   if (!currentTicket.value) return;
   try {
-    await BaseApi.post(`/tickets/${currentTicket.value.id}/pay`, { paymentMethod: paymentMethod.value });
+    if (discountPercent.value > 0) {
+      await BaseApi.put(`/tickets/${currentTicket.value.id}/discount`, { discountPercent: discountPercent.value });
+    }
+    if (useSplitPay.value) {
+      const valid = splitPayments.value.filter(p => p.amount && parseFloat(p.amount) > 0);
+      if (valid.length === 0) {
+        displayToast('Ingresa al menos un monto de pago', 'error');
+        return;
+      }
+      await BaseApi.post(`/tickets/${currentTicket.value.id}/pay-split`, {
+        payments: valid.map(p => ({ method: p.method, amount: parseFloat(p.amount) }))
+      });
+    } else {
+      await BaseApi.post(`/tickets/${currentTicket.value.id}/pay`, { paymentMethod: paymentMethod.value });
+    }
     displayToast(t('clinicManagement.consultations.payment.success'), 'success');
     showPaymentModal.value = false;
     currentTicket.value = null;
@@ -974,6 +1121,81 @@ onActivated(async () => {
                 </div>
               </div>
             </section>
+
+            <section class="detail-panel detail-panel-attach">
+              <h3 class="detail-panel-title">
+                <span class="detail-panel-icon"><i class="pi pi-paperclip" aria-hidden="true"></i></span>
+                Resultados de exámenes
+              </h3>
+              <div v-if="attachmentsLoading" class="attachments-loading">
+                <i class="pi pi-spin pi-spinner"></i> Cargando archivos...
+              </div>
+              <div v-else>
+                <div v-if="attachments.length === 0" class="attachments-empty">Sin archivos adjuntos</div>
+                <div v-for="att in attachments" :key="att.id" class="attachment-row">
+                  <i class="pi pi-file attachment-file-icon"></i>
+                  <span class="attachment-name">{{ att.fileName }}</span>
+                  <div class="attachment-btns">
+                    <button type="button" class="attach-btn attach-btn-download" @click="downloadAttachment(att)" title="Descargar">
+                      <i class="pi pi-download"></i>
+                    </button>
+                    <button type="button" class="attach-btn attach-btn-delete" @click="deleteAttachment(att.id)" title="Eliminar">
+                      <i class="pi pi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="attachment-upload-row">
+                  <input id="consult-attach-input" type="file" accept=".pdf,.jpg,.jpeg,.png" @change="onAttachmentFileChange" class="attach-file-input" />
+                  <button
+                    type="button"
+                    class="attach-upload-btn"
+                    :disabled="!attachmentFile || attachmentUploading"
+                    @click="uploadAttachment"
+                  >
+                    <i :class="attachmentUploading ? 'pi pi-spin pi-spinner' : 'pi pi-upload'"></i>
+                    Subir archivo
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <div v-if="viewedConsulta.status === 'completada'" class="void-action-row">
+              <button type="button" class="btn-void" @click="openVoidModal(viewedConsulta)">
+                <i class="pi pi-ban"></i>
+                Anular ticket
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
+    <Transition name="modal">
+      <div v-if="showVoidModal" class="modal-overlay" @click.self="closeVoidModal">
+        <div class="modal-container void-modal">
+          <div class="modal-header">
+            <div class="modal-header-icon icon-danger"><i class="pi pi-ban"></i></div>
+            <div>
+              <h2 class="modal-title">Anular Ticket</h2>
+              <p class="modal-subtitle">Ticket #{{ voidTicketTarget?.id }} — S/ {{ voidTicketTarget?.totalAmount?.toFixed(2) }}</p>
+            </div>
+            <button type="button" class="modal-close" @click="closeVoidModal"><i class="pi pi-times"></i></button>
+          </div>
+          <div class="modal-body">
+            <div class="void-warning">
+              <i class="pi pi-exclamation-triangle"></i>
+              Esta acción anulará el ticket y no se puede deshacer. Ingresa el motivo.
+            </div>
+            <div class="form-group" style="padding: 16px 24px;">
+              <label>Motivo de anulación *</label>
+              <textarea v-model="voidReason" rows="3" placeholder="Ej: Error en los productos, solicitud del cliente..." style="width:100%;padding:10px;border:1px solid var(--color-border-light);border-radius:8px;font-family:inherit;resize:vertical;box-sizing:border-box;"></textarea>
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="btn-cancel" @click="closeVoidModal">Cancelar</button>
+              <button type="button" class="btn-danger" @click="submitVoid" :disabled="!voidReason.trim()">
+                <i class="pi pi-ban"></i> Confirmar anulación
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1009,6 +1231,23 @@ onActivated(async () => {
             </div>
 
             <div class="form-group">
+              <label>Descuento (%)</label>
+              <div class="discount-row">
+                <input type="number" min="0" max="100" step="1" v-model.number="discountPercent" class="discount-input" placeholder="0" />
+                <span v-if="discountPercent > 0" class="discount-preview">
+                  -S/ {{ computedDiscount.toFixed(2) }} → <strong>S/ {{ finalAmount.toFixed(2) }}</strong>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="split-toggle-label">
+                <input type="checkbox" v-model="useSplitPay" />
+                Pago dividido (múltiples métodos)
+              </label>
+            </div>
+
+            <div v-if="!useSplitPay" class="form-group">
               <label>{{ t('clinicManagement.consultations.payment.methodLabel') }}</label>
               <div class="payment-methods">
                 <button type="button" class="payment-method-btn" :class="{ active: paymentMethod === 'Efectivo' }" @click="paymentMethod = 'Efectivo'">Efectivo</button>
@@ -1019,7 +1258,26 @@ onActivated(async () => {
                 <button type="button" class="payment-method-btn" :class="{ active: paymentMethod === 'Banca' }" @click="paymentMethod = 'Banca'">Banca</button>
               </div>
             </div>
-            
+
+            <div v-else class="form-group">
+              <label>Distribución del pago</label>
+              <div v-for="(payment, i) in splitPayments" :key="i" class="split-row">
+                <select v-model="payment.method" class="split-method-select">
+                  <option>Efectivo</option>
+                  <option>Tarjeta</option>
+                  <option>Yape</option>
+                  <option>Banca</option>
+                </select>
+                <input type="number" min="0" step="0.01" v-model="payment.amount" placeholder="0.00" class="split-amount-input" />
+                <button v-if="splitPayments.length > 1" type="button" class="split-remove-btn" @click="removeSplitRow(i)">
+                  <i class="pi pi-times"></i>
+                </button>
+              </div>
+              <button type="button" class="btn-add-split" @click="addSplitRow">
+                <i class="pi pi-plus"></i> Agregar método
+              </button>
+            </div>
+
             <div class="modal-actions payment-actions">
               <button type="button" class="btn-cancel" @click="cancelPaymentModal">{{ t('clinicManagement.consultations.payment.cancel') }}</button>
               <button type="button" class="btn-submit btn-submit-success" @click="processPayment">
@@ -2342,5 +2600,296 @@ onActivated(async () => {
 
 .modal-body {
   padding: 24px 28px;
+}
+
+.discount-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.discount-input {
+  width: 80px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-standard);
+  font-size: var(--font-body-main-size);
+  color: var(--color-text-primary);
+  background: var(--color-background-surface);
+  outline: none;
+}
+
+.discount-preview {
+  font-size: 13px;
+  color: var(--color-status-success-text);
+  background: var(--color-status-success-bg);
+  border-radius: var(--radius-standard);
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--color-status-success-indicator) 22%, transparent);
+}
+
+.split-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-body-main-size);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.split-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.split-method-select {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-standard);
+  font-size: var(--font-body-main-size);
+  color: var(--color-text-primary);
+  background: var(--color-background-surface);
+  outline: none;
+}
+
+.split-amount-input {
+  width: 90px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-standard);
+  font-size: var(--font-body-main-size);
+  color: var(--color-text-primary);
+  background: var(--color-background-surface);
+  outline: none;
+}
+
+.split-remove-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-status-danger-indicator);
+  border-radius: 8px;
+  background: var(--color-status-danger-bg);
+  color: var(--color-status-danger-indicator);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btn-add-split {
+  margin-top: 10px;
+  padding: 7px 14px;
+  border: 1px dashed var(--color-primary-main);
+  border-radius: var(--radius-standard);
+  background: transparent;
+  color: var(--color-primary-main);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.btn-add-split:hover {
+  background: var(--color-primary-subtle);
+}
+
+.detail-panel-attach {
+  border: 1px solid color-mix(in srgb, var(--color-primary-main) 18%, transparent);
+  background: color-mix(in srgb, var(--color-primary-subtle) 30%, var(--color-background-surface));
+}
+
+.attachments-loading {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.attachments-empty {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  padding: 8px 0;
+}
+
+.attachment-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-standard);
+  margin-bottom: 6px;
+}
+
+.attachment-file-icon {
+  color: var(--color-primary-main);
+  flex-shrink: 0;
+}
+
+.attachment-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.attachment-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.attach-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-background-main);
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.attach-btn-download {
+  color: var(--color-primary-main);
+}
+
+.attach-btn-download:hover {
+  background: var(--color-primary-subtle);
+}
+
+.attach-btn-delete {
+  color: var(--color-status-danger-indicator);
+}
+
+.attach-btn-delete:hover {
+  background: var(--color-status-danger-bg);
+}
+
+.attachment-upload-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-border-light);
+}
+
+.attach-file-input {
+  flex: 1;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.attach-upload-btn {
+  padding: 7px 14px;
+  background: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+  border: none;
+  border-radius: var(--radius-standard);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.attach-upload-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.void-action-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 28px 20px;
+}
+
+.btn-void {
+  padding: 9px 18px;
+  background: var(--color-status-danger-bg);
+  color: var(--color-status-danger-indicator);
+  border: 1px solid color-mix(in srgb, var(--color-status-danger-indicator) 30%, transparent);
+  border-radius: var(--radius-standard);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.btn-void:hover {
+  background: color-mix(in srgb, var(--color-status-danger-bg) 80%, var(--color-status-danger-indicator) 10%);
+}
+
+.void-modal {
+  max-width: 440px;
+}
+
+.icon-danger {
+  background: var(--color-status-danger-bg);
+  color: var(--color-status-danger-indicator);
+  border: 1px solid color-mix(in srgb, var(--color-status-danger-indicator) 22%, transparent);
+}
+
+.void-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  margin: 0 24px 16px;
+  background: var(--color-status-danger-bg);
+  border: 1px solid color-mix(in srgb, var(--color-status-danger-indicator) 22%, transparent);
+  border-left: 3px solid var(--color-status-danger-indicator);
+  border-radius: var(--radius-standard);
+  font-size: 13px;
+  color: var(--color-status-danger-text);
+  line-height: 1.45;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius-standard);
+  background: var(--color-status-danger-indicator);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-danger:hover:not(:disabled) {
+  opacity: 0.9;
 }
 </style>

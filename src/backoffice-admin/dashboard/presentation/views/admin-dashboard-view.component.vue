@@ -121,12 +121,147 @@
           <p>{{ t('adminDashboard.riskInventory.empty') }}</p>
         </div>
       </section>
+
+      <!-- Cierre de Caja -->
+      <section class="bi-panel bi-report-panel">
+        <header class="bi-panel-head">
+          <h2>Cierre de Caja</h2>
+          <span>Recaudación por método de pago</span>
+        </header>
+        <div class="bi-report-controls">
+          <div class="bi-report-field">
+            <label>Fecha</label>
+            <input type="date" v-model="cashClosingDate" class="bi-report-input" />
+          </div>
+          <button class="bi-report-btn" :disabled="dashboardStore.reportsLoading" @click="runCashClosing">
+            <i :class="dashboardStore.reportsLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"></i>
+            Consultar
+          </button>
+        </div>
+        <div v-if="dashboardStore.cashClosing" class="bi-report-result">
+          <div class="bi-report-kpi-row">
+            <div class="bi-report-kpi">
+              <span class="bi-report-kpi-label">Total recaudado</span>
+              <span class="bi-report-kpi-value">{{ formatCurrency(dashboardStore.cashClosing.grandTotal) }}</span>
+            </div>
+            <div class="bi-report-kpi">
+              <span class="bi-report-kpi-label">Métodos usados</span>
+              <span class="bi-report-kpi-value">{{ dashboardStore.cashClosing.breakdown.length }}</span>
+            </div>
+          </div>
+          <table class="bi-report-table" v-if="dashboardStore.cashClosing.breakdown.length">
+            <thead><tr><th>Método</th><th>Tickets</th><th>Total</th></tr></thead>
+            <tbody>
+              <tr v-for="item in dashboardStore.cashClosing.breakdown" :key="item.paymentMethod">
+                <td>{{ item.paymentMethod }}</td>
+                <td>{{ item.count }}</td>
+                <td class="bi-report-amount">{{ formatCurrency(item.total) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p v-else class="bi-report-empty">Sin tickets pagados en esa fecha.</p>
+        </div>
+      </section>
+
+      <!-- Reporte de Ventas -->
+      <section class="bi-panel bi-report-panel">
+        <header class="bi-panel-head">
+          <h2>Reporte de Ventas</h2>
+          <span>Ingresos y egresos por rango de fechas</span>
+        </header>
+        <div class="bi-report-controls">
+          <div class="bi-report-field">
+            <label>Desde</label>
+            <input type="date" v-model="salesFrom" class="bi-report-input" />
+          </div>
+          <div class="bi-report-field">
+            <label>Hasta</label>
+            <input type="date" v-model="salesTo" class="bi-report-input" />
+          </div>
+          <button class="bi-report-btn" :disabled="dashboardStore.reportsLoading" @click="runSalesReport">
+            <i :class="dashboardStore.reportsLoading ? 'pi pi-spin pi-spinner' : 'pi pi-search'"></i>
+            Generar
+          </button>
+        </div>
+        <div v-if="dashboardStore.salesReport" class="bi-report-result">
+          <div class="bi-report-kpi-row">
+            <div class="bi-report-kpi bi-report-kpi--income">
+              <span class="bi-report-kpi-label">Ingresos</span>
+              <span class="bi-report-kpi-value">{{ formatCurrency(dashboardStore.salesReport.totalRevenue) }}</span>
+            </div>
+            <div class="bi-report-kpi bi-report-kpi--expense">
+              <span class="bi-report-kpi-label">Egresos</span>
+              <span class="bi-report-kpi-value">{{ formatCurrency(dashboardStore.salesReport.totalExpenses) }}</span>
+            </div>
+            <div class="bi-report-kpi">
+              <span class="bi-report-kpi-label">Utilidad neta</span>
+              <span class="bi-report-kpi-value" :class="dashboardStore.salesReport.netProfit >= 0 ? 'bi-text-income' : 'bi-text-expense'">
+                {{ formatCurrency(dashboardStore.salesReport.netProfit) }}
+              </span>
+            </div>
+          </div>
+          <table class="bi-report-table" v-if="dashboardStore.salesReport.rows.length">
+            <thead><tr><th>Fecha</th><th>Tipo</th><th>Total</th></tr></thead>
+            <tbody>
+              <tr v-for="(row, i) in dashboardStore.salesReport.rows" :key="i">
+                <td>{{ row.date }}</td>
+                <td><span :class="['bi-tag', row.type === 'Ingreso' ? 'bi-tag--ok' : 'bi-tag--danger']">{{ row.type }}</span></td>
+                <td class="bi-report-amount">{{ formatCurrency(row.total) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p v-else class="bi-report-empty">Sin movimientos en ese período.</p>
+        </div>
+      </section>
+
+      <!-- Comisiones de Doctor -->
+      <section class="bi-panel bi-report-panel">
+        <header class="bi-panel-head">
+          <h2>Comisiones por Doctor</h2>
+          <span>Calcular comisión sobre servicios atendidos</span>
+        </header>
+        <div class="bi-report-controls">
+          <div class="bi-report-field bi-report-field--wide">
+            <label>Nombre del doctor</label>
+            <input type="text" v-model="commissionDoctor" placeholder="Ej: Dr. Arturo" class="bi-report-input" />
+          </div>
+          <div class="bi-report-field">
+            <label>Comisión (%)</label>
+            <input type="number" v-model.number="commissionRate" min="0" max="100" step="1" class="bi-report-input" style="width:80px" />
+          </div>
+          <button class="bi-report-btn" :disabled="dashboardStore.reportsLoading || !commissionDoctor" @click="runCommissions">
+            <i :class="dashboardStore.reportsLoading ? 'pi pi-spin pi-spinner' : 'pi pi-calculator'"></i>
+            Calcular
+          </button>
+        </div>
+        <div v-if="dashboardStore.commissions" class="bi-report-result">
+          <div class="bi-report-kpi-row">
+            <div class="bi-report-kpi">
+              <span class="bi-report-kpi-label">Doctor</span>
+              <span class="bi-report-kpi-value" style="font-size:1rem">{{ dashboardStore.commissions.doctorName }}</span>
+            </div>
+            <div class="bi-report-kpi bi-report-kpi--income">
+              <span class="bi-report-kpi-label">Total servicios</span>
+              <span class="bi-report-kpi-value">{{ formatCurrency(dashboardStore.commissions.servicesTotal) }}</span>
+            </div>
+            <div class="bi-report-kpi">
+              <span class="bi-report-kpi-label">Tasa</span>
+              <span class="bi-report-kpi-value">{{ dashboardStore.commissions.commissionRate }}%</span>
+            </div>
+            <div class="bi-report-kpi bi-report-kpi--income">
+              <span class="bi-report-kpi-label">Comisión a pagar</span>
+              <span class="bi-report-kpi-value bi-text-income">{{ formatCurrency(dashboardStore.commissions.commissionAmount) }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </template>
   </div>
 </template>
 
 <script setup>
 import { onMounted, onBeforeUnmount, computed, ref, nextTick } from 'vue';
+
 import { useAdminDashboardStore } from '../../application/admin-dashboard.store.js';
 import { useAdminDateLabel } from '@/shared/presentation/composables/use-admin-date-label.js';
 import { useCurrencyFormat } from '@/shared/presentation/composables/use-currency-format.js';
@@ -277,6 +412,28 @@ const topProductsChartOptions = computed(() => ({
   },
   maintainAspectRatio: false
 }));
+
+// Cash Closing
+const today = new Date().toISOString().split('T')[0];
+const cashClosingDate = ref(today);
+const runCashClosing = () => {
+  dashboardStore.fetchCashClosing(cashClosingDate.value);
+};
+
+// Sales Report
+const salesFrom = ref(today);
+const salesTo = ref(today);
+const runSalesReport = () => {
+  dashboardStore.fetchSalesReport(salesFrom.value, salesTo.value);
+};
+
+// Commissions
+const commissionDoctor = ref('');
+const commissionRate = ref(10);
+const runCommissions = () => {
+  if (!commissionDoctor.value.trim()) return;
+  dashboardStore.fetchCommissions(commissionDoctor.value.trim(), commissionRate.value);
+};
 </script>
 
 <style scoped>
@@ -591,5 +748,173 @@ const topProductsChartOptions = computed(() => ({
   .bi-metrics {
     grid-template-columns: 1fr;
   }
+}
+
+.bi-report-panel {
+  margin-top: 16px;
+}
+
+.bi-report-controls {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.bi-report-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bi-report-field--wide {
+  flex: 1;
+  min-width: 200px;
+}
+
+.bi-report-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--bi-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bi-report-input {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--bi-border);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--bi-ink);
+  background: var(--bi-bg);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.bi-report-input:focus {
+  border-color: var(--bi-teal);
+}
+
+.bi-report-btn {
+  height: 38px;
+  padding: 0 18px;
+  background: var(--bi-teal);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.bi-report-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.bi-report-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bi-report-result {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bi-report-kpi-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.bi-report-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bi-bg);
+  border: 1px solid var(--bi-border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  min-width: 140px;
+}
+
+.bi-report-kpi--income {
+  background: var(--bi-teal-soft);
+  border-color: color-mix(in srgb, var(--bi-teal) 20%, transparent);
+}
+
+.bi-report-kpi--expense {
+  background: #fef2f2;
+  border-color: color-mix(in srgb, #b91c1c 20%, transparent);
+}
+
+.bi-report-kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--bi-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bi-report-kpi-value {
+  font-family: var(--bi-font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--bi-ink);
+}
+
+.bi-text-income {
+  color: var(--bi-teal);
+}
+
+.bi-text-expense {
+  color: #b91c1c;
+}
+
+.bi-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.bi-report-table th {
+  background: var(--bi-bg);
+  color: var(--bi-muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--bi-border);
+}
+
+.bi-report-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--bi-border);
+  color: var(--bi-ink);
+}
+
+.bi-report-table tr:last-child td {
+  border-bottom: none;
+}
+
+.bi-report-amount {
+  font-weight: 700;
+  text-align: right;
+}
+
+.bi-report-empty {
+  font-size: 13px;
+  color: var(--bi-muted);
+  text-align: center;
+  padding: 16px;
 }
 </style>

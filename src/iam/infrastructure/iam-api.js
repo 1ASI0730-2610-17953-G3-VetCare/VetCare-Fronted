@@ -23,4 +23,9 @@ export class IamApi {
   static async logout() {
     return Promise.resolve();
   }
+
+  static async verify() {
+    const response = await BaseApi.get('/auth/verify');
+    return response.data;
+  }
 }

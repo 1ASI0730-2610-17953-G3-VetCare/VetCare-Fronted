@@ -7,7 +7,11 @@ export const useAdminDashboardStore = defineStore('adminDashboard', {
     revenueChart: [],
     topProducts: [],
     expiringLots: [],
+    cashClosing: null,
+    salesReport: null,
+    commissions: null,
     loading: false,
+    reportsLoading: false,
     error: null,
   }),
   actions: {
@@ -22,7 +26,6 @@ export const useAdminDashboardStore = defineStore('adminDashboard', {
           AdminDashboardApi.getTopProducts(),
           AdminDashboardApi.getExpiringLots(),
         ]);
-        
         this.summary = summary;
         this.revenueChart = revenueChart;
         this.topProducts = topProducts;
@@ -33,6 +36,42 @@ export const useAdminDashboardStore = defineStore('adminDashboard', {
       } finally {
         if (isInitialLoad) this.loading = false;
       }
-    }
+    },
+
+    async fetchCashClosing(date) {
+      this.reportsLoading = true;
+      try {
+        this.cashClosing = await AdminDashboardApi.getCashClosing(date);
+      } catch (error) {
+        console.error('Error fetching cash closing', error);
+        throw error;
+      } finally {
+        this.reportsLoading = false;
+      }
+    },
+
+    async fetchSalesReport(from, to) {
+      this.reportsLoading = true;
+      try {
+        this.salesReport = await AdminDashboardApi.getSalesReport(from, to);
+      } catch (error) {
+        console.error('Error fetching sales report', error);
+        throw error;
+      } finally {
+        this.reportsLoading = false;
+      }
+    },
+
+    async fetchCommissions(doctorName, commissionRate) {
+      this.reportsLoading = true;
+      try {
+        this.commissions = await AdminDashboardApi.getCommissions(doctorName, commissionRate);
+      } catch (error) {
+        console.error('Error fetching commissions', error);
+        throw error;
+      } finally {
+        this.reportsLoading = false;
+      }
+    },
   }
 });

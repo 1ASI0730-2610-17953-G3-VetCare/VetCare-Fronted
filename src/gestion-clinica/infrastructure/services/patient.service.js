@@ -30,7 +30,7 @@ export class PatientService {
     }
   }
 
-  async createPatient({ name, species, age, weight, ownerId }) {
+  async createPatient({ name, species, age, weight, ownerId, allergies }) {
     try {
       const payload = {
         name,
@@ -39,6 +39,7 @@ export class PatientService {
         weight: Number(weight),
         ownerId: Number(ownerId)
       };
+      if (allergies) payload.allergies = allergies;
 
       const response = await BaseApi.post('/patients', payload);
       const clientsById = await this.getClientsById();
@@ -49,12 +50,11 @@ export class PatientService {
     }
   }
 
-  async updatePatient(id, { age, weight }) {
+  async updatePatient(id, { age, weight, allergies }) {
     try {
-      const response = await BaseApi.patch(`/patients/${id}`, {
-        age: Number(age),
-        weight: Number(weight)
-      });
+      const payload = { age: Number(age), weight: Number(weight) };
+      if (allergies !== undefined) payload.allergies = allergies;
+      const response = await BaseApi.patch(`/patients/${id}`, payload);
       const clientsById = await this.getClientsById();
       return Patient.fromApi(response.data, clientsById);
     } catch (error) {

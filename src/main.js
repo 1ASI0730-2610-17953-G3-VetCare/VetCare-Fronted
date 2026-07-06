@@ -31,6 +31,7 @@ const iamStore = useIamStore(pinia);
 iamStore.restoreSession();
 if (iamStore.isAuthenticated) {
   iamStore.loadAvatarFromProfile();
+  iamStore.verifySession();
 }
 
 app.use(router);
