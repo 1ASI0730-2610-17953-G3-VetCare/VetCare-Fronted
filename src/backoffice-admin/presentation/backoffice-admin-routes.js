@@ -18,7 +18,12 @@ export const backofficeAdminRoutes = [
       },
       ...inventoryRoutes,
       ...procurementRoutes,
-      ...economicsRoutes
+      ...economicsRoutes,
+      {
+        path: 'usuarios',
+        name: 'admin-usuarios',
+        component: () => import('../usuarios/presentation/views/usuarios-view.component.vue')
+      }
     ]
   }
 ];

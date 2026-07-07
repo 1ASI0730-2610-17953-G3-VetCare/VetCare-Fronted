@@ -62,6 +62,7 @@ const headerTitle = computed(() => {
   if (route.path.includes('/admin/inventory')) return t('layout.headerTitle.inventory')
   if (route.path.includes('/admin/procurement')) return t('layout.headerTitle.procurement')
   if (route.path.includes('/admin/economics')) return t('layout.headerTitle.economics')
+  if (route.path.includes('/admin/usuarios')) return 'Usuarios'
   return t('layout.headerTitle.default')
 })
 
@@ -86,6 +87,7 @@ const adminShellEyebrow = computed(() => {
   if (route.path.includes('/admin/inventory')) return t('layout.adminShellEyebrow.inventory')
   if (route.path.includes('/admin/procurement')) return t('layout.adminShellEyebrow.procurement')
   if (route.path.includes('/admin/economics')) return t('layout.adminShellEyebrow.economics')
+  if (route.path.includes('/admin/usuarios')) return 'Administración del sistema'
   return t('layout.headerSubtitle.admin')
 })
 
@@ -105,6 +107,7 @@ const navLinks = computed(() => {
     links.push({ id: 'admin-inventory', label: t('nav.inventory'), icon: 'pi-box', route: '/admin/inventory' });
     links.push({ id: 'admin-procurement', label: t('nav.procurement'), icon: 'pi-shopping-cart', route: '/admin/procurement' });
     links.push({ id: 'admin-economics', label: t('nav.economics'), icon: 'pi-chart-line', route: '/admin/economics' });
+    links.push({ id: 'admin-usuarios', label: 'Usuarios', icon: 'pi-users', route: '/admin/usuarios' });
   }
 
   return links;
