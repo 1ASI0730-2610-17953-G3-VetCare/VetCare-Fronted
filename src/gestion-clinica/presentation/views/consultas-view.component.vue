@@ -1171,6 +1171,12 @@ onActivated(async () => {
               </div>
             </section>
 
+            <div v-if="viewedConsulta.status === 'en_proceso'" class="void-action-row">
+              <button type="button" class="btn-pay-detail" @click="() => { closeViewModal(); openPaymentModalForConsultation(viewedConsulta.originalId, viewedConsulta.id); }">
+                <i class="pi pi-credit-card"></i>
+                Cobrar consulta
+              </button>
+            </div>
             <div v-if="viewedConsulta.status === 'completada'" class="void-action-row">
               <button type="button" class="btn-void" @click="openVoidModal(viewedConsulta)">
                 <i class="pi pi-ban"></i>
@@ -2854,6 +2860,25 @@ onActivated(async () => {
 
 .btn-void:hover {
   background: color-mix(in srgb, var(--color-status-danger-bg) 80%, var(--color-status-danger-indicator) 10%);
+}
+
+.btn-pay-detail {
+  padding: 9px 18px;
+  background: #0f766e;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-standard);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.btn-pay-detail:hover {
+  background: #0d5f57;
 }
 
 .void-modal {
